@@ -1,7 +1,8 @@
 import {categoriesWidgetsHome} from '../config'
-const MAXIMUM_POSTS = 5
-const TAG_ID = "47"
-
+require('dotenv').config();
+const MAXIMUM_POSTS = 5  
+const NODE_TAGID = process.env.NODE_TAGID;
+console.log(`Your port is ${port}`);
 const getPostsFromCategory = ({ post }, categoryId, _tagId) =>
   Object.keys(post)
     .map(postID => post[postID])
