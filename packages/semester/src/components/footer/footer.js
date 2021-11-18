@@ -21,8 +21,6 @@ const Footer = ({ state }) => {
             <ul className="widget-list">
               <li><Link className="widget-list-link" link="/about/">About us</Link></li>
               <li><Link className="widget-list-link" link="/services/">Services</Link></li>
-              <li><Link className="widget-list-link" link="/jobs/">Career</Link></li>
-              <li><Link className="widget-list-link" link="/blog/">Blog</Link></li>
               <li><Link className="widget-list-link" link="/contact/">Contact</Link></li>
             </ul>
           </div>
@@ -31,18 +29,14 @@ const Footer = ({ state }) => {
             <ul className="widget-list">
               <li><Link className="widget-list-link" link="/about/">About us</Link></li>
               <li><Link className="widget-list-link" link="/services/">Services</Link></li>
-              <li><Link className="widget-list-link" link="/jobs/">Career</Link></li>
               <li><Link className="widget-list-link" link="/blog/">Blog</Link></li>
-              <li><Link className="widget-list-link" link="/contact/">Contact</Link></li>
             </ul>
           </div>
           <div className="col-12 col-md-4 col-lg-2 footer-widget widget-four">
             <h6 className="widget-title">Connect</h6>
             <ul className="widget-list">
-              <li><Link className="widget-list-link" target="_blank" rel="nofollow noopener" link="https://www.facebook.com/awsminnovations">Facebook</Link></li>
-              <li><Link className="widget-list-link" target="_blank" rel="nofollow noopener" link="https://twitter.com/awsmin">Twitter</Link></li>
-              <li><Link className="widget-list-link" target="_blank" rel="nofollow noopener" link="https://www.instagram.com/awsmin/">Instagram</Link></li>
-              <li><Link className="widget-list-link" target="_blank" rel="nofollow noopener" link="https://github.com/awsmin">Github</Link></li>
+            <li><Link className="widget-list-link" target="_blank" rel="nofollow noopener" link="https://webgate.ec.europa.eu/connected/news">Connected</Link></li>
+            <li><Link className="widget-list-link" target="_blank" rel="nofollow noopener" link="https://www.facebook.com/awsminnovations">Facebook</Link></li>
             </ul>
           </div>
         </div>

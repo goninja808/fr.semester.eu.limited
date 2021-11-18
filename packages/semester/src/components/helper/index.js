@@ -10,8 +10,9 @@ const getPostsFromCategory = ({ post }, categoryId, _tagId) =>
       return Object.values(categoriesWidgetsHome)
         .reduce((acc, categoryId) => {
           const posts = getPostsFromCategory(source, categoryId,TAGID).slice(0,MAXIMUM_POSTS)
+          const isNotHeader =!(source.category[categoryId].slug === 'header')
           const category = source.category[categoryId]
-          return [...acc, {posts, category}]
+          return [...acc, {posts, category, isNotHeader}]
         }, [])
 
 

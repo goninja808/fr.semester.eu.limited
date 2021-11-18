@@ -14,20 +14,8 @@ const settings = {
         "theme": {
           "menu": [
             [
-              "FRENCH Semester",
+              "DEMO Month",
               "/"
-            ],
-            [
-              "REGION of the MONTH",
-              "/tag/nouvelleaquitaineoccitanie/"
-            ],
-            [
-              "EVENTS",
-              "/tag/events/"
-            ],
-            ["FACTS",
-            "/category/culture/"
-              
             ]
           ],
           "featured": {

@@ -5,6 +5,7 @@ import Nav from "./nav";
 import MobileMenu from "./menu";
 import logo from "./images/Logo.png";
 import logoL from "./images/LogoM.png";
+import placeHolder from "./images/placeholder.png";
 
 const Header = ({ state }) => {
   return (
