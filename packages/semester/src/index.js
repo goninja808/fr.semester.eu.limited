@@ -4,6 +4,7 @@ import iframe from "@frontity/html2react/processors/iframe";
 import link from "@frontity/html2react/processors/link";
 import { categoriesWidgetsHome,tagsWidgetsHome } from "./components/config";
 
+
 const semestertheme = {
   name: "fr.semester.eu",
   version: "1.0.0",

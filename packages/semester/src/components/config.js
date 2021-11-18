@@ -13,20 +13,20 @@ export const categoriesWidgetsHome = {
 }
 
  const RegionTagsWidgetsHome = {
-    "auvergnerhonealpesprovencealpescotedazurcorse": 47,
-    "centrevaldeloirebourgognefranchecomte": 46,
-    "dromdepartementsetregionsdoutremer": 49,
-    "hautsdefranceiledefrancegrandest": 52,
-    "normandiebretagnepaysdeloire":50,
-    "Nouvelle Aquitaine – Occitanie":51
+    "Centre Val de Loire, Bourgogne-Franche-Comté": 46,
+    "Auvergne-Rhône-Alpes, Provence-Alpes-Côte d’Azur, Corse": 47,
+    "Hauts de France, Ile de de France, Grand Est": 52,
+    "DROM, Départements et Régions d’Outre-Mer": 49,
+    "Normandie Bretagne PaysdeLoire":50,
+    "Nouvelle Aquitaine, Occitanie":51
 }
 
  const RegionTagsHeaderPost = {
-  "auvergnerhonealpesprovencealpescotedazurcorse": 1047,
-  "centrevaldeloirebourgognefranchecomte": 1046,
-  "dromdepartementsetregionsdoutremer": 1049,
-  "hautsdefranceiledefrancegrandest": 1052,
-  "normandiebretagnepaysdeloire": 1050,
-  "Nouvelle Aquitaine – Occitanie": 1051
+  "Centre Val de Loire, Bourgogne-Franche-Comté": 46,
+  "Auvergne-Rhône-Alpes, Provence-Alpes-Côte d’Azur, Corse": 47,
+  "Hauts de France, Ile de de France, Grand Est": 52,
+  "DROM, Départements et Régions d’Outre-Mer": 49,
+  "Normandie Bretagne PaysdeLoire":50,
+  "Nouvelle Aquitaine, Occitanie":51
 }
 const tagsWidgetsEvent = 5;
