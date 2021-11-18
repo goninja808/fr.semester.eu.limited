@@ -5,7 +5,8 @@ import link from "@frontity/html2react/processors/link";
 import { categoriesWidgetsHome,tagsWidgetsHome } from "./components/config";
 
 const semestertheme = {
-  name: "semestertheme",
+  name: "fr.semester.eu",
+  version: "1.0.0",
   roots: {
     /**
      * In Frontity, any package can add React components to the site.

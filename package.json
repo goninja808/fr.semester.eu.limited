@@ -17,10 +17,11 @@
   },
   "prettier": {},
   "dependencies": {
-    "frontity": "^1.17.1",
     "@frontity/core": "^1.14.3",
-    "@frontity/wp-source": "^1.11.7",
+    "@frontity/html2react": "^1.7.0",
     "@frontity/tiny-router": "^1.4.4",
-    "@frontity/html2react": "^1.7.0"
+    "@frontity/wp-source": "^1.11.7",
+    "frontity": "^1.17.1",
+    "semester": "file:packages/semester"
   }
 }

@@ -9,7 +9,7 @@ const settings = {
   },
   "packages": [
       { 
-      "name": "semester-theme",
+      "name": "semester",
       "state": {
         "theme": {
           "menu": [
