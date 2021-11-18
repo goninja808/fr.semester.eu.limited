@@ -21,6 +21,7 @@
     "@frontity/html2react": "^1.7.0",
     "@frontity/tiny-router": "^1.4.4",
     "@frontity/wp-source": "^1.11.7",
+    "dotenv": "^10.0.0",
     "frontity": "^1.17.1",
     "semester": "file:packages/semester"
   }
