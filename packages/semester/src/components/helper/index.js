@@ -1,6 +1,6 @@
 import {categoriesWidgetsHome} from '../config'
 const MAXIMUM_POSTS = 5  
-const TAGID =  (!!(process.env.TAGID) ? process.env.TAGID : "47");
+const TAGID =  (!!!(process.env.TAGID) ? process.env.TAGID : "47");
 const getPostsFromCategory = ({ post }, categoryId, _tagId) =>
   Object.keys(post)
     .map(postID => post[postID])

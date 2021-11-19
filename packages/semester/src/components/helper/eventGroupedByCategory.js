@@ -1,7 +1,6 @@
 import {categoriesWidgetsHome} from '../config'
-const MAXIMUM_POSTS = 5
-const TAG_ID_event = "63"
-const TAG_ID = "47"
+const MAXIMUM_POSTS = 5 
+const TAG_ID = (!!!(process.env.TAGID)?process.env.TAGID:"46")
 
 const getEventsFromCategory = ({ post }, categoryId, _tagId) =>
   Object.keys(post)
