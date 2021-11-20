@@ -2,9 +2,7 @@ import { useEffect } from "react";
 import { connect, styled } from "frontity";
 import Link from "./link"; 
 import HeaderMedia from "./header-media";
-import { getPostsGroupedByCategory } from "./helper";
-// import eventGroupedByCategory from "./helper/eventGroupedByCategory";
-import initiatives from "./list/images/initiative.png";
+import { getPostsGroupedByCategoryAndTag } from "./helper";    
 /**
  * The Post component that Mars uses to render any kind of "post type", like
  * posts, pages, attachments, etc.
@@ -24,12 +22,11 @@ import initiatives from "./list/images/initiative.png";
  *
  * @returns The {@link Post} element rendered.
  */
-const PerCatPost = ({ state, actions, libraries }) => {
+const PerCatPost = ({ state, actions, libraries ,tagId}) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
-  const postsPerCategory = getPostsGroupedByCategory(state.source);
-
-  // Get the html2react component.
+  const postsPerCategory = getPostsGroupedByCategoryAndTag(state.source, tagId );
+ // Get the html2react component.
   const Html2React = libraries.html2react.Component;
 
   /**
@@ -39,21 +36,22 @@ const PerCatPost = ({ state, actions, libraries }) => {
    */
 
   // Load the post, but only if the data is ready.
-   
+  
   return data.isReady ? (
     <FlexContainer>
        <Container> 
          {postsPerCategory.map(({ posts, category, isNotHeader }, index) => (
             <CategoryGP key={index} className="GroupCategory col-12 align-self-strech">
-              {isNotHeader ? (<HeadingGroupCategory  className={`${category.slug}`}>  <Illust src={`/static/images/${category.slug}.png`} title={category.link}/> {category.name}</HeadingGroupCategory>):(<span/>)}
+              {isNotHeader ? (<HeadingGroupCategory  className={`${category.slug}`}>  <Illust src={`/static/images/${category.slug}_picto.png`} title={category.link}/> {category.name}</HeadingGroupCategory>):(<span/>)}
                 <div className="GroupCategory-box col-md-12">
+                {posts.length} posts
                 {posts.map((post, index) => (
                   <article key={index}>
                     <div>
                         <div px={2}>
                          {  <Link link={post.link}>
                             <h2>
-                              <Html2React html={post.title.rendered} />
+                           <Html2React html={post.title.rendered} /> 
                             </h2>
                           </Link> }
                           { !(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : <span/>}

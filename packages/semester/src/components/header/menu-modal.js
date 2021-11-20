@@ -1,7 +1,6 @@
 import React from "react";
 import { styled, connect } from "frontity";
-import Link from "../link";
-import logoL from "./images/LogoL.png";
+import Link from "../link"; 
 const MenuModal = ({ state }) => {
   const { menu } = state.theme;
   const isThereLinks = menu != null && menu.length > 0;
@@ -40,7 +39,7 @@ const MenuContent = styled.div`
 z-index: 3;
 width: 100%;
 position: absolute; 
-background-image: url('/static/images/LogoL.png'); 
+background-image: url('https://fr-semester.eu/wp-content/uploads/2021/11/logo_FS.png'); 
 background-repeat: no-repeat;
 background-position: center;
 background-size: contain;

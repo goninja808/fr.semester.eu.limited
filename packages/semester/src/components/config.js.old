@@ -1,6 +1,0 @@
-export const categoriesWidgetsHome = {
-    "culture": 2,
-    "lifestyle": 3,
-    "initiative": 5,
-    "science": 4
-  }

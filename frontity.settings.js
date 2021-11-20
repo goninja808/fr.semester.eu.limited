@@ -14,8 +14,8 @@ const settings = {
         "theme": {
           "menu": [
             [
-              "DEMO Month",
-              "/"
+              "DEMO 0"+(parseInt(process.env.INDEX_SEMESTER)+1)+"/2022",
+              "/?"+process.env.INDEX_SEMESTER
             ]
           ],
           "featured": {

@@ -1,18 +1,19 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Global, css, connect, styled, Head } from "frontity";
+import { MonthRegionTags } from "./configTag"
 import Switch from "@frontity/components/switch";
 import Header from "./header/header";
 import List from "./list";
 import Post from "./post";
 import PerCatPost from "./perCatPost";
-import Loading from "./loading"; 
+import Loading from "./loading";
 import Title from "./title";
 import PageError from "./page-error";
 import Page from "./pages/page";
 import Footer from "./footer/footer";
 import BootstrapCss from './styles/bootstrap.css';
 import gutenbergStyle from "./styles/gutenberg/style.css";
-import gutenbergTheme from "./styles/gutenberg/theme.css"; 
+import gutenbergTheme from "./styles/gutenberg/theme.css";
 /**
  * Theme is the root React component of our theme. The one we will export
  * in roots.
@@ -22,7 +23,11 @@ import gutenbergTheme from "./styles/gutenberg/theme.css";
 const Theme = ({ state, actions, libraries }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
-   
+
+  const tagIndex = ((!!process.env.INDEX_SEMESTER) ? process.env.INDEX_SEMESTER : "0");
+  console.log("started with month " + (parseInt(tagIndex) + 1))
+  const tagId = parseInt(MonthRegionTags[parseInt(tagIndex)]);
+
   return (
     <>
       {/* Add some metatags to the <head> of the HTML. */}
@@ -44,23 +49,24 @@ const Theme = ({ state, actions, libraries }) => {
         <Header />
       </HeadContainer>
 
+
       {/* Add the main section. It renders a different component depending
       on the type of URL we are in. */}
       <Main>
         <Switch>
           <Loading when={data.isFetching} />
-          <PerCatPost when={data.isHome}/>
+          <PerCatPost when={data.isHome} tagId={tagId} />
           {/* <List when={data.isArchive} /> 
               <Page when={data.isPage} 
           />*/}
           <Post when={data.isPostType} />
-        <PageError when={data.isError} />
+          <PageError when={data.isError} />
         </Switch>
       </Main>
 
       <FooterContainer>
-        <Footer/>
-      </FooterContainer>      
+        <Footer />
+      </FooterContainer>
     </>
   );
 };
@@ -115,7 +121,7 @@ const globalStyles = css`
   
   }
 `;
- 
+
 const HeadContainer = styled.div`
   display: flex;
   width:100%;

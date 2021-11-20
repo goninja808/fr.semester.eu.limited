@@ -3,9 +3,6 @@ import { connect, styled } from "frontity";
 import Link from "../link";
 import Nav from "./nav";
 import MobileMenu from "./menu";
-import logo from "./images/Logo.png";
-import logoL from "./images/LogoM.png";
-import placeHolder from "./images/placeholder.png";
 
 const Header = ({ state }) => {
   return (
@@ -67,11 +64,11 @@ const Logo = styled.button`
   width: 92px;
   height: 72px;
   background-position-y: 1px;
-  background-image: url('/static/images/Logo.png');
+  background-image: url('https://fr-semester.eu/wp-content/uploads/2021/11/logo_FS-150x150.png');
   @media (min-width: 768px) {
   width: 170px;
   height: 170px;
   background-size: 160px; 
-  background-image: url('/static/images/LogoM.png');
+  background-image: url('https://fr-semester.eu/wp-content/uploads/2021/11/logo_FS-300x300.png');
   }
 `;
