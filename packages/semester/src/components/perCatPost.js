@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { connect, styled } from "frontity";
 import Link from "./link"; 
-import FeaturedMedia from "./featured-media";
+import HeaderMedia from "./header-media";
 import { getPostsGroupedByCategory } from "./helper";
 // import eventGroupedByCategory from "./helper/eventGroupedByCategory";
 import initiatives from "./list/images/initiative.png";
@@ -28,8 +28,6 @@ const PerCatPost = ({ state, actions, libraries }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
   const postsPerCategory = getPostsGroupedByCategory(state.source);
-  //const NewsPerCategory = eventGroupedByCategory(state.source);
-  console.log(postsPerCategory) 
 
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
@@ -44,11 +42,10 @@ const PerCatPost = ({ state, actions, libraries }) => {
    
   return data.isReady ? (
     <FlexContainer>
-       <Container>
+       <Container> 
          {postsPerCategory.map(({ posts, category, isNotHeader }, index) => (
-           
             <CategoryGP key={index} className="GroupCategory col-12 align-self-strech">
-                  {isNotHeader?<HeadingGroupCategory  className={`${category.slug}`}>  <Illust src={`/static/images/${category.slug}.png`} title={category.link}/> {category.name}</HeadingGroupCategory>:<span/>}
+              {isNotHeader ? (<HeadingGroupCategory  className={`${category.slug}`}>  <Illust src={`/static/images/${category.slug}.png`} title={category.link}/> {category.name}</HeadingGroupCategory>):(<span/>)}
                 <div className="GroupCategory-box col-md-12">
                 {posts.map((post, index) => (
                   <article key={index}>
@@ -59,7 +56,7 @@ const PerCatPost = ({ state, actions, libraries }) => {
                               <Html2React html={post.title.rendered} />
                             </h2>
                           </Link> }
-                          {!(isNotHeader)? <BigImage src={`/static/images/placeholder.png`}/>:<span/>}
+                          { !(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : <span/>}
                           <Html2React html={post.excerpt.rendered} />
                         </div>
                       
@@ -180,6 +177,9 @@ const Header = styled.h3`
 const HeadingGroupCategory = styled.h2`
   font-size: 60px;
   padding: 5px;
+  &.header{
+    background-color: white;
+  }  
   &.culture{
     background-color: #fff2cc;
   }
