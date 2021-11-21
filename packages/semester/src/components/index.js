@@ -55,7 +55,7 @@ const Theme = ({ state, actions, libraries }) => {
       <Main>
         <Switch>
           <Loading when={data.isFetching} />
-          <PerCatPost when={data.isHome} tagId={tagId} />
+          <PerCatPost when={data.isHome} tagId={state.theme.month_tag} />
           {/* <List when={data.isArchive} /> 
               <Page when={data.isPage} 
           />*/}
