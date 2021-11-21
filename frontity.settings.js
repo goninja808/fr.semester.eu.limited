@@ -15,7 +15,7 @@ const settings = {
           "month_tag":process.env.INDEX_SEMESTER,
           "menu": [
             [
-              "DEMO 0"+process.env.INDEX_SEMESTER+"/2022",
+              "DEMO 0"+(parseInt(process.env.INDEX_SEMESTER) + 1)+"/2022",
               "/"
             ]
           ],

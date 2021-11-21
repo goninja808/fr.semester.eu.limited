@@ -24,7 +24,7 @@ const Theme = ({ state, actions, libraries }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
 
-  const tagIndex = ((!!process.env.INDEX_SEMESTER) ? process.env.INDEX_SEMESTER : "0");
+  const tagIndex = ((!!state.theme.month_tag) ? state.theme.month_tag : "0");
   console.log("started with month " + (parseInt(tagIndex) + 1))
   const tagId = parseInt(MonthRegionTags[parseInt(tagIndex)]);
 
