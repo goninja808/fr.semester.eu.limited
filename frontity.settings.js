@@ -16,7 +16,7 @@ const settings = {
           "menu": [
             [
               "DEMO 0"+process.env.INDEX_SEMESTER+"/2022",
-              "/?"
+              "/"
             ]
           ],
           "featured": {
