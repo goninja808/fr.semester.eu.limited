@@ -17,6 +17,10 @@ const settings = {
             [
               "DEMO 0"+(parseInt(process.env.INDEX_SEMESTER) + 1)+"/2022",
               "/"
+            ],
+            [
+              "Rock",
+              "/record_cat/rock/"
             ]
           ],
           "featured": {
@@ -29,7 +33,21 @@ const settings = {
       "name": "@frontity/wp-source",
       "state": {
         "source": {
-          "url": "https://fr-semester.eu/"
+          "api": "https://fr-semester.eu/wp-json",
+          "postTypes": [
+            {
+              type: "record",
+              endpoint: "record",
+              archive: "/record_cat"
+            }
+          ],
+          taxonomies: [
+            {
+              taxonomy: "record_cat",
+              endpoint: "record_cat",
+              postTypeEndpoint: "record"
+            }
+          ]
         }
       }
     },
