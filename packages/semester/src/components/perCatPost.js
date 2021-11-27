@@ -43,8 +43,8 @@ const PerCatPost = ({ state, actions, libraries ,tagId}) => {
          {postsPerCategory.map(({ posts, category, isNotHeader }, index) => (
             <CategoryGP key={index} className="GroupCategory col-12 align-self-strech">
               {isNotHeader ? (<HeadingGroupCategory  className={`${category.slug}`}>  <Illust src={`/static/images/${category.slug}_picto.png`} title={category.link}/> {category.name}</HeadingGroupCategory>):(<span/>)}
+              { isNotHeader? <PostCount>{posts.length} posts </PostCount> : <span/>}
                 <div className="GroupCategory-box col-md-12">
-                {posts.length} posts
                 {posts.map((post, index) => (
                   <article key={index}>
                     <div>
@@ -129,6 +129,11 @@ const HeadGroupCategory = styled.article`
   }
 `;
  
+
+const PostCount = styled.span`
+  font-size: 10px;
+  font-style: italic;
+`;
 
 const CategoryGP = styled.article`
 max-width:771px;
