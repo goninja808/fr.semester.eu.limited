@@ -10,8 +10,6 @@ import Loading from "./loading";
 import Title from "./title";
 import PageError from "./page-error";
 import Page from "./pages/page";
-import Record from "./record"
-import ListRecords from "./list-records";
 import Footer from "./footer/footer";
 import BootstrapCss from './styles/bootstrap.css';
 import gutenbergStyle from "./styles/gutenberg/style.css";
@@ -61,10 +59,7 @@ const Theme = ({ state, actions, libraries }) => {
           {/* <List when={data.isArchive} /> 
               <Page when={data.isPage} 
           />*/}
-          <ListRecords when={data.isRecordCat || data.isRecordArchive} />
-          <List when={data.isArchive} />
           <Post when={data.isPostType} />
-          <Record when={data.isRecord} />
           <PageError when={data.isError} />
         </Switch>
       </Main>
