@@ -8,7 +8,9 @@ const Header = ({ state }) => {
   return (
     <>
       <BrandContainer>
-      <Logo/>
+      <Link link="/" >
+      <Logo />
+          </Link>
       <MobileMenu />
       </BrandContainer>
       <Nav />
@@ -20,13 +22,13 @@ const Header = ({ state }) => {
 export default connect(Header);
 
 const BrandContainer = styled.div`
-  box-sizing: border-box;
-  color: var(--brand);
-  width: 100%;
-  align: left;
+  position: relative;
+  box-sizing: border-box; 
+  width: 50%;
+  right: -38%;
   @media (min-width: 768px) {
     display: flex;
-    width: auto;
+    width: 30%;
   }
 `;
 
@@ -47,28 +49,20 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Logo = styled.button` 
+const Logo = styled.div` 
   cursor: pointer;  
-  border: white;
-  box-sizing: border-box;
-  
   display: flex;
-  border-radius: 5px;
-  margin-right: 5px;    
-  
   background-position: left center;
   background-repeat: no-repeat;
   background-attachment: initial;
-  background-color: white;
-  background-size: 90px;
-  width: 92px;
-  height: 72px;
-  background-position-y: 1px;
-  background-image: url('https://fr-semester.eu/wp-content/uploads/2021/11/logo_FS-150x150.png');
+  background-size: 133px;
+  width: 130px;
+  height: 135px; 
+  background-image: url('https://fr-semester.eu/wp-content/uploads/2021/12/LogoM.png');
   @media (min-width: 768px) {
-  width: 170px;
+  width: 160px;
   height: 170px;
-  background-size: 160px; 
-  background-image: url('https://fr-semester.eu/wp-content/uploads/2021/11/logo_FS-300x300.png');
+  background-size: 170px; 
+  background-image: url('https://fr-semester.eu/wp-content/uploads/2021/12/LogoM.png');
   }
 `;

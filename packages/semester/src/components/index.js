@@ -1,16 +1,20 @@
 import React, { useEffect } from "react";
 import { Global, css, connect, styled, Head } from "frontity";
-import { MonthRegionTags } from "./configTag"
+import { MonthRegionTags } from "./config_tag"
 import Switch from "@frontity/components/switch";
 import Header from "./header/header";
 import List from "./list";
 import Post from "./post";
+import PerSemiStaticPost from "./stat-post";
 import PerCatPost from "./perCatPost";
+import PerCatTagPost from "./dyn-post";
 import Loading from "./loading";
 import Title from "./title";
 import PageError from "./page-error";
 import Page from "./pages/page";
 import Footer from "./footer/footer";
+import ListRecords from "./list-records";
+import Record from "./record";
 import BootstrapCss from './styles/bootstrap.css';
 import gutenbergStyle from "./styles/gutenberg/style.css";
 import gutenbergTheme from "./styles/gutenberg/theme.css";
@@ -25,9 +29,11 @@ const Theme = ({ state, actions, libraries }) => {
   const data = state.source.get(state.router.link);
 
   const tagIndex = ((!!state.theme.month_tag) ? state.theme.month_tag : "0");
-  console.log("started with month " + (parseInt(tagIndex) + 1))
+  const month = Number.parseInt(tagIndex)  + 1;
+  const period = String("20220").concat(month) ;
+  console.log("started with period " + period );
   const tagId = parseInt(MonthRegionTags[parseInt(tagIndex)]);
-
+  console.log("started with region " + tagId );
   return (
     <>
       {/* Add some metatags to the <head> of the HTML. */}
@@ -55,10 +61,13 @@ const Theme = ({ state, actions, libraries }) => {
       <Main>
         <Switch>
           <Loading when={data.isFetching} />
-          <PerCatPost when={data.isHome} tagId={tagId} />
-          {/* <List when={data.isArchive} /> 
-              <Page when={data.isPage} 
-          />*/}
+          <PerSemiStaticPost when={data.route=='/'} tagId={tagId} />
+          <PerCatPost when={data.route=='/regionofthemonth/'} tagId={tagId} period={period} />
+          <PerCatTagPost when={data.route=='/category/french-semester/'}  />
+          <PerCatTagPost when={data.route=='/category/events/'} period={period}  />
+          <PerCatTagPost when={data.route=='/main-events/'} period={period} />
+          <PerCatTagPost when={data.route=='/main-facts/'}/>
+          <List when={data.isArchive} />
           <Post when={data.isPostType} />
           <PageError when={data.isError} />
         </Switch>
@@ -125,15 +134,22 @@ const globalStyles = css`
 const HeadContainer = styled.div`
   display: flex;
   width:100%;
-  max-width:1600px;
+  max-width:1800px;
+  max-height:140px;
   justify-content: space-between;
   margin: 0 auto;
-  padding-top: 2.45rem;
+  border-bottom:1rem;
+  padding-top: 1.45rem;
   padding-right: 15px;
   padding-left: 10px;
   padding-bottom:1.25rem;
+  background-image: url('https://fr-semester.eu/wp-content/uploads/2021/12/central.bandeau-1.png');
+  background-blend-mode: multiply;
+  border: white;
+  background-size: cover;
   @media (min-width: 768px) {
     padding-top: 1.25rem;
+    max-height:180px;
     }
 `;
 const FooterContainer = styled.div`
@@ -146,4 +162,6 @@ const FooterContainer = styled.div`
 const Main = styled.div`
   display: flex;
   justify-content: center;
+  padding-top:22px;
+  padding-bottom:22px;
 `;

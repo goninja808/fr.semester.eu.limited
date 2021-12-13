@@ -23,7 +23,7 @@ const semestertheme = {
     theme: {
       autoPrefetch: "in-view",
       menu: [],
-      isMobileMenuOpen: true,
+      isMobileMenuOpen: false,
       featured: {
         showOnList: false,
         showOnPost: false,
@@ -53,11 +53,6 @@ const semestertheme = {
   },
   libraries: {
     html2react: {
-      /**
-       * Add a processor to `html2react` so it processes the `<img>` tags
-       * and internal link inside the content HTML.
-       * You can add your own processors too.
-       */
       processors: [image, iframe, link],
     },
   },

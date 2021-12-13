@@ -28,10 +28,10 @@ const MenuOverlay = styled.div`
   background-color: #d7daf4;
   width: 100%;
   height: 100%;
+  top: 41px;
   overflow: hidden auto;
   position: absolute;
-  z-index: 2;
-  top: 0;
+  z-index: 3;
   left: 0;
 `;
 
@@ -39,29 +39,7 @@ const MenuContent = styled.div`
 z-index: 3;
 width: 100%;
 position: absolute; 
-background-image: url('https://fr-semester.eu/wp-content/uploads/2021/11/logo_FS.png'); 
-background-repeat: no-repeat;
-background-position: center;
-background-size: contain;
-margin-left:-1%;
-@media (min-width: 600px) {
-  margin-left:-2%;
-  }
-@media (min-width: 1620px) {
-  margin-left:-3%;
-  }
-@media (min-width: 1720px) {
-  margin-left:-5%;
-  }
-  @media (min-width: 1820px) {
-    margin-left:-7%;
-    }
-  @media (min-width: 1880px) {
-  margin-left:-9%;
-  }
-  @media (min-width: 1920px) {
-    margin-left:-11%;
-    }
+background-color: #d7daf4;
   `;
 
 
