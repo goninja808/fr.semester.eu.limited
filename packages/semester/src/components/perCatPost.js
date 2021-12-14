@@ -101,7 +101,7 @@ const eventDatesref = resultDateObjectInPeriod;
                   ))}
                   </div>
                   <p/>
-                  {posts.length==0?<p><span/>No Region Related {category} this month.</p>:null}
+                  {posts.length==0?<p><span/>No Region Related {category.name} this month.</p>:null}
                   {isNotHeader?<Link link={category.link}>
                   <p>&gt;&gt; See more <strong>{category.name}</strong> related posts </p>
                 </Link>:<span/>}
