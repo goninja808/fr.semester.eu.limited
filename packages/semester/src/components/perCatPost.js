@@ -6,6 +6,7 @@ import { getPostsGroupedByCategoryAndTag ,getEventsForRegionPeriod } from "./hel
 import { Calendar, DateObject} from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
 import colors from "react-multi-date-picker/plugins/colors";
+import post from "./post";
 
 /**
  * The Post component that Mars uses to render any kind of "post type", like
@@ -100,7 +101,7 @@ const eventDatesref = resultDateObjectInPeriod;
                   ))}
                   </div>
                   <p/>
-                  {posts.length==0?<p><span/>No Region Related Event this month.</p>:null}
+                  {posts.length==0?<p><span/>No Region Related {category} this month.</p>:null}
                   {isNotHeader?<Link link={category.link}>
                   <p>&gt;&gt; See more <strong>{category.name}</strong> related posts </p>
                 </Link>:<span/>}
