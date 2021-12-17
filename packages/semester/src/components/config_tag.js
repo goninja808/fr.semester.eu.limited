@@ -4,13 +4,15 @@ const idR202203 = 52;
 const idR202204 = 49;
 const idR202205 = 50;
 const idR202206 = 51; 
+const eventsIspraT = 75;
+const eventsGeelT = 76;
+export const eventsT = 70;
+export const awEventsT = [eventsT,eventsIspraT,eventsGeelT]
+
+const FranceC = 92; 
 
 
-export const idEvents = 70;
-const idFrance = 92; 
-
-
-export const MonthRegionTags = [idR202201,idR202202,idR202203,idR202204,idR202205,idR202205]
+export const awRegionT = [].concat(idR202201,idR202202,idR202203,idR202204,idR202205,idR202205)
  
 
 // {

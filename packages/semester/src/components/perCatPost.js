@@ -64,11 +64,10 @@ const eventDatesref = resultDateObjectInPeriod;
   return data.isReady ? (
     <FlexContainer>
        <Container> 
-         {postsPerCategory.map(({ posts, category, isNotHeader }, index) => (
+         {postsPerCategory.map(({ posts, category, isNotHeader , resultF}, index) => (
             <CategoryGP key={index} className="GroupCategory col-12 align-self-strech">
-              {isNotHeader ? (<HeadingGroupCategory  className={`${category.slug}`}>  <Illust src={`/static/images/${category.slug}_picto.png`} title={category.link}/> {category.name}</HeadingGroupCategory>):(<span/>)}
-              {category.name=='Events' ?
-             
+              {isNotHeader ? (<HeadingGroupCategory  className={`${category.slug}`}>{category.name}</HeadingGroupCategory>):(<span/>)}
+              {category.name=='Events' ?             
               <Calendar relativePosition='top-center'
                  numberOfMonths={1} 
                  disableMonthPicker="true"
@@ -78,7 +77,6 @@ const eventDatesref = resultDateObjectInPeriod;
                  plugins={[
                   <DatePanel sort="color" markFocused/>,
                  ]} />
-          
             : null}
               { (isNotHeader && posts.length>0)? <PostCount>{posts.length} posts </PostCount> : <span/>}
                 
@@ -87,11 +85,10 @@ const eventDatesref = resultDateObjectInPeriod;
                   <article key={index}>
                     <div>
                         <div px={2}>
-                         {  <Link link={post.link}>
-                            <h2>
+                         {  <Link link={post.link}>                            
                            <Html2React html={post.title.rendered} /> 
-                            </h2>
-                          </Link> }
+                            </Link> }
+                            <p>{resultF[0][index]}{resultF[1][index]}{resultF[2][index]}{resultF[3][index]}{resultF[4][index]}</p>
                           { !(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : <span/>}
                           <Html2React html={post.excerpt.rendered} />
                         </div>

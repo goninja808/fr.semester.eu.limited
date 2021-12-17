@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Global, css, connect, styled, Head } from "frontity";
-import { MonthRegionTags } from "./config_tag"
+import { awRegionT } from "./config_tag"
 import Switch from "@frontity/components/switch";
 import Header from "./header/header";
 import List from "./list";
@@ -18,6 +18,7 @@ import Record from "./record";
 import BootstrapCss from './styles/bootstrap.css';
 import gutenbergStyle from "./styles/gutenberg/style.css";
 import gutenbergTheme from "./styles/gutenberg/theme.css";
+
 /**
  * Theme is the root React component of our theme. The one we will export
  * in roots.
@@ -31,9 +32,8 @@ const Theme = ({ state, actions, libraries }) => {
   const tagIndex = ((!!state.theme.month_tag) ? state.theme.month_tag : "0");
   const month = Number.parseInt(tagIndex)  + 1;
   const period = String("20220").concat(month) ;
-  console.log("started with period " + period );
-  const tagId = parseInt(MonthRegionTags[parseInt(tagIndex)]);
-  console.log("started with region " + tagId );
+  const tagId = parseInt(awRegionT[parseInt(tagIndex)]);
+  console.log("start period:" + period + " region:" + tagId );
   return (
     <>
       {/* Add some metatags to the <head> of the HTML. */}
@@ -58,7 +58,7 @@ const Theme = ({ state, actions, libraries }) => {
 
       {/* Add the main section. It renders a different component depending
       on the type of URL we are in. */}
-      <Main>
+      <Main> 
         <Switch>
           <Loading when={data.isFetching} />
           <PerSemiStaticPost when={data.route=='/'} tagId={tagId} />

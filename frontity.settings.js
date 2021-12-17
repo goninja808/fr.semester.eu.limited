@@ -39,7 +39,7 @@ const settings = {
       "name": "@frontity/wp-source",
       "state": {
         "source": {
-          "api": "https://fr-semester.eu/wp-json",
+          "api": "https://fr-semester.blog/wp-json",
           "postTypes": [
             {
               type: "record",

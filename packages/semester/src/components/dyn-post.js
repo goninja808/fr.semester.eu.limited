@@ -1,12 +1,12 @@
-import {useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { connect, styled } from "frontity";
-import Link from "./link"; 
+import Link from "./link";
 import HeaderMedia from "./header-media";
-import { getEventInPeriod, getFacts } from "./helper";    
-import {eventCategory} from "./config"
-import Switch from "@frontity/components/switch"; 
-import React,{useState} from "react"
-import { Calendar, DateObject} from "react-multi-date-picker"
+import { getEventInPeriod, getFacts } from "./helper";
+import { eventCategory } from "./config"
+import Switch from "@frontity/components/switch";
+import React, { useState } from "react"
+import { Calendar, DateObject } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
 import colors from "react-multi-date-picker/plugins/colors";
 import post from "./post";
@@ -30,40 +30,38 @@ import post from "./post";
  *
  * @returns The {@link Post} element rendered.
  */
-const PerCatTagPeriodPost = ({ state, actions, libraries, period }) => {
+const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => {
   // Get current URL related information 
   const data = state.source.get(state.router.link);
   // Get dynamic inicial list (event / fact main pages)
   const resultEventInPeriod = getEventInPeriod(state.source, period);
   var resultDateObjectInPeriod = [];
   var countEventCategory = resultEventInPeriod.length;
-  const categColor=["grey","grey","yellow","pink","blue","green"]
+  const categColor = ["grey", "grey", "yellow", "pink", "blue", "green"]
   for (let i = 0; i < countEventCategory; i++) {
     var element = resultEventInPeriod[i]
     var inPeriodEvents = element.dateprefix;
     var category = element.category;
-    if (inPeriodEvents.length>0){
-      inPeriodEvents.forEach(eventDate=>
-        {
-          var aday = new DateObject(eventDate);
-          aday.color = categColor[i];
-          resultDateObjectInPeriod.push(aday);
-        }
-        )
+    if (inPeriodEvents.length > 0) {
+      inPeriodEvents.forEach(eventDate => {
+        var aday = new DateObject(eventDate);
+        aday.color = categColor[i];
+        resultDateObjectInPeriod.push(aday);
+      }
+      )
     }
   };
   const eventDatesref = resultDateObjectInPeriod;
-
   const resultFact = getFacts(state.source);
-  const onlyFact = resultFact.filter(item => (((item.category.name != "header")) && ((item.category.name != "Events"))))
-  
+  const onlyFact = resultFact.filter(item => (((item.category.id != "header")) && ((item.category.name != "Events"))))
+
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
 
 
 
 
-   
+
   /**
    * Once the post has loaded in the DOM, prefetch both the
    * home posts and the list component so if the user visits
@@ -71,122 +69,126 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period }) => {
    */
 
   // Load the post, but only if the data is ready.
-  
+
   return data.isReady ? (
     <FlexContainer>
-         <Switch>
-         <Container when={state.router.link=='/category/events/'}>
-            <CategoryGP className='GroupCategory col-12 align-self-strech' >
-                <div className="GroupCategory-box col-md-12">
-                <Calendar  />
-                </div>
-            </CategoryGP>
+      <Switch>
+        <Container when={state.router.link == '/category/events/'}>
+          <CategoryGP className='GroupCategory col-12 align-self-strech' >
+            <div className="GroupCategory-box col-md-12">
+              <Calendar />
+            </div>
+          </CategoryGP>
 
-            { resultEventInPeriod.map(({ posts, category, isNotHeader }, index) => (
+          {resultEventInPeriod.map(({ posts, category, isNotHeader, resultF }, index) => (
             <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
-              <HeadingGroupCategory  className={`${category.slug} `}>  <Illust src={`/static/images/${category.slug}_picto.png`} title={category.link}/> {category.name}</HeadingGroupCategory>
-                <div className="GroupCategory-box col-md-12">
-                 {posts.map((post, index) => (
+              <HeadingGroupCategory className={`${category.slug} `}>  <Illust src={`/static/images/${category.slug}_picto.png`} title={category.link} /> {category.name}</HeadingGroupCategory>
+              <div className="GroupCategory-box col-md-12">
+                {posts.map((post, index) => (
                   <article key={index}>
                     <div>
-                        <div px={2}>
-                         {  <Link link={post.link}>
-                            <h2>
-                           <Html2React html={post.title.rendered} /> 
-                            </h2>
-                          </Link> }
-                          { !(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
-                          <Html2React html={post.excerpt.rendered} />
-                        </div>
-                      
+                      <div px={2}>
+                        {<Link link={post.link}>
+                          <p>{resultF[0][index]}{resultF[1][index]}{resultF[2][index]}{resultF[3][index]}{resultF[4][index]}</p>
+
+                          <Html2React html={post.title.rendered} />
+
+                        </Link>}
+                        {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
+                        <Html2React html={post.excerpt.rendered} />
+                      </div>
+
                     </div>
                   </article>
-                  ))}
-                  </div>
-                  {isNotHeader?(<Link link={category.link}>See more <strong>{category.name}</strong> related posts</Link>):null}
+                ))}
+              </div>
+              {isNotHeader ? (<Link link={category.link}>See more <strong>{category.name}</strong> related posts</Link>) : null}
             </CategoryGP>
           ))
-         }
-           </Container>
-           <Container when={state.router.link=='/main-events/'}>
-            <CategoryGP className='GroupCategory col-12 align-self-strech' >
-                <div className="GroupCategory-box col-md-12">
-                <Calendar relativePosition='top-center'
-                 numberOfMonths={1} 
-                 disableMonthPicker="true"
-                 disableYearPicker="true"
-                 displayWeekNumbers="true"
-                 minDate={`${new  DateObject("01/"+String(period).substring(4,6)+"/2022")}`}
-                 value={eventDatesref}           
-                  plugins={[
-                  <DatePanel sort="color" markFocused/>,
-                  ]} />
-                </div>
-            </CategoryGP>
-            { resultEventInPeriod.map(({ posts, category, isNotHeader, dateprefix }, index) => (
+          }
+        </Container>
+        <Container when={state.router.link == '/main-events/'}>
+          <CategoryGP className='GroupCategory col-12 align-self-strech' >
+            <div className="GroupCategory-box col-md-12">
+              <Calendar relativePosition='top-center'
+                numberOfMonths={1}
+                disableMonthPicker="true"
+                disableYearPicker="true"
+                displayWeekNumbers="true"
+                minDate={`${new DateObject("01/" + String(period).substring(4, 6) + "/2022")}`}
+                value={eventDatesref}
+                plugins={[
+                  <DatePanel sort="color" markFocused />,
+                ]} />
+            </div>
+          </CategoryGP>
+          {resultEventInPeriod.map(({ posts, category, isNotHeader, dateprefix, resultF }, index) => (
             <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
               {/*(category != "Events") && <HeadingGroupCategory  className={`${category.slug} `}>  <Illust src={`/static/images/${category.slug}_picto.png`} title={category.link}/> {category.name}</HeadingGroupCategory>*/}
-                <div className="GroupCategory-box col-md-12">
-                 {posts.map((post, index) => (
+              <div className="GroupCategory-box col-md-12">
+                {posts.map((post, index) => (
                   <article key={index}>
                     <div>
-                        <div px={2}>
-                         {  <Link link={post.link}>
-                            <h2>
-                           <Html2React html={post.title.rendered} /> 
-                            </h2>
-                          </Link> }
-                          <p>{post.acf.dateexec.substring(6,8)+"/"+post.acf.dateexec.substring(4,6)+"/2022"}</p>
-                          { !(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
-                          <Html2React html={post.excerpt.rendered} />
-                        </div>
-                      
+                      <div px={2}>
+                        {<Link link={post.link}>
+
+                          <Html2React html={post.title.rendered} />
+                          <p>{resultF[0][index]}{resultF[1][index]}{resultF[2][index]}{resultF[3][index]}{resultF[4][index]}</p>
+
+                        </Link>}
+                        <p>{post.acf.dateexec.substring(6, 8) + "/" + post.acf.dateexec.substring(4, 6) + "/2022"}</p>
+                        {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
+                        <Html2React html={post.excerpt.rendered} />
+                      </div>
+
                     </div>
                   </article>
-                  ))}
-                  </div>
-                  {isNotHeader?(<Link link={category.link}>See more <strong>{category.name}</strong> related posts</Link>):null}
+                ))}
+              </div>
+              {isNotHeader ? (<Link link={category.link}>See more <strong>{category.name}</strong> related posts</Link>) : null}
             </CategoryGP>
           ))
-         }
-           </Container>
-           <Container when={state.router.link=='/main-facts/'}>
-            { onlyFact.map(({ posts, category, isNotHeader }, index) => (
+          }
+        </Container>
+        <Container when={state.router.link == '/main-facts/'}>
+         
+          {onlyFact.map(({ posts, category, isNotHeader, resultF }, index) => (
             <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
-              <HeadingGroupCategory  className={`${category.slug} `}>  <Illust src={`/static/images/${category.slug}_picto.png`} title={category.link}/> {category.name}</HeadingGroupCategory>
-                <div className="GroupCategory-box col-md-12">
-                 {posts.map((post, index) => (
+              <HeadingGroupCategory className={`${category.slug} `}> {category.name}</HeadingGroupCategory>
+              <div className="GroupCategory-box col-md-12">
+                {posts.map((post, index) => (
                   <article key={index}>
                     <div>
-                        <div px={2}>
-                         {  <Link link={post.link}>
-                            <h2>
-                           <Html2React html={post.title.rendered} /> 
-                            </h2>
-                          </Link> }
-                          { !(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
-                          <Html2React html={post.excerpt.rendered} />
-                        </div>
-                      
+                      <div px={2}>
+                        {<Link link={post.link}>
+
+                          <Html2React html={post.title.rendered} />
+                          <p>{resultF[0][index]}{resultF[1][index]}{resultF[2][index]}{resultF[3][index]}{resultF[4][index]}</p>
+
+                        </Link>}
+                        {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
+                        <Html2React html={post.excerpt.rendered} />
+                      </div>
+
                     </div>
                   </article>
-                  ))}
-                  </div>
-                  {isNotHeader?<Link link={category.link}>
-                  <p>&gt;&gt; See more <strong>{category.name}</strong> related posts </p>
-                </Link>:null}
+                ))}
+              </div>
+              {isNotHeader ? <Link link={category.link}>
+                <p>&gt;&gt; See more <strong>{category.name}</strong> related posts </p>
+              </Link> : null}
             </CategoryGP>
           ))
-         }
-         </Container>
-         </Switch>
-    </FlexContainer>
+          }
+        </Container>
+      </Switch>
+    </FlexContainer >
   ) : null;
 };
 
 export default connect(PerCatTagPeriodPost);
 const FlexContainer = styled.div`
-  display: flex;
+  
 `
 const Illust = styled.img`
   max-width: 50px;
@@ -239,7 +241,7 @@ const HeadGroupCategory = styled.article`
     }
   }
 `;
- 
+
 
 const CategoryGP = styled.article`
 max-width:771px;
