@@ -3,6 +3,7 @@ import { connect, styled } from "frontity";
 import Link from "./link";
 import List from "./list";
 import FeaturedMedia from "./featured-media";
+import WrapPostTitle from "./wrapPostTitle";
 
 const Record = ({ state, actions, libraries }) => {
   // Get information about the current URL.

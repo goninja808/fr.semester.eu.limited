@@ -1,11 +1,12 @@
 import {useEffect, useRef } from "react";
 import { connect, styled } from "frontity";
-import Link from "./link"; 
+import Link from "./link";  
 import HeaderMedia from "./header-media";
-import { getFactsForRegion, getEventsForRegion } from "./helper";    
-import {eventCategory} from "./config"
+import { getFactsForRegion, getEventsForRegion, getFacts } from "./helper";    
+import {headerC} from "./config"
 import Switch from "@frontity/components/switch"; 
 import React,{useState} from "react"
+import WrapPostTitle from "./wrapPostTitle";
 
 /**
  * The Post component that Mars uses to render any kind of "post type", like
@@ -30,7 +31,8 @@ const PerSemiStaticPost = ({ state, actions, libraries ,tagId}) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
   const resultEvent = getEventsForRegion(state.source,tagId);
-  const resultFact = getFactsForRegion (state.source,tagId) ;
+  const resultFactNoRegion = getFacts (state.source) ;
+  const resultFact =getFactsForRegion(state.source,tagId);
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
  
@@ -46,19 +48,16 @@ const PerSemiStaticPost = ({ state, actions, libraries ,tagId}) => {
          <Switch>
          <Container when={state.router.link=='/regionofthemonth/'}>
          { 
-         resultEvent.map(({ posts, category, isNotHeader }, index) => (
+         resultEvent.map(({ posts, category, isNotHeader, resultF }, index) => (
             <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
-              <HeadingGroupCategory  className={`${category.slug} `}>  <Illust src={`/static/images/${category.slug}_picto.png`} title={category.link}/> {category.name}</HeadingGroupCategory>
+               {/*(category != "Events") && <HeadingGroupCategory  className={`${category.slug} `}>  <Illust src={`/static/images/${category.slug}_picto.png`} title={category.link}/> {category.name}</HeadingGroupCategory>*/}
+             
                 <div className="GroupCategory-box col-md-12">
                  {posts.map((post, index) => (
                   <article key={index}>
                     <div>
                         <div px={2}>
-                         {  <Link link={post.link}>
-                            <h2>
-                           <Html2React html={post.title.rendered} /> 
-                            </h2>
-                          </Link> }
+                        <WrapPostTitle state={state} post={post} libraries={libraries} index={index} resultF={resultF} />
                           { !(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
                           <Html2React html={post.excerpt.rendered} />
                         </div>                  
@@ -72,19 +71,16 @@ const PerSemiStaticPost = ({ state, actions, libraries ,tagId}) => {
             </CategoryGP>
           ))}
           <span/>
-          {resultFact.map(({ posts, category, isNotHeader }, index) => (
+          {resultFact.map(({ posts, category, isNotHeader, resultF }, index) => (
             <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
-              <HeadingGroupCategory  className={`${category.slug} `}>  <Illust src={`/static/images/${category.slug}_picto.png`} title={category.link}/> {category.name}</HeadingGroupCategory>
+             {/*(category != "Events") && <HeadingGroupCategory  className={`${category.slug} `}>  <Illust src={`/static/images/${category.slug}_picto.png`} title={category.link}/> {category.name}</HeadingGroupCategory>*/}
+             
                 <div className="GroupCategory-box col-md-12">
                  {posts.map((post, index) => (
                   <article key={index}>
                     <div>
                         <div px={2}>
-                         {  <Link link={post.link}>
-                            <h2>
-                           <Html2React html={post.title.rendered} /> 
-                            </h2>
-                          </Link> }
+                        <WrapPostTitle state={state} post={post}  libraries={libraries} index={index} resultF={resultF} />
                           { !(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
                           <Html2React html={post.excerpt.rendered} />
                         </div>                  
@@ -101,34 +97,67 @@ const PerSemiStaticPost = ({ state, actions, libraries ,tagId}) => {
            </Container>
            
            <Container when={state.router.link=='/'}>
-            { resultFact.map(({ posts, category, isNotHeader }, index) => (
+            { resultFactNoRegion.map(({ posts, category, isNotHeader , resultF }, index) => (
             <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
-              <HeadingGroupCategory  className={`${category.slug} `}>  <Illust src={`/static/images/${category.slug}_picto.png`} title={category.link}/> {category.name}</HeadingGroupCategory>
+              {(category.id === headerC && posts.length >0 )&&  
                 <div className="GroupCategory-box col-md-12">
-                 {posts.map((post, index) => (
-                  <article key={index}>
-                    <div>
-                        <div px={2}>
-                         {  <Link link={post.link}>
-                            <h2>
-                           <Html2React html={post.title.rendered} /> 
-                            </h2>
-                          </Link> }
-                          { !(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
-                          <Html2React html={post.excerpt.rendered} />
-                        </div>
-                      
-                    </div>
-                  </article>
-                  ))}
-                  </div>
-                  {isNotHeader?<Link link={category.link}>
-                  <p>&gt;&gt; See more <strong>{category.name}</strong> related posts </p>
-                </Link>:null}
-            </CategoryGP>
+                {posts.map((post, index) => (
+                 <article key={index}>
+                   <div>
+                       <div px={2}>
+                       <WrapPostTitle state={state} post={post}  libraries={libraries} index={index} resultF={resultF} />
+                         { !(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
+                         <Html2React html={post.excerpt.rendered} />
+                       </div>                  
+                   </div>
+                 </article>
+                 ))}
+                 </div>
+               }
+             </CategoryGP>
+            
+          ))
+         }
+         <CategoryGP  className={`GroupCategory col-12 align-self-strech`} >
+              
+                <div className="GroupCategory-box col-md-12">
+               
+                 <article >
+                   <div>
+                       <div >
+                         <h2>Site  Under Construction</h2>
+                         <h2>Coming soon !</h2>
+                       </div>                  
+                   </div>
+                 </article>
+
+                 </div>
+               
+             </CategoryGP>
+
+           { resultFact.map(({ posts, category, isNotHeader , resultF }, index) => (
+            <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
+              {(category.id === headerC)&&  
+                <div className="GroupCategory-box col-md-12">
+                {posts.map((post, index) => (
+                 <article key={index}>
+                   <div>
+                       <div px={2}>
+                       <WrapPostTitle state={state} post={post}  libraries={libraries} index={index} resultF={resultF} />
+                         { !(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
+                         <Html2React html={post.excerpt.rendered} />
+                       </div>                  
+                   </div>
+                 </article>
+                 ))}
+                 </div>
+               }
+             </CategoryGP>
+            
           ))
          }
            </Container>
+
          </Switch>
     </FlexContainer>
   ) : null;

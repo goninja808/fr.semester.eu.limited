@@ -22,10 +22,9 @@ const Header = ({ state }) => {
 export default connect(Header);
 
 const BrandContainer = styled.div`
-  position: relative;
   box-sizing: border-box; 
   width: 50%;
-  right: -38%;
+  right: -6%;
   @media (min-width: 768px) {
     display: flex;
     width: 30%;
@@ -58,11 +57,11 @@ const Logo = styled.div`
   background-size: 133px;
   width: 130px;
   height: 135px; 
-  background-image: url('https://fr-semester.eu/wp-content/uploads/2021/12/LogoM.png');
+  background-image: url('https://fr-semester.blog/wp-content/uploads/2021/12/LogoM.png');
   @media (min-width: 768px) {
   width: 160px;
-  height: 170px;
+  height: 171px;
   background-size: 170px; 
-  background-image: url('https://fr-semester.eu/wp-content/uploads/2021/12/LogoM.png');
+  background-image: url('https://fr-semester.blog/wp-content/uploads/2021/12/LogoM.png');
   }
 `;

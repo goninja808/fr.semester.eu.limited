@@ -2,12 +2,7 @@ import { connect, styled } from "frontity";
 import Link from "../link";
 import FeaturedMedia from "../featured-media";
 import Image from "@frontity/components/image";
-import food from "./images/food.png";
-import events from "./images/events.png";
-import initiatives from "./images/initiative.png";
-import lifestyle from "./images/lifestyle.png";
-import Culture from "./images/culture.png";
-import science from "./images/science.png";
+import WrapPostTitle from "../wrapPostTitle";
 /**
  * Item Component
  *
@@ -16,26 +11,25 @@ import science from "./images/science.png";
  * - Author: name of author and published date
  * - FeaturedMedia: the featured image/video of the post
  */
-const Item = ({ state, item }) => {
+const Item = ({ state, libraries, resultF, item , index}) => {
   const data = state.source.get(state.router.link);
   const author = state.source.author[item.author];
-  const date = new Date(item.date);
-  let readMoreLabel = 'more in ' ;
+  const date = new Date(item.date); 
 
+  
   return (
+    
     <Article className="newsarticle col-12 align-self-strech">
-      <div className="articlebox col-md-12">
-      <Link className="articletitle" link={item.link}>
-            <Illust src={food} title={item.link}/>
-            <Title dangerouslySetInnerHTML={{ __html: item.title.rendered }} /></Link> 
-      
+      {console.log(resultF) /* <div className="articlebox col-md-12"> */}
+       
+        <WrapPostTitle state={state} post={item}  libraries={libraries} index={index} resultF={resultF} /> 
       {state.theme.featured.showOnList && (
         <FeaturedMedia id={item.featured_media} />
       )}
       {item.excerpt && (
         <Excerpt dangerouslySetInnerHTML={{ __html: item.excerpt.rendered }} />
       )}
-      </div>
+      {/* </div> */}
     </Article>
   );
 };

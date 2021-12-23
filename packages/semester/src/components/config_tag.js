@@ -6,9 +6,10 @@ const idR202205 = 50;
 const idR202206 = 51; 
 const eventsIspraT = 75;
 const eventsGeelT = 76;
+
 export const eventsT = 70;
 export const awEventsT = [eventsT,eventsIspraT,eventsGeelT]
-
+export const awEventsTLitteral = ["Event","Ispra Site","Geel Site"]
 const FranceC = 92; 
 
 

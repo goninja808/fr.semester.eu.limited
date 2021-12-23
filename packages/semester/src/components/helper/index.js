@@ -1,6 +1,6 @@
 import {categoriesWidgetsHome, culture, lifestyle, initiative, science,
-  headerC, eventsC , awLifestyle, awCulture, awInitiative, awScience } from "../config"
-import { MonthRegionTags, eventsT, awEventsT, awRegionT} from "../config_tag";
+  headerC, eventsC , awLifestyle, awCulture, awInitiative, awScience, awCultureLitteral, awLifestyleLitteral,awScienceLitteral,awInitiativeLitteral} from "../config"
+import { MonthRegionTags, eventsT, awEventsT, awRegionT, awEventsTLitteral} from "../config_tag";
 import list from "../list/list";
 import Link from "@frontity/components/link";
 const MAXIMUM_POSTS = 5
@@ -21,7 +21,7 @@ export const getFactsForRegion = (source, tagId,) => {
       const category = source.category[categoryId]
       const isNotHeader = !(source.category[categoryId].slug === 'header')
       const resultF = getResultF(posts);
-      console.log(resultF);
+      
       return [...acc, { posts, category, isNotHeader , resultF}]
     }, [])
 }
@@ -39,7 +39,7 @@ export const getPostsGroupedByCategoryAndTag = (source, tagId) => {
       const category = source.category[categoryId]
       const isNotHeader = !(source.category[categoryId].slug === 'header')
       const resultF = getResultF(posts);
-      console.log(resultF);
+ 
       return [...acc, { posts, category, isNotHeader , resultF}]
     }, [])
 
@@ -60,7 +60,7 @@ export const getEventsForRegion = (source, tagId,) => {
       const category = source.category[categoryId]
       const isNotHeader = !(source.category[categoryId].slug === 'header')
       const resultF = getResultF(posts);
-      console.log(resultF);
+
       return [...acc, { posts, category, isNotHeader , resultF}]
     }, [])
 }
@@ -81,7 +81,7 @@ export const getFacts = (source) => {
       const category = source.category[categoryId]
       const isNotHeader = !(source.category[categoryId].slug === 'header')
       const resultF = getResultF(posts);
-      console.log(resultF);
+
       return [...acc, { posts, category, isNotHeader , resultF}]
     }, [])
 }
@@ -102,7 +102,7 @@ export const getEventsForRegionPeriod = (source, tagId, Period,) => {
       const category = source.category[categoryId]
       const isNotHeader = !(source.category[categoryId].slug === 'header')
       const resultF = getResultF(posts);
-      console.log(resultF);
+
       const dateprefix = posts.map(item =>
       (String(item.acf.dateexec.substring(2, 4)
         + "/" + item.acf.dateexec.substring(4, 6)
@@ -125,27 +125,68 @@ const getEventsFromCategoryPeriod = ({ post }, categoryId, period) =>
     })
   ;
 
+// if any a1 value in a2 then return a3 concatened same position string 
+function StringIntersect(a1,ref,refstr){
+  var returnRefStr = []; 
+  if (a1.length == 0) return [];
+  var returnRef=  ( (ref.filter(function(n) { 
+    returnRefStr.push(a1.indexOf(n) !== -1 ? refstr[ref.indexOf(n)] : null);   
+    } 
+  )));
+  return (returnRefStr.filter(
+    function(el){ 
+      return el != null;
+    }).join(':').replace('::',': '));
+  }
 
-  function Intersect(a1,a2){ 
+function Intersect(a1,a2){ 
     if (a1.length == 0) return [];
     if (a2.length == 0) return []; 
     return  ( (a1.filter(function(n) { 
    
       return (a2.indexOf(n) !== -1);    }
-   )));}
+ )));}
+
 function asIntersect(a1,a2){
   return  (Intersect(a1,a2).length > 0); 
 }
 
-  export const getResultF = (posts) => {
+  export const getResultF = ( posts, state=null) => { 
+
+//TODO on condition not a complete post 
+  var posts = (state? posts.map(({ type, id }, index) => state.source[type][id]):posts);
+  //const aVar= {decode(state.source[data.taxonomy][data.id].name)};
   var headerArrayF = posts.map(v1 => (v1.categories.includes(headerC))?1:0);
   var regionArrayF = posts.map(v2 => (( asIntersect(awRegionT, v2.tags) )?1:0) );
   var eventCArrayF = posts.map(v3 => (v3.categories.includes(eventsC))?1:0);
   var eventTarrayF = posts.map(v4 => (asIntersect(v4.categories, awEventsT ))?1:0 );
-  var spCF = posts.map(v5=> (asIntersect(awCulture,v5.categories))? 1 : ((asIntersect(awLifestyle,v5.categories))? 2 : ((asIntersect(awScience,v5.categories))? 3: ( (asIntersect(awInitiative,v5.categories))? 4 : 0))) );
-  
+  var spCV = posts.map(v5=> (asIntersect(awCulture,v5.categories))? 1 : 
+  ((asIntersect(awLifestyle,v5.categories))? 2 : 
+  ((asIntersect(awScience,v5.categories))? 3: 
+  ((asIntersect(awInitiative,v5.categories))? 4 :
+   0))) );
+  var strapCV = posts.map(v6=> (  
+    "b"
+    .concat((v6.categories.includes(headerC))?"1":"0")
+    .concat((asIntersect(v6.categories, awEventsT ))?"1":"0")
+    .concat((asIntersect(awCulture,v6.categories))? "1" : 
+    ((asIntersect(awLifestyle,v6.categories))? "2" : 
+    ((asIntersect(awScience,v6.categories))? "3": 
+    ( (asIntersect(awInitiative,v6.categories))? "4" : "0"))))
+    ));
+  var straplittCV=posts.map(v7=> (asIntersect(awCulture,v7.categories))? StringIntersect(v7.categories,awCulture,awCultureLitteral) : 
+  (asIntersect(awLifestyle,v7.categories))? StringIntersect(v7.categories,awLifestyle,awLifestyleLitteral) : 
+  (asIntersect(awInitiative,v7.categories))? StringIntersect(v7.categories,awInitiative,awInitiativeLitteral) : 
+  (asIntersect(awScience,v7.categories))? StringIntersect(v7.categories,awScience,awScienceLitteral) : 
+  (asIntersect(v7.categories, awEventsT ))? StringIntersect(v7.categories,awEventsT,awEventsTLitteral) :"");
 
-  const resultF = [headerArrayF,regionArrayF,eventCArrayF ,eventTarrayF, spCF];
+
+  // var CategoryIndOf=(!strapCV.some(elem => !spCV.includes(0))) ? 
+  // posts.map(v8 ,index => (strapListCV[index].indexOf(v8.categories))):
+  // [];
+
+
+  const resultF = [headerArrayF,regionArrayF,eventCArrayF ,eventTarrayF, spCV, strapCV, straplittCV];
   return resultF;
   }
 
@@ -158,7 +199,7 @@ export const getEventInPeriod = (source, period) => {
       const isNotHeader =!(source.category[categoryId].slug === 'header')
       // test all aspect in one return
       const resultF = getResultF(posts);
-      console.log(resultF);
+
       const dateprefix = posts.map(item =>
       (String(item.acf.dateexec.substring(2, 4)
         + "/" + item.acf.dateexec.substring(4, 6)

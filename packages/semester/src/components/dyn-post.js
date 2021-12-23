@@ -3,14 +3,15 @@ import { connect, styled } from "frontity";
 import Link from "./link";
 import HeaderMedia from "./header-media";
 import { getEventInPeriod, getFacts } from "./helper";
-import { eventCategory } from "./config"
+import { eventCategory, eventsC } from "./config"
 import Switch from "@frontity/components/switch";
 import React, { useState } from "react"
 import { Calendar, DateObject } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
 import colors from "react-multi-date-picker/plugins/colors";
 import post from "./post";
-
+import WrapPostTitle from "./wrapPostTitle";
+import { Container, CategoryGP } from "./styles/reflist"
 /**
  * The Post component that Mars uses to render any kind of "post type", like
  * posts, pages, attachments, etc.
@@ -51,6 +52,7 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => 
       )
     }
   };
+  const eventAlternateLitteral = "'on-site' Events";
   const eventDatesref = resultDateObjectInPeriod;
   const resultFact = getFacts(state.source);
   const onlyFact = resultFact.filter(item => (((item.category.id != "header")) && ((item.category.name != "Events"))))
@@ -73,99 +75,59 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => 
   return data.isReady ? (
     <FlexContainer>
       <Switch>
-        <Container when={state.router.link == '/category/events/'}>
-          <CategoryGP className='GroupCategory col-12 align-self-strech' >
-            <div className="GroupCategory-box col-md-12">
-              <Calendar />
-            </div>
-          </CategoryGP>
+        <Container when={state.router.link == '/category/events/'}> {/* EVENTS */}
+        <CategoryGP className='GroupCategory col-12 align-self-strech' >
 
-          {resultEventInPeriod.map(({ posts, category, isNotHeader, resultF }, index) => (
-            <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
-              <HeadingGroupCategory className={`${category.slug} `}>  <Illust src={`/static/images/${category.slug}_picto.png`} title={category.link} /> {category.name}</HeadingGroupCategory>
-              <div className="GroupCategory-box col-md-12">
-                {posts.map((post, index) => (
-                  <article key={index}>
-                    <div>
-                      <div px={2}>
-                        {<Link link={post.link}>
-                          <p>{resultF[0][index]}{resultF[1][index]}{resultF[2][index]}{resultF[3][index]}{resultF[4][index]}</p>
+<div className="GroupCategory-box col-md-12">
+  <Calendar relativePosition='top-center'
+    numberOfMonths={1}
+    disableMonthPicker="true"
+    disableYearPicker="true"
+    displayWeekNumbers="true"
+    minDate={`${new DateObject("01/" + String(period).substring(4, 6) + "/2022")}`}
+    value={eventDatesref}
+    plugins={[
+      <DatePanel sort="color" markFocused />,
+    ]} />
+</div>
+</CategoryGP>
+{resultEventInPeriod.map(({ posts, category, isNotHeader, dateprefix, resultF }, index) => (
+<CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
+  {isNotHeader ? <><div class="divider"></div><p>{(category.id === eventsC) ? eventAlternateLitteral : category.name} </p> </>
+    : <span />}
+  <div className="GroupCategory-box col-md-12">
+    {posts.map((post, index) => (
+      <article key={index}>
+        <div>
+          <div px={2}>
+            <WrapPostTitle state={state} post={post} libraries={libraries} index={index} resultF={resultF} />
+            <DateWrapper>{post.acf.dateexec.substring(6, 8) + "/" + post.acf.dateexec.substring(4, 6) + "/2022"}</DateWrapper>
+            {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
+            <Html2React html={post.excerpt.rendered} />
+          </div>
 
-                          <Html2React html={post.title.rendered} />
-
-                        </Link>}
-                        {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
-                        <Html2React html={post.excerpt.rendered} />
-                      </div>
-
-                    </div>
-                  </article>
-                ))}
-              </div>
-              {isNotHeader ? (<Link link={category.link}>See more <strong>{category.name}</strong> related posts</Link>) : null}
-            </CategoryGP>
-          ))
-          }
+        </div>
+      </article>
+    ))}
+  </div>
+  {isNotHeader ? (<Link link={category.link}>See more {(category.id === eventsC) ? eventAlternateLitteral : category.name}  related posts</Link>) : null}
+</CategoryGP>
+))
+}
         </Container>
-        <Container when={state.router.link == '/main-events/'}>
-          <CategoryGP className='GroupCategory col-12 align-self-strech' >
-            <div className="GroupCategory-box col-md-12">
-              <Calendar relativePosition='top-center'
-                numberOfMonths={1}
-                disableMonthPicker="true"
-                disableYearPicker="true"
-                displayWeekNumbers="true"
-                minDate={`${new DateObject("01/" + String(period).substring(4, 6) + "/2022")}`}
-                value={eventDatesref}
-                plugins={[
-                  <DatePanel sort="color" markFocused />,
-                ]} />
-            </div>
-          </CategoryGP>
-          {resultEventInPeriod.map(({ posts, category, isNotHeader, dateprefix, resultF }, index) => (
-            <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
-              {/*(category != "Events") && <HeadingGroupCategory  className={`${category.slug} `}>  <Illust src={`/static/images/${category.slug}_picto.png`} title={category.link}/> {category.name}</HeadingGroupCategory>*/}
-              <div className="GroupCategory-box col-md-12">
-                {posts.map((post, index) => (
-                  <article key={index}>
-                    <div>
-                      <div px={2}>
-                        {<Link link={post.link}>
+       
+        <Container when={state.router.link == '/main-facts/'}> {/*--------  MAIN FACTS --------*/}
 
-                          <Html2React html={post.title.rendered} />
-                          <p>{resultF[0][index]}{resultF[1][index]}{resultF[2][index]}{resultF[3][index]}{resultF[4][index]}</p>
-
-                        </Link>}
-                        <p>{post.acf.dateexec.substring(6, 8) + "/" + post.acf.dateexec.substring(4, 6) + "/2022"}</p>
-                        {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
-                        <Html2React html={post.excerpt.rendered} />
-                      </div>
-
-                    </div>
-                  </article>
-                ))}
-              </div>
-              {isNotHeader ? (<Link link={category.link}>See more <strong>{category.name}</strong> related posts</Link>) : null}
-            </CategoryGP>
-          ))
-          }
-        </Container>
-        <Container when={state.router.link == '/main-facts/'}>
-         
           {onlyFact.map(({ posts, category, isNotHeader, resultF }, index) => (
+
             <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
-              <HeadingGroupCategory className={`${category.slug} `}> {category.name}</HeadingGroupCategory>
+              {isNotHeader ? <><div class="divider"></div> <p>{category.name}</p>  </> : <span />}
               <div className="GroupCategory-box col-md-12">
                 {posts.map((post, index) => (
                   <article key={index}>
                     <div>
                       <div px={2}>
-                        {<Link link={post.link}>
-
-                          <Html2React html={post.title.rendered} />
-                          <p>{resultF[0][index]}{resultF[1][index]}{resultF[2][index]}{resultF[3][index]}{resultF[4][index]}</p>
-
-                        </Link>}
+                        <WrapPostTitle state={state} post={post} libraries={libraries} index={index} resultF={resultF} />
                         {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
                         <Html2React html={post.excerpt.rendered} />
                       </div>
@@ -174,10 +136,9 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => 
                   </article>
                 ))}
               </div>
-              {isNotHeader ? <Link link={category.link}>
-                <p>&gt;&gt; See more <strong>{category.name}</strong> related posts </p>
-              </Link> : null}
+
             </CategoryGP>
+
           ))
           }
         </Container>
@@ -202,110 +163,119 @@ const BigImage = styled.img`
   margin-right: 25px;
 `;
 
-
-const Container = styled.section`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 8px;
-  background-color: #fff;
-  color: #444;  
-  min-width: 400px;
-  margin: 0 auto;
-  padding-right: 8px;
-  padding-left: 8px;
-  list-style: none;
-  @media (max-width: 800px) {
-    display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-gap: 10px;
-  background-color: #fff;
-  color: #444;  
-  min-width: 400px;
-  margin: 0 auto;
-  padding-right: 10px;
-  padding-left: 10px;
-  list-style: none;
-}
+const DateWrapper = styled.p`
+  max-width: 63px;
+  border-radius: 14px;
+  font-size:11px;
+  line-height:12px;
+  text-align:center;
+  margin-left: 5px;
+  background-color: #cfb8b8;
 `;
 
-const HeadGroupCategory = styled.article`
-  max-width:771px;
-  margin:0 auto;
-  position: relative;
-  margin-bottom:3.5rem;
-  .article-title {    
-    &:hover {
-      h1 {
-        color:var(--brand);
-      }
-    }
-  }
-`;
+// const Container = styled.section`
+//   display: grid;
+//   grid-template-columns: repeat(2, 1fr);
+//   grid-gap: 8px;
+//   background-color: #fff;
+//   color: #444;  
+//   min-width: 400px;
+//   margin: 0 auto;
+//   padding-right: 8px;
+//   padding-left: 8px;
+//   list-style: none;
+//   @media (max-width: 800px) {
+//     display: grid;
+//   grid-template-columns: repeat(1, 1fr);
+//   grid-gap: 10px;
+//   background-color: #fff;
+//   color: #444;  
+//   min-width: 400px;
+//   margin: 0 auto;
+//   padding-right: 10px;
+//   padding-left: 10px;
+//   list-style: none;
+// }
+// `;
+
+// const HeadGroupCategory = styled.article`
+//   max-width:771px;
+//   margin:0 auto;
+//   position: relative;
+//   margin-bottom:3.5rem;
+//   .article-title {    
+//     &:hover {
+//       h1 {
+//         color:var(--brand);
+//       }
+//     }
+//   }
+// `;
 
 
-const CategoryGP = styled.article`
-max-width:771px;
-margin:0 auto;
-position: relative;
-/**Job articles**/
-&.count0{
-  visibility: hidden;
-  display: none;
-}
-&.newscategory {
-  max-width: 100%;
-  margin: 0;
-  margin-bottom: 1 rem;
-  display: flex;
-  flex-direction: column;
-  .categorybox {
-    padding: 2rem;
-    background: var(--grey);
-    box-shadow: 0px 2px 16px -9px rgba(0,0,0,0.5);
-    border: 1px solid #ececec;
-    border-radius:5px;
-    transition: all .4s ease;
-    display: flex;
-    flex-grow: 1;      
-    flex-direction: column;
-    .articletitle {
-      text-decoration:none;
-      h4 {
-        transition: all .3s ease;
-      }        
-      &:hover {
-        h4 {
-          color:var(--brand);
-        }          
-      }
-    }
-  }
-}
-`;
+// const CategoryGP = styled.article`
+// max-width:771px;
+// margin:0 auto;
+// position: relative;
+// /**Job articles**/
+// &.count0{
+//   visibility: hidden;
+//   display: none;
+// }
+// &.newscategory {
+//   max-width: 100%;
+//   margin: 0;
+//   margin-bottom: 1 rem;
+//   display: flex;
+//   flex-direction: column;
+//   .categorybox {
+//     padding: 2rem;
+//     background: var(--grey);
+//     box-shadow: 0px 2px 16px -9px rgba(0,0,0,0.5);
+//     border: 1px solid #ececec;
+//     border-radius:5px;
+//     transition: all .4s ease;
+//     display: flex;
+//     flex-grow: 1;      
+//     flex-direction: column;
+//     .articletitle {
+//       text-decoration:none;
+//       h4 {
+//         transition: all .3s ease;
+//       }        
+//       &:hover {
+//         h4 {
+//           color:var(--brand);
+//         }          
+//       }
+//     }
+//   }
+// }
+// `;
 
-const Header = styled.h3`
-  text-align:left;
-  margin-bottom:1rem;
-  margin-left:1rem;
-`;
+// const Header = styled.h3`
+//   text-align:left;
+//   margin-bottom:1rem;
+//   margin-left:1rem;
+// `;
 
-const HeadingGroupCategory = styled.h2`
-  font-size: 60px;
-  padding: 5px;
-  &.header{
-    background-color: white;
-    display: none;
-  }  
-  &.culture{
-    background-color: #fff2cc;
-  }
-  &.initiative{
-    background-color: #f4cccc;
-  }
-  &.lifestyle{
-    background-color: #cfe2f3;
-  }
-  &.science{
-    background-color: #d9ead3;
-  }
-`
+// const HeadingGroupCategory = styled.h2`
+//   font-size: 60px;
+//   padding: 5px;
+//   &.header{
+//     background-color: white;
+//     display: none;
+//   }  
+//   &.culture{
+//     background-color: #fff2cc;
+//   }
+//   &.initiative{
+//     background-color: #f4cccc;
+//   }
+//   &.lifestyle{
+//     background-color: #cfe2f3;
+//   }
+//   &.science{
+//     background-color: #d9ead3;
+//   }
+// `

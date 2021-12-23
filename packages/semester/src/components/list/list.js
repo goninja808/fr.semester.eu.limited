@@ -2,11 +2,13 @@ import React,{useEffect} from "react";
 import { connect, styled, decode } from "frontity";
 import Item from "./list-item";
 import Pagination from "./pagination";
+import {getResultF} from "../helper/index";
 
 const is2Column=true;
 const List = ({ state, actions, libraries }) => {
   // Get the data of the current list.
   const data = state.source.get(state.router.link);
+  const resultF = getResultF(data.items, state);
   let title = 'Recent Facts / Events';
   return (
     <FlexContainer> 
@@ -16,7 +18,7 @@ const List = ({ state, actions, libraries }) => {
                     {/* If the list is a blog posts, we render a title. */}
       {data.isPostArchive && (
         <Header>
-          {title}
+          {title} dass
         </Header>
       )}
        
@@ -24,7 +26,7 @@ const List = ({ state, actions, libraries }) => {
       {data.isTaxonomy && (
         <Header>
           {" "}
-          <b>{decode(state.source[data.taxonomy][data.id].name)}</b>
+          <b>{decode(state.source[data.taxonomy][data.id].name)}</b> 
         </Header>
       )}
 
@@ -34,10 +36,10 @@ const List = ({ state, actions, libraries }) => {
           
 
       {/* Iterate over the items of the list. */}
-      {data.items.map(({ type, id }) => {
+      {data.items.map(({ type, id }, index) => {
         const item = state.source[type][id];
         // Render one Item component for each one.
-        return <Item key={item.id} item={item} />;
+        return <Item state={state} library={libraries} resultF={resultF} item={item} index={index}/>;
       })}
       <Pagination />
     </Container> 

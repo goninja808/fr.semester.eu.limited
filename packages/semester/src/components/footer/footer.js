@@ -14,29 +14,26 @@ const Footer = ({ state }) => {
         <div className="row">
           <div className="col-12 col-lg-6 footer-widget widget-one">
             <h6 className="widget-title">About this Web Site</h6>
-            <p>Mi in nulla posuere sollicitudin aliquam ultrices sagittis. Egestas quis ipsum suspendisse ultrices gravida. Sed adipiscing diam donec adipiscing tristique risus nec feugiat in. Mi in nulla posuere sollicitudin aliquam ultrices sagittis. Egestas quis ipsum suspendisse ultrices gravida.</p> 
+            <p> From 1 January 2022 France takes over the Presidency of the Council of the European Union for six months. French colleagues at the Joint Research Centre (JRC) in Ispra / Geel / Brussel want to celebrate the presidency of the Cultural Semester.</p> 
           </div>
           <div className="col-12 col-md-4 col-lg-2 footer-widget widget-two">
             <h6 className="widget-title">Semester organisation</h6>
             <ul className="widget-list">
-              <li><Link className="widget-list-link" link="/about/">About us</Link></li>
-              <li><Link className="widget-list-link" link="/services/">Services</Link></li>
+              <li><Link className="widget-list-link" link="/about/">About us</Link></li> 
               <li><Link className="widget-list-link" link="/contact/">Contact</Link></li>
             </ul>
           </div>
           <div className="col-12 col-md-4 col-lg-2 footer-widget widget-three">
             <h6 className="widget-title">Redactional Team</h6>
             <ul className="widget-list">
-              <li><Link className="widget-list-link" link="/about/">About us</Link></li>
-              <li><Link className="widget-list-link" link="/services/">Services</Link></li>
-              <li><Link className="widget-list-link" link="/blog/">Blog</Link></li>
+              <li><Link className="widget-list-link" link="/about/">About us</Link></li> 
             </ul>
           </div>
           <div className="col-12 col-md-4 col-lg-2 footer-widget widget-four">
             <h6 className="widget-title">Connect</h6>
             <ul className="widget-list">
             <li><Link className="widget-list-link" target="_blank" rel="nofollow noopener" link="https://webgate.ec.europa.eu/connected/news">Connected</Link></li>
-            <li><Link className="widget-list-link" target="_blank" rel="nofollow noopener" link="https://www.facebook.com/awsminnovations">Facebook</Link></li>
+            <li><Link className="widget-list-link" target="_blank" rel="nofollow noopener" link="https://www.facebook.com/CulturalSemesterIspra/">Facebook</Link></li>
             </ul>
           </div>
         </div>
