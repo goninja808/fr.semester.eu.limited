@@ -43,20 +43,6 @@ const settings = {
       "state": {
         "source": {
           "api": "https://fr-semester.blog/wp-json",
-          "postTypes": [
-            {
-              type: "record",
-              endpoint: "record",
-              archive: "/record_cat"
-            }
-          ],
-          taxonomies: [
-            {
-              taxonomy: "record_cat",
-              endpoint: "record_cat",
-              postTypeEndpoint: "record"
-            } 
-          ]
         }
       }
     },

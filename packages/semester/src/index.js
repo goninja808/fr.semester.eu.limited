@@ -2,7 +2,7 @@ import Theme from "./components";
 import image from "@frontity/html2react/processors/image";
 import iframe from "@frontity/html2react/processors/iframe";
 import link from "@frontity/html2react/processors/link";
-import { categoriesWidgetsHome, tagsWidgetsHome } from "./components/config";
+import { ListedCategory, tagsWidgetsHome } from "./components/config";
 
 
 const semestertheme = {
@@ -45,10 +45,10 @@ const semestertheme = {
       },
       beforeSSR: async ({ state, actions }) => {
         await Promise.all(
-          Object.keys(categoriesWidgetsHome)
+          Object.keys(ListedCategory)
             .map(category => actions.source.fetch(`/category/${category}/`)),
           )
-      }
+      },
     },
   },
   libraries: {

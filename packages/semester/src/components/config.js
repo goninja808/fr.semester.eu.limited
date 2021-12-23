@@ -47,7 +47,7 @@ export const awScienceLitteral= ["Science"];
 
 export const awSpAny = awCulture.concat(awLifestyle,awInitiative,awScience);
  
-export const categoriesWidgetsHome = {
+export const ListedCategory = {
   "header" : headerC,
   "events": eventsC,
   "culture": culture,

@@ -9,7 +9,7 @@ const MenuItemDepl = ({state, name, link }) => {
     const subBloc = (indSubmenu==-1?"":String(name).substring(indSubmenu+1));
     const subNames =(indSubmenu==-1?"":String(subBloc).split(';'));
     const subLinks =(indSubmenu==-1?"":String(link).split(';'));
-    console.log('test'+mainName +' subNames '+subNames +' sublinks '+subLinks );
+    //console.log('test'+mainName +' subNames '+subNames +' sublinks '+subLinks );
     return (
         <MenuLink
         key={mainName}

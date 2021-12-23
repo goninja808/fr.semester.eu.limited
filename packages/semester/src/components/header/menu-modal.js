@@ -6,7 +6,7 @@ import { MenuOverlay, MenuContent } from './styles'
 const MenuModal = ({ state }) => {
   const { menu } = state.theme;
   const isThereLinks = menu != null && menu.length > 0;
-  console.log('test'+isThereLinks)
+  //console.log('test'+isThereLinks)
   return (
     <>
       <MenuOverlay />

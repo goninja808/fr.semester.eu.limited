@@ -1,6 +1,6 @@
-import {categoriesWidgetsHome, culture, lifestyle, initiative, science,
+import {ListedCategory, culture, lifestyle, initiative, science,
   headerC, eventsC , awLifestyle, awCulture, awInitiative, awScience, awCultureLitteral, awLifestyleLitteral,awScienceLitteral,awInitiativeLitteral} from "../config"
-import { MonthRegionTags, eventsT, awEventsT, awRegionT, awEventsTLitteral} from "../config_tag";
+import { MonthRegionTags, eventsT, ListedEventSitesTags, ListedRegionTags, ListedEventSitesTagsLitteral} from "../config_tag";
 import list from "../list/list";
 import Link from "@frontity/components/link";
 const MAXIMUM_POSTS = 5
@@ -15,7 +15,7 @@ const getFactsFromCategoryAndTag = ({ post }, categoryId, tagId) =>
     .filter(({ categories }) => !(categories.includes(headerC)))
 
 export const getFactsForRegion = (source, tagId,) => {
-  return Object.values(categoriesWidgetsHome)
+  return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
       const posts = getFactsFromCategoryAndTag(source, categoryId, tagId).slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]
@@ -33,7 +33,7 @@ const getPostsFromCategoryAndTag = ({ post }, categoryId, tagId) =>
     .filter(({ tags }) => tags.includes(tagId))
 
 export const getPostsGroupedByCategoryAndTag = (source, tagId) => {
-  return Object.values(categoriesWidgetsHome)
+  return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
       const posts = getPostsFromCategoryAndTag(source, categoryId, tagId).slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]
@@ -54,7 +54,7 @@ const getEventsFromCategoryAndTag = ({ post }, categoryId, tagId) =>
   ;
 
 export const getEventsForRegion = (source, tagId,) => {
-  return Object.values(categoriesWidgetsHome)
+  return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
       const posts = getEventsFromCategoryAndTag(source, categoryId, tagId).slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]
@@ -75,7 +75,7 @@ const getFactsFromCategory = ({ post }, categoryId) =>
   ;
 
 export const getFacts = (source) => {
-  return Object.values(categoriesWidgetsHome)
+  return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
       const posts = getFactsFromCategory(source, categoryId).slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]
@@ -96,7 +96,7 @@ const getEventsFromCategoryAndTagPeriod = ({ post }, categoryId, tagId, Period) 
   ;
 
 export const getEventsForRegionPeriod = (source, tagId, Period,) => {
-  return Object.values(categoriesWidgetsHome)
+  return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
       const posts = getEventsFromCategoryAndTag(source, categoryId, tagId,).slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]
@@ -126,7 +126,7 @@ const getEventsFromCategoryPeriod = ({ post }, categoryId, period) =>
   ;
 
 // if any a1 value in a2 then return a3 concatened same position string 
-function StringIntersect(a1,ref,refstr){
+export function getStringIntersect(a1,ref,refstr){
   var returnRefStr = []; 
   if (a1.length == 0) return [];
   var returnRef=  ( (ref.filter(function(n) { 
@@ -147,7 +147,7 @@ function Intersect(a1,a2){
       return (a2.indexOf(n) !== -1);    }
  )));}
 
-function asIntersect(a1,a2){
+export function asIntersect(a1,a2){
   return  (Intersect(a1,a2).length > 0); 
 }
 
@@ -157,9 +157,9 @@ function asIntersect(a1,a2){
   var posts = (state? posts.map(({ type, id }, index) => state.source[type][id]):posts);
   //const aVar= {decode(state.source[data.taxonomy][data.id].name)};
   var headerArrayF = posts.map(v1 => (v1.categories.includes(headerC))?1:0);
-  var regionArrayF = posts.map(v2 => (( asIntersect(awRegionT, v2.tags) )?1:0) );
+  var regionArrayF = posts.map(v2 => (( asIntersect(ListedRegionTags, v2.tags) )?1:0) );
   var eventCArrayF = posts.map(v3 => (v3.categories.includes(eventsC))?1:0);
-  var eventTarrayF = posts.map(v4 => (asIntersect(v4.categories, awEventsT ))?1:0 );
+  var eventTarrayF = posts.map(v4 => (asIntersect(v4.categories, ListedEventSitesTags ))?1:0 );
   var spCV = posts.map(v5=> (asIntersect(awCulture,v5.categories))? 1 : 
   ((asIntersect(awLifestyle,v5.categories))? 2 : 
   ((asIntersect(awScience,v5.categories))? 3: 
@@ -168,17 +168,17 @@ function asIntersect(a1,a2){
   var strapCV = posts.map(v6=> (  
     "b"
     .concat((v6.categories.includes(headerC))?"1":"0")
-    .concat((asIntersect(v6.categories, awEventsT ))?"1":"0")
+    .concat((asIntersect(v6.categories, ListedEventSitesTags ))?"1":"0")
     .concat((asIntersect(awCulture,v6.categories))? "1" : 
     ((asIntersect(awLifestyle,v6.categories))? "2" : 
     ((asIntersect(awScience,v6.categories))? "3": 
     ( (asIntersect(awInitiative,v6.categories))? "4" : "0"))))
     ));
-  var straplittCV=posts.map(v7=> (asIntersect(awCulture,v7.categories))? StringIntersect(v7.categories,awCulture,awCultureLitteral) : 
-  (asIntersect(awLifestyle,v7.categories))? StringIntersect(v7.categories,awLifestyle,awLifestyleLitteral) : 
-  (asIntersect(awInitiative,v7.categories))? StringIntersect(v7.categories,awInitiative,awInitiativeLitteral) : 
-  (asIntersect(awScience,v7.categories))? StringIntersect(v7.categories,awScience,awScienceLitteral) : 
-  (asIntersect(v7.categories, awEventsT ))? StringIntersect(v7.categories,awEventsT,awEventsTLitteral) :"");
+  var straplittCV=posts.map(v7=> (asIntersect(awCulture,v7.categories))? getStringIntersect(v7.categories,awCulture,awCultureLitteral) : 
+  (asIntersect(awLifestyle,v7.categories))? getStringIntersect(v7.categories,awLifestyle,awLifestyleLitteral) : 
+  (asIntersect(awInitiative,v7.categories))? getStringIntersect(v7.categories,awInitiative,awInitiativeLitteral) : 
+  (asIntersect(awScience,v7.categories))? getStringIntersect(v7.categories,awScience,awScienceLitteral) : 
+  (asIntersect(v7.categories, ListedEventSitesTags ))? getStringIntersect(v7.categories,ListedEventSitesTags,ListedEventSitesTagsLitteral) :"");
 
 
   // var CategoryIndOf=(!strapCV.some(elem => !spCV.includes(0))) ? 
@@ -192,7 +192,7 @@ function asIntersect(a1,a2){
 
 
 export const getEventInPeriod = (source, period) => {
-  return Object.values(categoriesWidgetsHome)
+  return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
       const posts = getEventsFromCategoryPeriod(source, categoryId, period).slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]

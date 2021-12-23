@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Global, css, connect, styled, Head } from "frontity";
-import { awRegionT } from "./config_tag"
+import { ListedRegionTags } from "./config_tag"
 import Switch from "@frontity/components/switch";
 import Header from "./header/header";
 import List from "./list";
@@ -32,8 +32,8 @@ const Theme = ({ state, actions, libraries }) => {
   const tagIndex = ((!!state.theme.month_tag) ? state.theme.month_tag : "0");
   const month = Number.parseInt(tagIndex)  + 1;
   const period = String("20220").concat(month) ;
-  const tagId = parseInt(awRegionT[parseInt(tagIndex)]);
-  console.log("start period:" + period + " region:" + tagId );
+  const tagId = parseInt(ListedRegionTags[parseInt(tagIndex)]);
+  //console.log("start period:" + period + " region:" + tagId );
   return (
     <>
       {/* Add some metatags to the <head> of the HTML. */}

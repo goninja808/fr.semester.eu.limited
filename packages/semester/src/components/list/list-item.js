@@ -20,7 +20,7 @@ const Item = ({ state, libraries, resultF, item , index}) => {
   return (
     
     <Article className="newsarticle col-12 align-self-strech">
-      {console.log(resultF) /* <div className="articlebox col-md-12"> */}
+      {/* console.log(resultF)  <div className="articlebox col-md-12"> */}
        
         <WrapPostTitle state={state} post={item}  libraries={libraries} index={index} resultF={resultF} /> 
       {state.theme.featured.showOnList && (
