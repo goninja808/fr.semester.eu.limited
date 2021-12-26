@@ -1,4 +1,3 @@
-
 import { connect, styled } from "frontity";
 import Straps from "./strap/images/straps.png"
 import Link from "./link";

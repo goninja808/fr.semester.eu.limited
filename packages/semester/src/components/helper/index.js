@@ -4,7 +4,7 @@ import { MonthRegionTags, eventsT, ListedEventSitesTags, ListedRegionTags, Liste
 import list from "../list/list";
 import Link from "@frontity/components/link";
 const MAXIMUM_POSTS = 5
-console.log(process.env.INDEX_SEMESTER);
+//console.log(process.env.INDEX_SEMESTER);
 
 const getFactsFromCategoryAndTag = ({ post }, categoryId, tagId) =>
   Object.keys(post)
