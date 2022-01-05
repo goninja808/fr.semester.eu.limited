@@ -6,6 +6,9 @@ export const FlexContainer = styled.div`
   justify-content: center;
 `
 
+export const PostCount = styled.div`
+justify-content: left;
+`
 
 
 export const CalendarWrap = styled.div`
