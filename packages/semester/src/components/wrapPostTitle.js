@@ -6,13 +6,13 @@ import {asIntersect, getStringIntersect} from "./helper"
 import {ListedRegionTags,ListedRegionTagsLitteral,ListedEventSitesTags,ListedEventSitesTagsLitteral, FranceC} from "./config_tag"
 
 
-const WrapPostTitle = ({state, post,libraries, index, resultF }) => { 
+const WrapPostTitle = ({state, post, libraries, index, resultF }) => { 
     const Html2React = libraries.html2react.Component;
     const RegionLitteral =(asIntersect(post.tags, ListedRegionTags )? 
     getStringIntersect(post.tags,ListedRegionTags,ListedRegionTagsLitteral) :null );
-    const SiteExecLitteral = (asIntersect(post.tags, ListedEventSitesTags )? 
-    getStringIntersect(post.tags,ListedEventSitesTags,ListedEventSitesTagsLitteral) :null );
-    console.log('RegionLitteral',RegionLitteral,'SiteExecLitteral',SiteExecLitteral );
+    const SiteExecLitteral = (asIntersect(post.categories, ListedEventSitesTags )? 
+    getStringIntersect(post.categories,ListedEventSitesTags,ListedEventSitesTagsLitteral) :null );
+    console.log('Region',RegionLitteral,'SiteExec',SiteExecLitteral );
     //    {(!media) ? 
     //       <div >
     //            <ReactPlayer url='https://vimeo.com/659880653/583f78ff58' controls = {true} loop={true} playing={true} muted={true} autoPlay={true} />
@@ -40,7 +40,7 @@ const WrapPostTitle = ({state, post,libraries, index, resultF }) => {
                     
                 <div className="TitleT3">  {(((resultF[1][index]) == 1)) ? (((resultF[0][index]) == 0) ? <Html2React html={post.title.rendered} /> : <Html2React html={post.title.rendered} />) : <Html2React html={post.title.rendered} /> }</div>
                 <div className="OverlayT2">  
-                    {((resultF[0][index]) != 0) ? <span></span> : ((resultF[4][index]!=0)? [(resultF[6][index])] :"Ispra Site") }
+                    {((resultF[0][index]) != 0) ? <span></span> : ((resultF[4][index]!=0)? [(resultF[6][index])] :SiteExecLitteral) }
                     </div>
                 </div>
             </BandContainer>

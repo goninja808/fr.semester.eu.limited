@@ -46,6 +46,10 @@ const PerCatPost = ({ state, actions, libraries, tagId, period }) => {
   var resultDateObjectInPeriod = [];
   var countEventCategory = resultEventInPeriod.length;
   const categColor = ["grey", "grey", "yellow", "pink", "blue", "green"]
+  // let sortedResultEventInPeriod = Object.entries(resultEventInPeriod)
+  // .sort(([k1, v1], [k2, v2]) => v1.eventDate - v2.eventDate)
+  // .map(([player, scores]) => ({player, scores}))
+
 
   for (let i = 0; i < countEventCategory; i++) {
     var element = resultEventInPeriod[i]

@@ -145,6 +145,8 @@ const getEventsFromCategoryPeriod = ({ post }, categoryId, period) =>
     .filter(function (post) {
       return ((post.acf.month != '') && ((String((post.acf).dateexec)).startsWith(period)));
     })
+    .sort((a,b) => (a.acf.dateexec > b.acf.dateexec) ? 1 : ((b.acf.dateexec > a.acf.dateexec) ? -1 : 0));
+  
   ;
 
 // if any a1 value in a2 then return a3 concatened same position string 
@@ -219,6 +221,7 @@ export const getEventInPeriod = (source, period) => {
   return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
       const posts = getEventsFromCategoryPeriod(source, categoryId, period).slice(0, MAXIMUM_POSTS)
+      
       const category = source.category[categoryId]
       const isNotHeader = !(source.category[categoryId].slug === 'header')
       // test all aspect in one return

@@ -33,10 +33,14 @@ export const ListedRegionTagsLitteral = [
 
 
 
+
+const eventsBrusselsT = 94;
 const eventsIspraT = 75;
+const eventsSevilleT = 96;
 const eventsGeelT = 76;
+const eventsKarlsruheT = 95;
 
 export const eventsT = 70;
-export const ListedEventSitesTags = [eventsT, eventsIspraT, eventsGeelT]
-export const ListedEventSitesTagsLitteral = [" - ", "Ispra Site", "Geel Site"]
+export const ListedEventSitesTags = [eventsT, eventsSevilleT, eventsBrusselsT, eventsIspraT, eventsGeelT,eventsKarlsruheT]
+export const ListedEventSitesTagsLitteral = ["@","Seville Site","Brussels Site", "Ispra Site", "Geel Site", "Karlsruhe Site"]
 export const FranceC = 92; 
