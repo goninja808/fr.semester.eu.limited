@@ -23,6 +23,7 @@ const HeaderMedia = ({ state, id }) => {
     <Container isAmp={state.frontity.mode === "amp"}>
       <StyledImage
         alt={media.title.rendered}
+        
         src={media.source_url}
         srcSet={srcset}
         width={media?.media_details?.width}
@@ -35,15 +36,17 @@ const HeaderMedia = ({ state, id }) => {
 export default connect(HeaderMedia);
 
 const Container = styled.div`
-margin-top: 10px;
-margin-bottom: 10px;
+margin-top: 20px;
+margin-bottom: 20px;
   height: 300px;
   ${({ isAmp }) => isAmp && "position: relative;"};
 `;
 
 const StyledImage = styled(Image)`
-  display: block;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
+padding: 0px; 
+border: 40px;
+width: 100%;
+height: 100%; 
+box-sizing: content-box; 
+-webkit-box-sizing: content-box;
 `;

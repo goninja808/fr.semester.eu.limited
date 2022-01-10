@@ -14,7 +14,8 @@ const Footer = ({ state }) => {
         <div className="row">
           <div className="col-12 col-lg-6 footer-widget widget-one">
             <h6 className="widget-title">About this Web Site</h6>
-            <p> From 1 January 2022 France takes over the Presidency of the Council of the European Union for six months. French colleagues at the Joint Research Centre (JRC) in Ispra / Geel / Brussel want to celebrate the presidency of the Cultural Semester.</p> 
+            <p> From 1 January 2022 France takes over the Presidency of the Council of the European Union for six months. 
+              French colleagues at the Joint Research Centre (JRC) want to celebrate the presidency of the Cultural Semester.</p> 
           </div>
           <div className="col-12 col-md-4 col-lg-2 footer-widget widget-two">
             <h6 className="widget-title">Semester organisation</h6>

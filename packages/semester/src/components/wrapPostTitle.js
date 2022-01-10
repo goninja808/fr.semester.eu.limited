@@ -13,8 +13,11 @@ const WrapPostTitle = ({state, post,libraries, index, resultF }) => {
     const SiteExecLitteral = (asIntersect(post.tags, ListedEventSitesTags )? 
     getStringIntersect(post.tags,ListedEventSitesTags,ListedEventSitesTagsLitteral) :null );
     console.log('RegionLitteral',RegionLitteral,'SiteExecLitteral',SiteExecLitteral );
-       // if (!media) return null;
-
+    //    {(!media) ? 
+    //       <div >
+    //            <ReactPlayer url='https://vimeo.com/659880653/583f78ff58' controls = {true} loop={true} playing={true} muted={true} autoPlay={true} />
+    //       </div>
+    //       : null}
     // const srcset =
     //     Object.values(media.media_details.sizes)
     //         // Get the url and width of each size.

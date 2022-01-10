@@ -1,9 +1,9 @@
 const idR202201 = 46;
 const idR202202 = 47;
-const idR202203 = 52;
-const idR202204 = 49;
-const idR202205 = 50;
-const idR202206 = 51;
+const idR202203 = 88;
+const idR202204 = 89;
+const idR202205 = 90;
+const idR202206 = 91;
 // {
 //     "Centre Val de Loire, Bourgogne-Franche-Comté": 46,
 //     "Auvergne-Rhône-Alpes, Provence-Alpes-Côte d’Azur, Corse": 47,
@@ -24,11 +24,11 @@ export const ListedRegionTags = [].concat(
     idR202205,
     idR202205)
 export const ListedRegionTagsLitteral = [
-    "Loire Valley Center, Bourgogne-Franche-Comté",
+    "Bourgogne Franche-Comté – Centre-Loire Valley",
     "Auvergne-Rhône-Alpes, Provence-Alpes-Côte d´Azur, Corsica",
     "Hauts de France, Ile de France, Grand Est",
     "DROM, Overseas Departments and Regions",
-    "Normandy Brittany PaysdeLoire",
+    "Normandy Brittany Pays de Loire",
     "New Aquitaine, Occitanie"]
 
 

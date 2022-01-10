@@ -7,6 +7,7 @@ import { getFactsForRegion, getEventsForRegion, getFacts, getHeaders } from "./h
 import { headerC } from "./config"
 import Switch from "@frontity/components/switch";
 import WrapPostTitle from "./wrapPostTitle";
+import { ListedRegionTags } from "./config_tag";
 
 /**
  * The Post component that Mars uses to render any kind of "post type", like
@@ -34,7 +35,6 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
   const resultFactNoRegion = getFacts(state.source);
   const resultFact = getFactsForRegion(state.source, tagId);
   const headersAll = getHeaders(state.source); 
-  
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
 
@@ -52,25 +52,30 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
 
         <Container when={state.router.link == '/'}>
 
-          
-          <CategoryGP className={`GroupCategory col-12 align-self-strech`} >
-            <div className="GroupCategory-box col-md-12">
-              <article >
-                <div>
-                  <div >
-                    <ReactPlayer url='https://vimeo.com/659880653/583f78ff58' loop={true} muted={true} autoPlay={true} />
-                  </div>
-                </div>
-              </article>
-            </div>
-          </CategoryGP>
-
-          {headersAll.map(({ posts, resultF }, index) => (
+       
+          {[headersAll[1]].map(({ posts, resultF }, index) => (
             <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
-              {(posts.id > 0) &&
                 <div className="GroupCategory-box col-md-12">
                   {posts.map((post, index) => (
-                    <article key={index}  hidden={(post.tags.length  != 0)}>
+                    <article key={index} hidden={(!(post.tags.length==0))} >
+                      <div>
+                        <div px={2}>
+                          {(post.tags.length  == 0) ?<HeaderMedia id={post.featured_media} />:null} 
+                          <Html2React html={post.excerpt.rendered} />
+                        </div>
+                      </div>
+                    </article>
+                  ))
+                  }
+                </div>
+            </CategoryGP>
+          ))
+          }
+           {[headersAll[2]].map(({ posts, resultF }, index) => (
+            <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
+                <div className="GroupCategory-box col-md-12">
+                  {posts.map((post, index) => (
+                    <article key={index} hidden={(!(post.tags.includes(tagId)))} >
                       <div>
                         <div px={2}>
                           <WrapPostTitle state={state} post={post} libraries={libraries} index={index} resultF={resultF} />
@@ -79,35 +84,14 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
                         </div>
                       </div>
                     </article>
-                  ))}
+                  ))
+                  }
                 </div>
-              }
             </CategoryGP>
-
           ))
           }
 
-          {/* {resultFact.map(({ posts, category, isNotHeader, resultF }, index) => (
-            <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
-              {(category.id === headerC) &&
-                <div className="GroupCategory-box col-md-12">
-                  {posts.map((post, index) => (
-                    <article key={index}>
-                      <div>
-                        <div px={2}>
-                          <WrapPostTitle state={state} post={post} libraries={libraries} index={index} resultF={resultF} />
-                          {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
-                          <Html2React html={post.excerpt.rendered} />
-                        </div>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              }
-            </CategoryGP>
-
-          ))
-          } */}
+         
         </Container>
 
       </Switch>
