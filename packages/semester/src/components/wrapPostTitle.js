@@ -8,10 +8,11 @@ import {ListedRegionTags,ListedRegionTagsLitteral,ListedEventSitesTags,ListedEve
 
 const WrapPostTitle = ({state, post, libraries, index, resultF }) => { 
     const Html2React = libraries.html2react.Component;
-    const RegionLitteral =(asIntersect(post.tags, ListedRegionTags )? 
+    var RegionTempLitteral =(asIntersect(post.tags, ListedRegionTags )? 
     getStringIntersect(post.tags,ListedRegionTags,ListedRegionTagsLitteral) :null );
     const SiteExecLitteral = (asIntersect(post.categories, ListedEventSitesTags )? 
     getStringIntersect(post.categories,ListedEventSitesTags,ListedEventSitesTagsLitteral) :null );
+    const RegionLitteral = SiteExecLitteral? SiteExecLitteral + ' : ' +RegionTempLitteral  :RegionTempLitteral; 
     console.log('Region',RegionLitteral,'SiteExec',SiteExecLitteral );
     //    {(!media) ? 
     //       <div >

@@ -1,16 +1,16 @@
-import { useEffect, useRef } from "react";
+import React,{ useEffect, useRef, useState } from "react";
 import { connect, styled } from "frontity";
 import Link from "./link";
 import HeaderMedia from "./header-media";
 import { getEventInPeriod, getFacts , asIntersect, getStringIntersect} from "./helper"
 import { eventCategory, eventsC } from "./config"
-import Switch from "@frontity/components/switch";
-import React, { useState } from "react"
+import Switch from "@frontity/components/switch"; 
 import { Calendar, DateObject } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
+import Settings from "react-multi-date-picker/plugins/settings"
 import colors from "react-multi-date-picker/plugins/colors";
 import post from "./post";
-import {ListedPureCategory} from "./config";
+import {awSpAny} from "./config";
 import WrapPostTitle from "./wrapPostTitle";
 import { Container, CategoryGP } from "./styles/reflist"
 
@@ -60,6 +60,11 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => 
   const eventDatesref = resultDateObjectInPeriod;
   const resultFact = getFacts(state.source);
   const onlyFact = resultFact.filter(item => (((item.category.id != "header")) && ((item.category.name != "Events"))))
+  const initialProps = { 
+    value: new Date(), 
+    format: "DD/MM/YYYY", 
+  }
+  const [props, setProps] = useState(initialProps)
 
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
@@ -84,6 +89,8 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => 
 
 <div className="GroupCategory-box col-md-12">
   <Calendar relativePosition='top-center'
+  {...props}
+  onPropsChange={setProps}
     numberOfMonths={1}
     
     disableMonthPicker={true}
@@ -92,21 +99,22 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => 
     minDate={`${new DateObject("01/" + String(period).substring(4, 6) + "/2022")}`}
     value={eventDatesref}
     plugins={[
+
       <DatePanel sort="color" markFocused  removeButton={false}/>,
     ]} />
 </div>
 </CategoryGP>
 {resultEventInPeriod.map(({ posts, category, isNotHeader, dateprefix, resultF }, index) => (
+
 <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
   {isNotHeader ? <><div class="divider"></div><p>{(category.id === eventsC) ? eventAlternateLitteral : category.name} </p> </>
     : <span />}
   <div className="GroupCategory-box col-md-12">
-    {posts.map((post, index) => (
-     
-      <article key={index} >
+    {posts.map((post, index2) => (
+      <article key={index2} >
         <div>
-          <div px={2}>
-            <WrapPostTitle state={state} post={post} libraries={libraries} index={index} resultF={resultF} />
+          <div px={2} hidden={(index==1) && ((asIntersect(post.categories, awSpAny)))}>
+            <WrapPostTitle state={state} post={post} libraries={libraries} index={index2} resultF={resultF} />
             <DateWrapper>{post.acf.dateexec.substring(6, 8) + "/" + post.acf.dateexec.substring(4, 6) + "/2022"}</DateWrapper>
             {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
             <Html2React html={post.excerpt.rendered} />
