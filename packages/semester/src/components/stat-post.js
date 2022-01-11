@@ -58,13 +58,19 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
                 <div className="GroupCategory-box col-md-12">
                   {posts.map((post, index) => (
                     <article key={index} hidden={(!(post.tags.length==0))} >
+                        <ReactPlayer url={post.acf.vimeo_intro}
+                        playing={true} 
+                        loop={true} muted={true}   width='100%' autoplay={true}/>   
                       <div>
                         <div px={2}>
-                          {(post.tags.length  == 0) ?<HeaderMedia id={post.featured_media} />:null} 
+                         
                           <Html2React html={post.content.rendered} />
                         </div>
                       </div>
-                    </article>
+                      <ReactPlayer url={post.acf.vimeo_conclude}
+                        playing={true} 
+                        loop={true} muted={true}   width='100%' autoplay={true}/>   
+                         </article>
                   ))
                   }
                 </div>
