@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { connect, styled } from "frontity";
 import Link from "./link";
 import HeaderMedia from "./header-media";
-import { getEventInPeriod, getFacts } from "./helper";
+import { getEventInPeriod, getFacts , asIntersect, getStringIntersect} from "./helper"
 import { eventCategory, eventsC } from "./config"
 import Switch from "@frontity/components/switch";
 import React, { useState } from "react"
@@ -10,8 +10,10 @@ import { Calendar, DateObject } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
 import colors from "react-multi-date-picker/plugins/colors";
 import post from "./post";
+import {ListedPureCategory} from "./config";
 import WrapPostTitle from "./wrapPostTitle";
 import { Container, CategoryGP } from "./styles/reflist"
+
 /**
  * The Post component that Mars uses to render any kind of "post type", like
  * posts, pages, attachments, etc.
@@ -83,13 +85,14 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => 
 <div className="GroupCategory-box col-md-12">
   <Calendar relativePosition='top-center'
     numberOfMonths={1}
-    disableMonthPicker="true"
-    disableYearPicker="true"
-    displayWeekNumbers="true"
+    
+    disableMonthPicker={true}
+    disableYearPicker={true}
+    displayWeekNumbers={true}
     minDate={`${new DateObject("01/" + String(period).substring(4, 6) + "/2022")}`}
     value={eventDatesref}
     plugins={[
-      <DatePanel sort="color" markFocused />,
+      <DatePanel sort="color" markFocused  removeButton={false}/>,
     ]} />
 </div>
 </CategoryGP>
@@ -99,7 +102,8 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => 
     : <span />}
   <div className="GroupCategory-box col-md-12">
     {posts.map((post, index) => (
-      <article key={index}>
+     
+      <article key={index} >
         <div>
           <div px={2}>
             <WrapPostTitle state={state} post={post} libraries={libraries} index={index} resultF={resultF} />

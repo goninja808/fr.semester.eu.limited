@@ -61,7 +61,7 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
                       <div>
                         <div px={2}>
                           {(post.tags.length  == 0) ?<HeaderMedia id={post.featured_media} />:null} 
-                          <Html2React html={post.excerpt.rendered} />
+                          <Html2React html={post.content.rendered} />
                         </div>
                       </div>
                     </article>
@@ -73,6 +73,7 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
           }
            {[headersAll[2]].map(({ posts, resultF }, index) => (
             <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
+              <br></br>
                 <div className="GroupCategory-box col-md-12">
                   {posts.map((post, index) => (
                     <article key={index} hidden={(!(post.tags.includes(tagId)))} >

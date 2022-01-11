@@ -55,4 +55,10 @@ export const ListedCategory = {
   "science": science,
   "initiative": initiative
 }
+export const ListedPureCategory = {
+  "culture": culture,
+  "lifestyle": lifestyle,
+  "science": science,
+  "initiative": initiative
+}
   
