@@ -39,7 +39,7 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => 
   var resultDateObjectInPeriod = [];
   var countEventCategory = resultEventInPeriod.length;
   
-  const categColor = ["orange", "blue", "yellow", "tail", "orange", "green"]
+  const categColor = ["teal", "blue", "yellow", "green", "red", "purple"]
   
   for (let i = 0; i < countEventCategory; i++) {
     var element = resultEventInPeriod[i]

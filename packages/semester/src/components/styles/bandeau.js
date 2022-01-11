@@ -6,7 +6,7 @@ export const BandContainer = styled.div`
   max-width: 1000px; 
   height:58px;
   background: 
-  url('https://fr-semester.blog/wp-content/uploads/2021/12/straps.png') no-repeat;
+  url('https://fr-semester.blog/wp-content/uploads/2022/01/straps.png') no-repeat;
   padding: 5px;
   line-height: 1.5rem;
  
