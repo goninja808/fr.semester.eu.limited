@@ -5,7 +5,7 @@ import {
 import { MonthRegionTags, eventsT, ListedEventSitesTags, ListedRegionTags, ListedEventSitesTagsLitteral } from "../config_tag";
 import list from "../list/list";
 import Link from "@frontity/components/link";
-const MAXIMUM_POSTS = 5
+const MAXIMUM_POSTS = 160
 //console.log(process.env.INDEX_SEMESTER);
 
 const getFactsFromCategoryAndTag = ({ post }, categoryId, tagId) =>
@@ -19,7 +19,7 @@ const getFactsFromCategoryAndTag = ({ post }, categoryId, tagId) =>
 export const getFactsForRegion = (source, tagId,) => {
   return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
-      const posts = getFactsFromCategoryAndTag(source, categoryId, tagId).slice(0, MAXIMUM_POSTS)
+      const posts = getFactsFromCategoryAndTag(source, categoryId, tagId)//.slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]
       const isNotHeader = !(source.category[categoryId].slug === 'header')
       const resultF = getResultF(posts);
@@ -41,7 +41,7 @@ const getPostsFromCategoryAndTag = ({ post }, categoryId, tagId) =>
 export const getPostsGroupedByCategoryAndTag = (source, tagId) => {
   return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
-      const posts = getPostsFromCategoryAndTag(source, categoryId, tagId).slice(0, MAXIMUM_POSTS)
+      const posts = getPostsFromCategoryAndTag(source, categoryId, tagId)//.slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]
       const isNotHeader = !(source.category[categoryId].slug === 'header')
       const resultF = getResultF(posts);
@@ -62,7 +62,7 @@ const getEventsFromCategoryAndTag = ({ post }, categoryId, tagId) =>
 export const getEventsForRegion = (source, tagId,) => {
   return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
-      const posts = getEventsFromCategoryAndTag(source, categoryId, tagId).slice(0, MAXIMUM_POSTS)
+      const posts = getEventsFromCategoryAndTag(source, categoryId, tagId)//.slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]
       const isNotHeader = !(source.category[categoryId].slug === 'header')
       const resultF = getResultF(posts);
@@ -85,7 +85,7 @@ const getFactsFromCategory = ({ post }, categoryId) =>
 export const getFacts = (source) => {
   return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
-      const posts = getFactsFromCategory(source, categoryId).slice(0, MAXIMUM_POSTS)
+      const posts = getFactsFromCategory(source, categoryId)//.slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]
       const isNotHeader = !(source.category[categoryId].slug === 'header')
       const resultF = getResultF(posts);
@@ -102,7 +102,7 @@ Object.keys(post)
 export const getHeaders = (source) => {
   return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
-      const posts = getFactsHeaders(source).slice(0, 100) 
+      const posts = getFactsHeaders(source)//.slice(0, MAXIMUM_POSTS) 
       const resultF = getResultF(posts);
       return [...acc, { posts, resultF }]
     }, [])
@@ -120,7 +120,7 @@ const getEventsFromCategoryAndTagPeriod = ({ post }, categoryId, tagId, Period) 
 export const getEventsForRegionPeriod = (source, tagId, Period,) => {
   return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
-      const posts = getEventsFromCategoryAndTag(source, categoryId, tagId,).slice(0, MAXIMUM_POSTS)
+      const posts = getEventsFromCategoryAndTag(source, categoryId, tagId,)//.slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]
       const isNotHeader = !(source.category[categoryId].slug === 'header')
       const resultF = getResultF(posts);
@@ -220,7 +220,7 @@ export const getResultF = (posts, state = null) => {
 export const getEventInPeriod = (source, period) => {
   return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
-      const posts = getEventsFromCategoryPeriod(source, categoryId, period).slice(0, MAXIMUM_POSTS)
+      const posts = getEventsFromCategoryPeriod(source, categoryId, period)//.slice(0, MAXIMUM_POSTS)
       
       const category = source.category[categoryId]
       const isNotHeader = !(source.category[categoryId].slug === 'header')

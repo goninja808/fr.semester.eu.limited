@@ -1,5 +1,6 @@
 import { connect, styled } from "frontity";
-import { useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
+import ReactPlayer from "react-player";
 import HeaderMedia from "./header-media";
 import { getPostsGroupedByCategoryAndTag, getEventsForRegionPeriod } from "./helper";
 import Link from "./link";
@@ -103,7 +104,9 @@ const PerCatPost = ({ state, actions, libraries, tagId, period }) => {
                   <div>
                     <div px={2}>
                     <WrapPostTitle state={state} post={post}  libraries={libraries} index={index} resultF={resultF} />
-                      {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : <span />}
+                      {!(isNotHeader) ?<ReactPlayer url={post.acf.vimeo_intro}
+                        playing={true} 
+                        loop={true} muted={true}   width='100%' autoplay={true}/>  : <span />}
                       <Html2React html={post.excerpt.rendered} />
                     </div>
 

@@ -43,6 +43,10 @@ const settings = {
       "state": {
         "source": {
           "api": "https://fr-semester.blog/wp-json",
+          "params": {
+            "per_page": 100,
+            "type": ["post", "page", "/acf/v3/posts"],
+          },
         }
       }
     },
@@ -52,3 +56,5 @@ const settings = {
 };
 
 export default settings;
+
+
