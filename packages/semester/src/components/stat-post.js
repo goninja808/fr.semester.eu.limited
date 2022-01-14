@@ -60,9 +60,8 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
                   {posts.map((post, index) => (
                     <article key={index} hidden={(!(post.tags.length==0))} >
                        <ReactPlayer url={post.acf.vimeo_intro}
-                        playing={true} autoplay={false}  background={true} light = {true}
+                        playing={true} autoPlay={true}
                         loop={true} muted={true} width='100%'  controls={true}
-                        vimeoConfig={{ iframeParams: { fullscreen: 0 } }} 
                         config={{
                           file: {
                             attributes: {
@@ -78,9 +77,9 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
                         </div>
                       </div>
                       <ReactPlayer url={post.acf.vimeo_conclude}
-                        playing={true} autoplay={false}  background={true} light = {true}
+                        playing={true} autoPlay={true}   light = {true}
                         loop={true} muted={true} width='100%'  controls={true}
-                        vimeoConfig={{ iframeParams: { fullscreen: 0 } }}                        
+                                          
                         config={{
                           file: {
                             attributes: {

@@ -104,9 +104,19 @@ const PerCatPost = ({ state, actions, libraries, tagId, period }) => {
                   <div>
                     <div px={2}>
                     <WrapPostTitle state={state} post={post}  libraries={libraries} index={index} resultF={resultF} />
-                      {!(isNotHeader) ?<ReactPlayer url={post.acf.vimeo_intro}
-                        playing={true} 
-                        loop={true} muted={true}   width='100%' autoplay={true}/>  : <span />}
+                      {!(isNotHeader) ?
+                      <ReactPlayer url={post.acf.vimeo_intro}
+                      playing={true} autoPlay={true}  
+                      loop={true} muted={true} width='100%'  controls={true}
+                       
+                      config={{
+                        file: {
+                          attributes: {
+                            controlsList: "nofullscreen",
+                          },
+                        },
+                      }}
+                      />  : <span />}
                       <Html2React html={post.excerpt.rendered} />
                     </div>
 

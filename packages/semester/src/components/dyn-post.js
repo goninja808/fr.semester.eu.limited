@@ -57,7 +57,7 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => 
     }
   };
   const eventAlternateLitteral = "'on-site' and Unclassified Events";
-  const eventDatesref = resultDateObjectInPeriod;c
+  const eventDatesref = resultDateObjectInPeriod;
   const resultFact = getFacts(state.source);
   const onlyFact = resultFact.filter(item => (((item.category.id != "header")) && ((item.category.name != "Events"))))
   const initialProps = { 
