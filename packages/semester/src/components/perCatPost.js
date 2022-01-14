@@ -79,7 +79,7 @@ const PerCatPost = ({ state, actions, libraries, tagId, period }) => {
             {isNotHeader ? <><div class="divider"></div><p><strong>{category.name}</strong></p> </>
              : <span />}
            
-           {category.name == 'Events' ?
+           {/* {category.name == 'Events' ?
             <CalendarWrap>
             
            
@@ -95,7 +95,7 @@ const PerCatPost = ({ state, actions, libraries, tagId, period }) => {
                
             {(isNotHeader && posts.length > 0) ? <PostCount>{posts.length} posts </PostCount> in {category} : <span />}
             </CalendarWrap>
-                       : null}
+                       : null} */}
                        <span><p/></span>
             <div className="GroupCategory-box col-md-12">
               {posts.map((post, index) => (

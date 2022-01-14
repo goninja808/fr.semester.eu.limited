@@ -7,7 +7,7 @@ import { getFactsForRegion, getEventsForRegion, getFacts, getHeaders } from "./h
 import { headerC } from "./config"
 import Switch from "@frontity/components/switch";
 import WrapPostTitle from "./wrapPostTitle";
-import { ListedRegionTags } from "./config_tag";
+import { ListedRegionTags } from "./config_tag"; 
 
 /**
  * The Post component that Mars uses to render any kind of "post type", like
@@ -38,6 +38,7 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
 
+
   /**
    * Once the post has loaded in the DOM, prefetch both the
    * home posts and the list component so if the user visits
@@ -58,9 +59,18 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
                 <div className="GroupCategory-box col-md-12">
                   {posts.map((post, index) => (
                     <article key={index} hidden={(!(post.tags.length==0))} >
-                        <ReactPlayer url={post.acf.vimeo_intro}
-                        playing={true} 
-                        loop={true} muted={true}   width='100%' autoplay={true}/>   
+                       <ReactPlayer url={post.acf.vimeo_intro}
+                        playing={true} autoplay={false}  background={true} light = {true}
+                        loop={true} muted={true} width='100%'  controls={true}
+                        vimeoConfig={{ iframeParams: { fullscreen: 0 } }} 
+                        config={{
+                          file: {
+                            attributes: {
+                              controlsList: "nofullscreen",
+                            },
+                          },
+                        }}
+                        />   
                       <div>
                         <div px={2}>
                          
@@ -68,8 +78,16 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
                         </div>
                       </div>
                       <ReactPlayer url={post.acf.vimeo_conclude}
-                        playing={true} 
-                        loop={true} muted={true}   width='100%' autoplay={true}/>   
+                        playing={true} autoplay={false}  background={true} light = {true}
+                        loop={true} muted={true} width='100%'  controls={true}
+                        vimeoConfig={{ iframeParams: { fullscreen: 0 } }}                        
+                        config={{
+                          file: {
+                            attributes: {
+                              controlsList: "nofullscreen",
+                            },
+                          },
+                        }}/>   
                          </article>
                   ))
                   }
