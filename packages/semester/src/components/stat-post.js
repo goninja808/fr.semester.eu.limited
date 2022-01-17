@@ -55,10 +55,11 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
 
        
           {[headersAll[1]].map(({ posts, resultF }, index) => (
-            <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
+            <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech count${posts.length}`} >
                 <div className="GroupCategory-box col-md-12">
-                  {posts.map((post, index) => (
-                    <article key={index} hidden={(!(post.tags.length==0))} >
+                  {posts.map((post, index) => (<article key={index} hidden={(!(post.tags.length==0))} >
+                  <p/> <p> <h2>{post.title.rendered}</h2></p>
+                    {post.acf.vimeo_intro?
                        <ReactPlayer url={post.acf.vimeo_intro}
                         playing={true} autoPlay={true}
                         loop={true} muted={true} width='100%'  
@@ -69,14 +70,14 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
                             },
                           },
                         }}
-                        />   
+                        />   :null}
                       <div>
                         <div px={2}>
                          
                           <Html2React html={post.content.rendered} />
                         </div>
                       </div>
-                      <ReactPlayer url={post.acf.vimeo_conclude}
+                       {post.acf.vimeo_conclude?<ReactPlayer url={post.acf.vimeo_conclude}
                         playing={true} autoPlay={true}   
                         loop={true} muted={true} width='100%'  
                                           
@@ -86,7 +87,7 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
                               controlsList: "nofullscreen",
                             },
                           },
-                        }}/>   
+                        }}/>    :null}
                          </article>
                   ))
                   }
