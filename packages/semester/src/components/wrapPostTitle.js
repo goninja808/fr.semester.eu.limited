@@ -12,7 +12,7 @@ const WrapPostTitle = ({state, post, libraries, index, resultF }) => {
     getStringIntersect(post.tags,ListedRegionTags,ListedRegionTagsLitteral) :null );
     const SiteExecLitteral = (asIntersect(post.categories, ListedEventSitesTags )? 
     getStringIntersect(post.categories,ListedEventSitesTags,ListedEventSitesTagsLitteral) :null );
-    const RegionLitteral = SiteExecLitteral? SiteExecLitteral + ' : ' +RegionTempLitteral  :RegionTempLitteral; 
+    const RegionLitteral = SiteExecLitteral? RegionTempLitteral  :RegionTempLitteral; //SiteExecLitteral : RegionTempLitteral 
     console.log('Region',RegionLitteral,'SiteExec',SiteExecLitteral );
     return (
         <Link link={post.link}>
