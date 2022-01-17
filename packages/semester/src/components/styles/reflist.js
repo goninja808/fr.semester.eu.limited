@@ -11,32 +11,25 @@ justify-content: left;
 `
 
 
-export const CalendarWrap = styled.div`
-  display: flex;
-`
-
 export const Container = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 8px;
+  grid-gap: 0.3em;
   background-color: #fff;
   color: #444;  
   min-width: 400px;
-  margin: 0 auto;
-  padding-right: 8px;
-  padding-left: 8px;
+  margin: 0 auto; 
   list-style: none;
+  @media (max-width: 410px) {
+    min-width: 280px;
+    grid-gap: 0em; 
+    grid-template-columns: repeat(1, 1fr); 
+    padding: 0 -10px;
+  }  
   @media (max-width: 800px) {
-    display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-gap: 10px;
-  background-color: #fff;
-  color: #444;  
-  min-width: 400px;
-  margin: 0 auto;
-  padding-right: 10px;
-  padding-left: 10px;
-  list-style: none;
+    min-width: 370px;
+    grid-gap: 0.2em;
+    grid-template-columns: repeat(1, 1fr); 
 }
 `;
 
@@ -46,45 +39,47 @@ max-width:771px;
 margin:0 auto;
 position: relative;
 .divider {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
   border: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid #a7a7a7;
 }
-
-/**Job articles**/
 &.count0{
        visibility: hidden;
        display: none;
-     }
-&.newscategory {
-  max-width: 100%;
-  margin: 0;
-  margin-bottom: 1 rem;
+}
+.rmdp-arrow{
+      visibility: hidden;
+      border: solid #000000;
+} 
+.Culture_p{
+  color: #ffcc02;
+  text-align: center;
+}
+.Initiative_p{
+  color: #813d9c;
+  text-align: center;
+}
+.LifeStyle_p{
+  color: #669901;
+  text-align: center;
+}
+.Science_p{
+  color: #cc0000;
+  text-align: center;
+}   
+.Events_p{
+  color: #3366cc;
+  text-align: center;
+}
+.Groupcategory {
+  max-width: 100%; 
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
   display: flex;
   flex-direction: column;
-  .categorybox {
-    padding: 2rem;
-    background: var(--grey);
-    box-shadow: 0px 2px 16px -9px rgba(0,0,0,0.5);
-    border: 1px solid #ececec;
-    border-radius:5px;
-    transition: all .4s ease;
-    display: flex;
-    flex-grow: 1;      
-    flex-direction: column;
-    .articletitle {
-      text-decoration:none;
-      h4 {
-        transition: all .3s ease;
-      }        
-      &:hover {
-        h4 {
-          color:var(--brand);
-        }          
-      }
-    }
-  }
+  background-color: #fff2cc;
+  
 }
 `;
 

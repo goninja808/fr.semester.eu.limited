@@ -64,7 +64,7 @@ const Theme = ({ state, actions, libraries }) => {
           <PerSemiStaticPost when={data.route=='/'} tagId={tagId} />
           <PerCatPost when={data.route=='/regionofthemonth/'} tagId={tagId} period={period} />
           <PerCatTagPost when={data.route=='/category/events/'} period={period}  />
-          <PerCatTagPost when={data.route=='/main-facts/'}/>
+          <PerCatTagPost when={data.route=='/main-facts/'} tagId={tagId} />
           <List when={data.isArchive} />
           <Post when={data.isPostType} />
           <PageError when={data.isError} />
@@ -89,7 +89,6 @@ const globalStyles = css`
     --bodycolor: #343434;
   }
   body {
-    margin: 0;
     color:var(--bodycolor);
     font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
       "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;

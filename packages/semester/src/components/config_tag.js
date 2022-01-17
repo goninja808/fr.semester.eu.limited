@@ -43,4 +43,4 @@ const eventsKarlsruheT = 95;
 export const eventsT = 70;
 export const ListedEventSitesTags = [eventsT, eventsSevilleT, eventsBrusselsT, eventsIspraT, eventsGeelT,eventsKarlsruheT]
 export const ListedEventSitesTagsLitteral = ["@","Seville Site","Brussels Site", "Ispra Site", "Geel Site", "Karlsruhe Site"]
-export const FranceC = 92; 
+export const FranceT = 92; 

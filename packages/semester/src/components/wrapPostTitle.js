@@ -3,7 +3,7 @@ import Straps from "./strap/images/straps.png"
 import Link from "./link";
 import { BandContainer } from "./styles/bandeau"
 import {asIntersect, getStringIntersect} from "./helper"
-import {ListedRegionTags,ListedRegionTagsLitteral,ListedEventSitesTags,ListedEventSitesTagsLitteral, FranceC} from "./config_tag"
+import {ListedRegionTags,ListedRegionTagsLitteral,ListedEventSitesTags,ListedEventSitesTagsLitteral, FranceT} from "./config_tag"
 
 
 const WrapPostTitle = ({state, post, libraries, index, resultF }) => { 

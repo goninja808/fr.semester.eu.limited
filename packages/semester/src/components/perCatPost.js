@@ -76,7 +76,7 @@ const PerCatPost = ({ state, actions, libraries, tagId, period }) => {
         {postsPerCategory.map(({ posts, category, isNotHeader, resultF }, index) => (
           
           <CategoryGP key={index} className="GroupCategory col-12 align-self-strech">
-            {isNotHeader ? <><div class="divider"></div><p><strong>{category.name}</strong></p> </>
+            {isNotHeader ? <><div class="divider"></div> <div className={`${String(category.name).replace(" ","")+ "_p"}`} > {category.name}</div>   </>
              : <span />}
            
            {/* {category.name == 'Events' ?
@@ -107,7 +107,7 @@ const PerCatPost = ({ state, actions, libraries, tagId, period }) => {
                       {!(isNotHeader) ?
                       <ReactPlayer url={post.acf.vimeo_intro}
                       playing={true} autoPlay={true}  
-                      loop={true} muted={true} width='100%'  controls={true}
+                      loop={true} muted={true} width='100%'  
                        
                       config={{
                         file: {

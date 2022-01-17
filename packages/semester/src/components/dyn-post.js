@@ -12,7 +12,7 @@ import colors from "react-multi-date-picker/plugins/colors";
 import post from "./post";
 import {awSpAny} from "./config";
 import WrapPostTitle from "./wrapPostTitle";
-import { Container, CategoryGP } from "./styles/reflist"
+import { Container, CategoryGP, CalendarWrap } from "./styles/reflist"
 
 /**
  * The Post component that Mars uses to render any kind of "post type", like
@@ -33,7 +33,7 @@ import { Container, CategoryGP } from "./styles/reflist"
  *
  * @returns The {@link Post} element rendered.
  */
-const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => {
+const PerCatTagPeriodPost = ({ state, actions, libraries, period, tagId }) => {
   // Get current URL related information 
   const data = state.source.get(state.router.link);
   // Get dynamic inicial list (event / fact main pages)
@@ -58,7 +58,8 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => 
   };
   const eventAlternateLitteral = "'on-site' and Unclassified Events";
   const eventDatesref = resultDateObjectInPeriod;
-  const resultFact = getFacts(state.source);
+  /* relative to facts */
+  const resultFact = getFacts(state.source,tagId);
   const onlyFact = resultFact.filter(item => (((item.category.id != "header")) && ((item.category.name != "Events"))))
   const initialProps = { 
     value: new Date(), 
@@ -88,6 +89,7 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => 
         <CategoryGP className='GroupCategory col-12 align-self-strech' >
 
 <div className="GroupCategory-box col-md-12">
+   
   <Calendar relativePosition='top-center'
   {...props}
   onPropsChange={setProps}
@@ -100,21 +102,22 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => 
     value={eventDatesref}
     plugins={[
       <DatePanel sort="date" markFocused  removeButton={false}/>,
-    ]} />
+    ]} /> 
 </div>
 </CategoryGP>
 {resultEventInPeriod.map(({ posts, category, isNotHeader, dateprefix, resultF }, index) => (
 
 <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
-  {isNotHeader ? <><div class="divider"></div><p>{(category.id === eventsC) ? eventAlternateLitteral : category.name} </p> </>
-    : <span />}
+{isNotHeader ? <>
+              <div className="divider"/> 
+              <div className={`${String(category.name).replace(" ","")+ "_p"}`} >  {(category.id === eventsC) ? eventAlternateLitteral : category.name} </div>  </> : <span />}
   <div className="GroupCategory-box col-md-12">
     {posts.map((post, index2) => (
       <article key={index2} >
         <div>
           <div px={2} hidden={(index==1) && ((asIntersect(post.categories, awSpAny)))}>
             <WrapPostTitle state={state} post={post} libraries={libraries} index={index2} resultF={resultF} />
-            <DateWrapper>{post.acf.dateexec.substring(6, 8) + "/" + post.acf.dateexec.substring(4, 6) + "/2022"}</DateWrapper>
+            <DateWrapper>{post.acf.dateexec.substring(6, 8) + "/" + post.acf.dateexec.substring(4, 6) + "/2022 "+post.acf.timeexec.substring(0, 5)}</DateWrapper>
             {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
             <Html2React html={post.excerpt.rendered} />
           </div>
@@ -134,7 +137,10 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => 
           {onlyFact.map(({ posts, category, isNotHeader, resultF }, index) => (
 
             <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
-              {isNotHeader ? <><div class="divider"></div> <p>{category.name}</p>  </> : <span />}
+              {isNotHeader ? <>
+              <div className="divider"/> 
+              <div className={`${String(category.name).replace(" ","")+ "_p"}`} > {category.name}</div>  </> : <span />}
+
               <div className="GroupCategory-box col-md-12">
                 {posts.map((post, index) => (
                   <article key={index}>
@@ -161,9 +167,12 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, resultF }) => 
 };
 
 export default connect(PerCatTagPeriodPost);
-const FlexContainer = styled.div`
-  
+const FlexContainer = styled.div` 
 `
+
+
+
+
 const Illust = styled.img`
   max-width: 50px;
   border-radius: 25px;
@@ -177,7 +186,7 @@ const BigImage = styled.img`
 `;
 
 const DateWrapper = styled.p`
-  max-width: 63px;
+  max-width: 93px;
   border-radius: 14px;
   font-size:11px;
   line-height:12px;
@@ -186,109 +195,17 @@ const DateWrapper = styled.p`
   background-color: #cfb8b8;
 `;
 
-// const Container = styled.section`
-//   display: grid;
-//   grid-template-columns: repeat(2, 1fr);
-//   grid-gap: 8px;
-//   background-color: #fff;
-//   color: #444;  
-//   min-width: 400px;
-//   margin: 0 auto;
-//   padding-right: 8px;
-//   padding-left: 8px;
-//   list-style: none;
-//   @media (max-width: 800px) {
-//     display: grid;
-//   grid-template-columns: repeat(1, 1fr);
-//   grid-gap: 10px;
-//   background-color: #fff;
-//   color: #444;  
-//   min-width: 400px;
-//   margin: 0 auto;
-//   padding-right: 10px;
-//   padding-left: 10px;
-//   list-style: none;
-// }
-// `;
-
-// const HeadGroupCategory = styled.article`
-//   max-width:771px;
-//   margin:0 auto;
-//   position: relative;
-//   margin-bottom:3.5rem;
-//   .article-title {    
-//     &:hover {
-//       h1 {
-//         color:var(--brand);
-//       }
-//     }
-//   }
-// `;
-
-
-// const CategoryGP = styled.article`
-// max-width:771px;
-// margin:0 auto;
-// position: relative;
-// /**Job articles**/
-// &.count0{
-//   visibility: hidden;
-//   display: none;
-// }
-// &.newscategory {
-//   max-width: 100%;
-//   margin: 0;
-//   margin-bottom: 1 rem;
-//   display: flex;
-//   flex-direction: column;
-//   .categorybox {
-//     padding: 2rem;
-//     background: var(--grey);
-//     box-shadow: 0px 2px 16px -9px rgba(0,0,0,0.5);
-//     border: 1px solid #ececec;
-//     border-radius:5px;
-//     transition: all .4s ease;
-//     display: flex;
-//     flex-grow: 1;      
-//     flex-direction: column;
-//     .articletitle {
-//       text-decoration:none;
-//       h4 {
-//         transition: all .3s ease;
-//       }        
-//       &:hover {
-//         h4 {
-//           color:var(--brand);
-//         }          
-//       }
-//     }
-//   }
-// }
-// `;
-
-// const Header = styled.h3`
-//   text-align:left;
-//   margin-bottom:1rem;
-//   margin-left:1rem;
-// `;
-
-// const HeadingGroupCategory = styled.h2`
-//   font-size: 60px;
-//   padding: 5px;
-//   &.header{
-//     background-color: white;
-//     display: none;
-//   }  
-//   &.culture{
-//     background-color: #fff2cc;
-//   }
-//   &.initiative{
-//     background-color: #f4cccc;
-//   }
-//   &.lifestyle{
-//     background-color: #cfe2f3;
-//   }
-//   &.science{
-//     background-color: #d9ead3;
-//   }
-// `
+const HeadingCategory = styled.div`
+  font-size: 28px;
+  padding-left: 15px;
+  p: 
+  &.header_p{
+    background-color: white;
+    display: none;
+  }  
+  &.Events_p{
+    background-color: white;
+    display: none;
+  }  
+  
+`;

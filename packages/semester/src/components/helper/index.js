@@ -2,7 +2,7 @@ import {
   ListedCategory, culture, lifestyle, initiative, science,
   headerC, eventsC, awLifestyle, awCulture, awInitiative, awScience, awCultureLitteral, awLifestyleLitteral, awScienceLitteral, awInitiativeLitteral
 } from "../config"
-import { MonthRegionTags, eventsT, ListedEventSitesTags, ListedRegionTags, ListedEventSitesTagsLitteral } from "../config_tag";
+import { MonthRegionTags, eventsT, ListedEventSitesTags, ListedRegionTags, ListedEventSitesTagsLitteral, FranceT } from "../config_tag";
 import list from "../list/list";
 import Link from "@frontity/components/link";
 const MAXIMUM_POSTS = 160
@@ -72,20 +72,21 @@ export const getEventsForRegion = (source, tagId,) => {
 }
 
 
-const getFactsFromCategory = ({ post }, categoryId) =>
+const getFactsFromCategory = ({ post }, categoryId, tagId) =>
   Object.keys(post)
     .map(postID => post[postID])
     .filter(({ categories }) => categories.includes(parseInt(categoryId)))
     .filter(({ tags }) => !(tags.includes(eventsT)))
+    .filter(({ tags }) => (asIntersect(tags,[tagId].concat(FranceT))))
     .filter(({ categories }) => !(categories.includes(headerC)))
   ;
 
 
 
-export const getFacts = (source) => {
+export const getFacts = (source, tagId) => {
   return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
-      const posts = getFactsFromCategory(source, categoryId)//.slice(0, MAXIMUM_POSTS)
+      const posts = getFactsFromCategory(source, categoryId, tagId)//.slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]
       const isNotHeader = !(source.category[categoryId].slug === 'header')
       const resultF = getResultF(posts);
