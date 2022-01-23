@@ -1,16 +1,16 @@
-import React,{ useEffect, useRef, useState } from "react"; 
+import React, { useEffect, useRef, useState } from "react";
 import { connect, styled } from "frontity";
 import Link from "./link";
 import HeaderMedia from "./header-media";
-import { getEventInPeriod, getFacts , asIntersect, getStringIntersect} from "./helper"
+import { getEventInPeriod, getFacts, asIntersect, getStringIntersect } from "./helper"
 import { eventCategory, eventsC } from "./config"
-import Switch from "@frontity/components/switch";  
+import Switch from "@frontity/components/switch";
 import { Calendar, DateObject } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
 import Settings from "react-multi-date-picker/plugins/settings"
 import colors from "react-multi-date-picker/plugins/colors";
 import post from "./post";
-import {awSpAny} from "./config";
+import { awSpAny } from "./config";
 import WrapPostTitle from "./wrapPostTitle";
 import { Container, CategoryGP, CalendarWrap } from "./styles/reflist"
 
@@ -34,180 +34,184 @@ import { Container, CategoryGP, CalendarWrap } from "./styles/reflist"
  * @returns The {@link Post} element rendered.
  */
 
- 
+
 
 
 const PerCatTagPeriodPost = ({ state, actions, libraries, period, tagId }) => {
   // Get current URL related information 
   const data = state.source.get(state.router.link);
 
- 
-  const [props, setProps] = useState({ 
+
+  const [props, setProps] = useState({
     other: period,
     value: new Date(),
-    format: "MM-DD-20YYYY",
+    format: "DD-MM-20YYYY",
     onChange: (date) => {
       update(state.source, props.other);
     },
   });
-  
-    // Get dynamic inicial list (event / fact main pages)
-    
-/*   function CustomButton({ direction, handleClick, disabled }) {
-    return (
-      <i onClick={props.other =("20220"+parseInt(props.other.substring(5,6))+(direction=='<'?1:-1))}
-         style={{
-         padding: "0 10px",
-         color: disabled ? "gray" : "blue"
-        }}
-        className={disabled ? "cursor-default" : "cursor-pointer"}
-      >
-        {direction === "right" ? ">" : "<"}
-      </i>
-    )
-  } */
+
+  // Get dynamic inicial list (event / fact main pages)
+
+  /*   function CustomButton({ direction, handleClick, disabled }) {
+      return (
+        <i onClick={props.other =("20220"+parseInt(props.other.substring(5,6))+(direction=='<'?1:-1))}
+           style={{
+           padding: "0 10px",
+           color: disabled ? "gray" : "blue"
+          }}
+          className={disabled ? "cursor-default" : "cursor-pointer"}
+        >
+          {direction === "right" ? ">" : "<"}
+        </i>
+      )
+    } */
   const categColor = ["teal", "blue", "yellow", "green", "red", "purple"]
 
   var resultEventInPeriod = getEventInPeriod(state.source, props.other);
-  var eventDatesref = updateresultDateObject(resultEventInPeriod); 
+  var eventDatesref = updateresultDateObject(resultEventInPeriod);
   function update(source, other) {
     resultEventInPeriod = getEventInPeriod(source, other);
-    console.log(source, other, resultEventInPeriod.length); 
+    console.log(source, other, resultEventInPeriod.length);
   }
 
-  
-  function updateresultDateObject(resultEventInPeriod){
-    var resultDateObject =[];
+
+  function updateresultDateObject(resultEventInPeriod) {
+    var resultDateObject = [];
     for (let i = 0; i < resultEventInPeriod.length; i++) {
       var element = resultEventInPeriod[i]
+      //if (asIntersect(element.categories, awSpAny)) continue;
       var inPeriodEvents = element.dateprefix;
       var category = element.category;
       if (inPeriodEvents.length > 0) {
-        inPeriodEvents.forEach(eventDate => {
+        for (let i2 = 0; i2 < inPeriodEvents.length; i2++) {
+          var eventDate = inPeriodEvents[i2];
+          var hasCateg = asIntersect(element.posts[i2].categories, awSpAny);
           var aday = new DateObject(eventDate);
           aday.color = categColor[i];
-          resultDateObject.push(aday);
+          if (i == 1 && !hasCateg) { resultDateObject.push(aday); }
+          if (i != 1 && hasCateg) { resultDateObject.push(aday); }
         }
-        )
-      }
-    };
-  return resultDateObject;  
- }
+      }  
+    }
+  
+  return resultDateObject;
+}
 
-  const eventAlternateLitteral = "'on-site' and Unclassified Events"; 
-  /* relative to facts */
-  const resultFact = getFacts(state.source,tagId);
-  const onlyFact = resultFact.filter(item => (((item.category.id != "header")) && ((item.category.name != "Events"))))
-  // Get the html2react component.
-  const Html2React = libraries.html2react.Component;
-
-
+const eventAlternateLitteral = "'on-site' and Unclassified Events";
+/* relative to facts */
+const resultFact = getFacts(state.source, tagId);
+const onlyFact = resultFact.filter(item => (((item.category.id != "header")) && ((item.category.name != "Events"))))
+// Get the html2react component.
+const Html2React = libraries.html2react.Component;
 
 
 
-  /**
-   * Once the post has loaded in the DOM, prefetch both the
-   * home posts and the list component so if the user visits
-   * the home page, everything is ready and it loads instantly.
-   */
 
-  // Load the post, but only if the data is ready.
 
-  return data.isReady ? (
-    <FlexContainer>
-      <Switch>
-        <Container when={data.isEvents}> {/* EVENTS */}
+/**
+ * Once the post has loaded in the DOM, prefetch both the
+ * home posts and the list component so if the user visits
+ * the home page, everything is ready and it loads instantly.
+ */
+
+// Load the post, but only if the data is ready.
+
+return data.isReady ? (
+  <FlexContainer>
+    <Switch>
+      <Container when={data.isEvents}> {/* EVENTS */}
         <CategoryGP className='GroupCategory col-12 align-self-strech' >
 
-<div className="GroupCategory col-md-12">
-   <CalendarWrap>
-   <div className="BlockDatePick">
-     &nbsp;
-        <button className="DatePick" onClick={() => { actions.router.set("/events/202201/");location.reload()}}>January</button>
-        <button className="DatePick" onClick={() => { actions.router.set("/events/202202/");location.reload()}}>February</button> 
-        <button className="DatePickUnactive" onClick={() => { props.other = "202203";props.onChange();}} >March</button>
-        <button className="DatePickUnactive" onClick={() => { props.other = "202204";props.onChange()}}>April</button>
-        <button className="DatePickUnactive" onClick={() => { props.other = "202205";props.onChange()}}>May</button>
-        <button className="DatePickUnactive" onClick={() => { props.other = "202206";props.onChange()}}>June</button>
-    </div>
-    
-  <Calendar relativePosition='top-center'
-  {...props}
-    onPropsChange={setProps}
-    numberOfMonths={1} 
-    readOnly
-    disableMonthPicker={true}
-    disableYearPicker={true}
-    displayWeekNumbers={true}
-    minDate={`${new DateObject("01/" + String(period).substring(4, 6) + "/2022")}`}
-    value={eventDatesref}
-    // renderButton={<CustomButton />}
-    plugins={[
-      <DatePanel sort="date"  markFocused  removeButton={false}/>,
-    ]} /> 
-      
-    </CalendarWrap> 
-</div>
-</CategoryGP>
-{resultEventInPeriod.map(({ posts, category, isNotHeader, dateprefix, resultF }, index) => (
-
-<CategoryGP {...props} key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
-{isNotHeader ? <>
-              <div className="divider"/> 
-              <div className={`${String(category.name).replace(" ","")+ "_p"}`} >  {(category.id === eventsC) ? eventAlternateLitteral : category.name} </div>  </> : <span />}
-  <div className="GroupCategory col-md-12">
-    {posts.map((post, index2) => (
-      <article key={index2} >
-        <div>
-          <div px={2} hidden={(index==1) && ((asIntersect(post.categories, awSpAny)))}>
-            <WrapPostTitle state={state} post={post} libraries={libraries} index={index2} resultF={resultF} />
-            <DateWrapper>{post.acf.dateexec.substring(6, 8) + "/" + post.acf.dateexec.substring(4, 6) + "/2022 "+post.acf.timeexec.substring(0, 5)}</DateWrapper>
-            {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
-            <Html2React html={post.excerpt.rendered} />
-          </div>
-
-        </div>
-      </article>
-    ))}
-  </div>
-  {isNotHeader ? (<Link link={category.link}>See more {(category.id === eventsC) ? eventAlternateLitteral : category.name}  related posts</Link>) : null}
-</CategoryGP>
-))
-}
-        </Container>
-       
-        <Container when={state.router.link == '/main-facts/'}> {/*--------  MAIN FACTS --------*/}
-
-          {onlyFact.map(({ posts, category, isNotHeader, resultF }, index) => (
-
-            <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
-              {isNotHeader ? <>
-              <div className="divider"/> 
-              <div className={`${String(category.name).replace(" ","")+ "_p"}`} > {category.name}</div>  </> : <span />}
-
-              <div className="GroupCategory col-md-12">
-                {posts.map((post, index) => (
-                  <article key={index}>
-                    <div>
-                      <div px={2}>
-                        <WrapPostTitle state={state} post={post} libraries={libraries} index={index} resultF={resultF} />
-                        {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
-                        <Html2React html={post.excerpt.rendered} />
-                      </div>
-
-                    </div>
-                  </article>
-                ))}
+          <div className="GroupCategory col-md-12">
+            <CalendarWrap>
+              <div className="BlockDatePick">
+                &nbsp;
+                <button className="DatePick" onClick={() => { actions.router.set("/events/202201/"); location.reload() }}>January</button>
+                <button className="DatePick" onClick={() => { actions.router.set("/events/202202/"); location.reload() }}>February</button>
+                <button className="DatePick" onClick={() => { actions.router.set("/events/202203/"); location.reload() }}>March</button>
+                <button className="DatePick" onClick={() => { actions.router.set("/events/202204/"); location.reload() }}>April</button>
+                <button className="DatePick" onClick={() => { actions.router.set("/events/202205/"); location.reload() }}>May</button>
+                <button className="DatePick" onClick={() => { actions.router.set("/events/202206/"); location.reload() }}>June</button> 
               </div>
 
-            </CategoryGP>
+              <Calendar relativePosition='top-center'
+                {...props}
+                onPropsChange={setProps}
+                numberOfMonths={1}
+                readOnly
+                disableMonthPicker={true}
+                disableYearPicker={true}
+                displayWeekNumbers={true}
+                minDate={`${new DateObject("01/" + String(period).substring(4, 6) + "/2022")}`}
+                value={eventDatesref}
+                // renderButton={<CustomButton />}
+                plugins={[
+                  <DatePanel sort="date" markFocused removeButton={false} />,
+                ]} />
 
-          ))
-          }
-        </Container>
-      </Switch>
-    </FlexContainer >
-  ) : null;
+            </CalendarWrap>
+          </div>
+        </CategoryGP>
+        {resultEventInPeriod.map(({ posts, category, isNotHeader, dateprefix, resultF }, index) => (
+
+          <CategoryGP {...props} key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
+            {isNotHeader ? <>
+              <div className="divider" />
+              <div className={`${String(category.name).replace(" ", "") + "_p"}`} >  {(category.id === eventsC) ? eventAlternateLitteral : category.name} </div>  </> : <span />}
+            <div className="GroupCategory col-md-12">
+              {posts.map((post, index2) => (
+                <article key={index2} >
+                  <div>
+                    <div px={2} hidden={(index == 1) && ((asIntersect(post.categories, awSpAny)))}>
+                      <WrapPostTitle state={state} post={post} libraries={libraries} index={index2} resultF={resultF} />
+                      <DateWrapper>{post.acf.dateexec.substring(6, 8) + "/" + post.acf.dateexec.substring(4, 6) + "/2022 " + post.acf.timeexec.substring(0, 5)}</DateWrapper>
+                      {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
+                      <Html2React html={post.excerpt.rendered} />
+                    </div>
+
+                  </div>
+                </article>
+              ))}
+            </div>
+            {isNotHeader ? (<Link link={category.link}>See more {(category.id === eventsC) ? eventAlternateLitteral : category.name}  related posts</Link>) : null}
+          </CategoryGP>
+        ))
+        }
+      </Container>
+
+      <Container when={state.router.link == '/main-facts/'}> {/*--------  MAIN FACTS --------*/}
+
+        {onlyFact.map(({ posts, category, isNotHeader, resultF }, index) => (
+
+          <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
+            {isNotHeader ? <>
+              <div className="divider" />
+              <div className={`${String(category.name).replace(" ", "") + "_p"}`} > {category.name}</div>  </> : <span />}
+
+            <div className="GroupCategory col-md-12">
+              {posts.map((post, index) => (
+                <article key={index}>
+                  <div>
+                    <div px={2}>
+                      <WrapPostTitle state={state} post={post} libraries={libraries} index={index} resultF={resultF} />
+                      {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
+                      <Html2React html={post.excerpt.rendered} />
+                    </div>
+
+                  </div>
+                </article>
+              ))}
+            </div>
+
+          </CategoryGP>
+
+        ))
+        }
+      </Container>
+    </Switch>
+  </FlexContainer >
+) : null;
 };
 
 export default connect(PerCatTagPeriodPost);

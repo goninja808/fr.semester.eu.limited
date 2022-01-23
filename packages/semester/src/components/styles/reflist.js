@@ -96,16 +96,11 @@ export const CalendarWrap = styled.div`
 }
 .DatePick{
   background-color: #ffe69d;
-  border: cornsilk;
+  border: 0 ;
   font-size: small;
-  box-shadow: 1 2 4px cornsilk;
+  box-shadow: inset -6px -2px 0px 0px #dedaca;
 }
-.DatePickUnactive{
-  background-color: #343434;
-  border: cornsilk;
-  font-size: small;
-  box-shadow: 1 2 4px cornsilk;
-}
+
 
 .rmdp-right{
   visibility: hidden;
@@ -121,11 +116,10 @@ export const CalendarWrap = styled.div`
     visibility: hidden; 
     min-width: 60px;
   }  
-  .BlockDatePick{
-    background-color: #ffe69d;
-  border: cornsilk;
+  .BlockDatePick{ 
+    border: 0 ;
   font-size: x-small;
-  box-shadow: 1 2 4px cornsilk;
+  box-shadow: inset -2px -2px 0px 0px #dedaca;
   }
   padding-left:5px;
 }  
