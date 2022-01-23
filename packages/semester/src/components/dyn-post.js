@@ -1,10 +1,10 @@
-import React,{ useEffect, useRef, useState } from "react";
+import React,{ useEffect, useRef, useState } from "react"; 
 import { connect, styled } from "frontity";
 import Link from "./link";
 import HeaderMedia from "./header-media";
 import { getEventInPeriod, getFacts , asIntersect, getStringIntersect} from "./helper"
 import { eventCategory, eventsC } from "./config"
-import Switch from "@frontity/components/switch"; 
+import Switch from "@frontity/components/switch";  
 import { Calendar, DateObject } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
 import Settings from "react-multi-date-picker/plugins/settings"
@@ -33,40 +33,71 @@ import { Container, CategoryGP, CalendarWrap } from "./styles/reflist"
  *
  * @returns The {@link Post} element rendered.
  */
+
+ 
+
+
 const PerCatTagPeriodPost = ({ state, actions, libraries, period, tagId }) => {
   // Get current URL related information 
   const data = state.source.get(state.router.link);
-  // Get dynamic inicial list (event / fact main pages)
-  const resultEventInPeriod = getEventInPeriod(state.source, period);
-  var resultDateObjectInPeriod = [];
-  var countEventCategory = resultEventInPeriod.length;
+
+ 
+  const [props, setProps] = useState({ 
+    other: period,
+    value: new Date(),
+    format: "MM-DD-20YYYY",
+    onChange: (date) => {
+      update(state.source, props.other);
+    },
+  });
   
+    // Get dynamic inicial list (event / fact main pages)
+    
+/*   function CustomButton({ direction, handleClick, disabled }) {
+    return (
+      <i onClick={props.other =("20220"+parseInt(props.other.substring(5,6))+(direction=='<'?1:-1))}
+         style={{
+         padding: "0 10px",
+         color: disabled ? "gray" : "blue"
+        }}
+        className={disabled ? "cursor-default" : "cursor-pointer"}
+      >
+        {direction === "right" ? ">" : "<"}
+      </i>
+    )
+  } */
   const categColor = ["teal", "blue", "yellow", "green", "red", "purple"]
+
+  var resultEventInPeriod = getEventInPeriod(state.source, props.other);
+  var eventDatesref = updateresultDateObject(resultEventInPeriod); 
+  function update(source, other) {
+    resultEventInPeriod = getEventInPeriod(source, other);
+    console.log(source, other, resultEventInPeriod.length); 
+  }
+
   
-  for (let i = 0; i < countEventCategory; i++) {
-    var element = resultEventInPeriod[i]
-    var inPeriodEvents = element.dateprefix;
-    var category = element.category;
-    if (inPeriodEvents.length > 0) {
-      inPeriodEvents.forEach(eventDate => {
-        var aday = new DateObject(eventDate);
-        aday.color = categColor[i];
-        resultDateObjectInPeriod.push(aday);
+  function updateresultDateObject(resultEventInPeriod){
+    var resultDateObject =[];
+    for (let i = 0; i < resultEventInPeriod.length; i++) {
+      var element = resultEventInPeriod[i]
+      var inPeriodEvents = element.dateprefix;
+      var category = element.category;
+      if (inPeriodEvents.length > 0) {
+        inPeriodEvents.forEach(eventDate => {
+          var aday = new DateObject(eventDate);
+          aday.color = categColor[i];
+          resultDateObject.push(aday);
+        }
+        )
       }
-      )
-    }
-  };
-  const eventAlternateLitteral = "'on-site' and Unclassified Events";
-  const eventDatesref = resultDateObjectInPeriod;
+    };
+  return resultDateObject;  
+ }
+
+  const eventAlternateLitteral = "'on-site' and Unclassified Events"; 
   /* relative to facts */
   const resultFact = getFacts(state.source,tagId);
   const onlyFact = resultFact.filter(item => (((item.category.id != "header")) && ((item.category.name != "Events"))))
-  const initialProps = { 
-    value: new Date(), 
-    format: "DD/MM/YYYY", 
-  }
-  const [props, setProps] = useState(initialProps)
-
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
 
@@ -85,33 +116,46 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, tagId }) => {
   return data.isReady ? (
     <FlexContainer>
       <Switch>
-        <Container when={state.router.link == '/category/events/'}> {/* EVENTS */}
+        <Container when={data.isEvents}> {/* EVENTS */}
         <CategoryGP className='GroupCategory col-12 align-self-strech' >
 
-<div className="GroupCategory-box col-md-12">
-   
+<div className="GroupCategory col-md-12">
+   <CalendarWrap>
+   <div className="BlockDatePick">
+     &nbsp;
+        <button className="DatePick" onClick={() => { actions.router.set("/events/202201/");location.reload()}}>January</button>
+        <button className="DatePick" onClick={() => { actions.router.set("/events/202202/");location.reload()}}>February</button> 
+        <button className="DatePickUnactive" onClick={() => { props.other = "202203";props.onChange();}} >March</button>
+        <button className="DatePickUnactive" onClick={() => { props.other = "202204";props.onChange()}}>April</button>
+        <button className="DatePickUnactive" onClick={() => { props.other = "202205";props.onChange()}}>May</button>
+        <button className="DatePickUnactive" onClick={() => { props.other = "202206";props.onChange()}}>June</button>
+    </div>
+    
   <Calendar relativePosition='top-center'
   {...props}
-  onPropsChange={setProps}
-    numberOfMonths={1}
-    
+    onPropsChange={setProps}
+    numberOfMonths={1} 
+    readOnly
     disableMonthPicker={true}
     disableYearPicker={true}
     displayWeekNumbers={true}
     minDate={`${new DateObject("01/" + String(period).substring(4, 6) + "/2022")}`}
     value={eventDatesref}
+    // renderButton={<CustomButton />}
     plugins={[
-      <DatePanel sort="date" markFocused  removeButton={false}/>,
+      <DatePanel sort="date"  markFocused  removeButton={false}/>,
     ]} /> 
+      
+    </CalendarWrap> 
 </div>
 </CategoryGP>
 {resultEventInPeriod.map(({ posts, category, isNotHeader, dateprefix, resultF }, index) => (
 
-<CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
+<CategoryGP {...props} key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
 {isNotHeader ? <>
               <div className="divider"/> 
               <div className={`${String(category.name).replace(" ","")+ "_p"}`} >  {(category.id === eventsC) ? eventAlternateLitteral : category.name} </div>  </> : <span />}
-  <div className="GroupCategory-box col-md-12">
+  <div className="GroupCategory col-md-12">
     {posts.map((post, index2) => (
       <article key={index2} >
         <div>
@@ -141,7 +185,7 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, tagId }) => {
               <div className="divider"/> 
               <div className={`${String(category.name).replace(" ","")+ "_p"}`} > {category.name}</div>  </> : <span />}
 
-              <div className="GroupCategory-box col-md-12">
+              <div className="GroupCategory col-md-12">
                 {posts.map((post, index) => (
                   <article key={index}>
                     <div>
@@ -167,11 +211,10 @@ const PerCatTagPeriodPost = ({ state, actions, libraries, period, tagId }) => {
 };
 
 export default connect(PerCatTagPeriodPost);
+
+
 const FlexContainer = styled.div` 
 `
-
-
-
 
 const Illust = styled.img`
   max-width: 50px;

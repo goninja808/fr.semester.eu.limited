@@ -24,7 +24,7 @@ const settings = {
             ],
             [
               "EVENTS",
-              "/category/events/"
+              "/events/20220"+(parseInt(process.env.INDEX_SEMESTER)+1)
             ],
             [
         

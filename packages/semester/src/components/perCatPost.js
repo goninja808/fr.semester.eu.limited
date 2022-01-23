@@ -9,7 +9,7 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel"
 import colors from "react-multi-date-picker/plugins/colors";
 import post from "./post"; 
 import WrapPostTitle from "./wrapPostTitle"
-import {FlexContainer, Container,CategoryGP,CalendarWrap, PostCount} from "./styles/reflist"
+import {FlexContainer, Container ,CategoryGP ,CalendarWrap, PostCount, GroupCategory} from "./styles/reflist"
 
 /**
  * The Post component that Mars uses to render any kind of "post type", like
@@ -97,7 +97,7 @@ const PerCatPost = ({ state, actions, libraries, tagId, period }) => {
             </CalendarWrap>
                        : null} */}
                        <span><p/></span>
-            <div className="GroupCategory-box col-md-12">
+            <div className="GroupCategory col-md-12">
               {posts.map((post, index) => (
                 <article key={index}>
 

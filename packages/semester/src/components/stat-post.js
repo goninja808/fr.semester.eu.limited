@@ -8,6 +8,8 @@ import { headerC } from "./config"
 import Switch from "@frontity/components/switch";
 import WrapPostTitle from "./wrapPostTitle";
 import { ListedRegionTags } from "./config_tag"; 
+import {FlexContainer, Container ,CategoryGP ,CalendarWrap, PostCount, GroupCategory} from "./styles/reflist"
+
 
 /**
  * The Post component that Mars uses to render any kind of "post type", like
@@ -56,7 +58,7 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
        
           {[headersAll[1]].map(({ posts, resultF }, index) => (
             <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech count${posts.length}`} >
-                <div className="GroupCategory-box col-md-12">
+                <div className="GroupCategory col-md-12">
                   {posts.map((post, index) => (<article key={index} hidden={(!(post.tags.length==0))} >
                   <p/> <p> <h2>{post.title.rendered}</h2></p>
                     {post.acf.vimeo_intro?
@@ -98,7 +100,7 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
            {[headersAll[2]].map(({ posts, resultF }, index) => (
             <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
               <br></br>
-                <div className="GroupCategory-box col-md-12">
+                <div className="GroupCategory col-md-12">
                   {posts.map((post, index) => (
                     <article key={index} hidden={(!(post.tags.includes(tagId)))} >
                       <div>
@@ -125,9 +127,7 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
 };
 
 export default connect(PerSemiStaticPost);
-const FlexContainer = styled.div`
-  display: flex;
-`
+ 
 const Illust = styled.img`
   max-width: 50px;
   border-radius: 25px;
@@ -141,30 +141,7 @@ const BigImage = styled.img`
 `;
 
 
-const Container = styled.section`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 8px;
-  background-color: #fff;
-  color: #444;  
-  min-width: 400px;
-  margin: 0 auto;
-  padding-right: 8px;
-  padding-left: 8px;
-  list-style: none;
-  @media (max-width: 800px) {
-    display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-gap: 10px;
-  background-color: #fff;
-  color: #444;  
-  min-width: 400px;
-  margin: 0 auto;
-  padding-right: 10px;
-  padding-left: 10px;
-  list-style: none;
-}
-`;
+ 
 
 const HeadGroupCategory = styled.article`
   max-width:771px;
@@ -180,46 +157,7 @@ const HeadGroupCategory = styled.article`
   }
 `;
 
-
-const CategoryGP = styled.article`
-max-width:771px;
-margin:0 auto;
-position: relative;
-/**Job articles**/
-&.count0{
-  visibility: hidden;
-  display: none;
-}
-&.newscategory {
-  max-width: 100%;
-  margin: 0;
-  margin-bottom: 1 rem;
-  display: flex;
-  flex-direction: column;
-  .categorybox {
-    padding: 2rem;
-    background: var(--grey);
-    box-shadow: 0px 2px 16px -9px rgba(0,0,0,0.5);
-    border: 1px solid #ececec;
-    border-radius:5px;
-    transition: all .4s ease;
-    display: flex;
-    flex-grow: 1;      
-    flex-direction: column;
-    .articletitle {
-      text-decoration:none;
-      h4 {
-        transition: all .3s ease;
-      }        
-      &:hover {
-        h4 {
-          color:var(--brand);
-        }          
-      }
-    }
-  }
-}
-`;
+ 
 
 const Header = styled.h3`
   text-align:left;

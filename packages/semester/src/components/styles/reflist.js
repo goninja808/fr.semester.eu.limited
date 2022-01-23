@@ -10,6 +10,9 @@ export const PostCount = styled.div`
 justify-content: left;
 `
 
+export const GroupCategory = styled.div`
+background-color: #fff;
+`
 
 export const Container = styled.section`
   display: grid;
@@ -20,6 +23,13 @@ export const Container = styled.section`
   min-width: 400px;
   margin: 0 auto; 
   list-style: none;
+  @media (max-width: 350px) {
+    min-width: 280px;
+    grid-gap: 0em; 
+    grid-template-columns: repeat(1, 1fr); 
+    
+    padding-left:21px;
+  }  
   @media (max-width: 410px) {
     min-width: 280px;
     grid-gap: 0em; 
@@ -48,10 +58,7 @@ position: relative;
        visibility: hidden;
        display: none;
 }
-.rmdp-arrow{
-      visibility: hidden;
-      border: solid #000000;
-} 
+
 .Culture_p{
   color: #ffcc02;
   text-align: center;
@@ -83,4 +90,45 @@ position: relative;
 }
 `;
 
+export const CalendarWrap = styled.div`
+.BlockDatePick{
+  text-align: left;
+}
+.DatePick{
+  background-color: #ffe69d;
+  border: cornsilk;
+  font-size: small;
+  box-shadow: 1 2 4px cornsilk;
+}
+.DatePickUnactive{
+  background-color: #343434;
+  border: cornsilk;
+  font-size: small;
+  box-shadow: 1 2 4px cornsilk;
+}
+
+.rmdp-right{
+  visibility: hidden;
+} 
+.rmdp-shadow{
+  box-shadow: 0 0 5px #ffffff;
+}
+.rmdp-left{
+  visibility: hidden; 
+}
+@media (max-width: 350px) {
+  .rmdp-panel{
+    visibility: hidden; 
+    min-width: 60px;
+  }  
+  .BlockDatePick{
+    background-color: #ffe69d;
+  border: cornsilk;
+  font-size: x-small;
+  box-shadow: 1 2 4px cornsilk;
+  }
+  padding-left:5px;
+}  
+
+`;
 

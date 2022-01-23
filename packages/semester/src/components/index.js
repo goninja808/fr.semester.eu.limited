@@ -4,7 +4,7 @@ import { ListedRegionTags } from "./config_tag"
 import Switch from "@frontity/components/switch";
 import Header from "./header/header";
 import List from "./list";
-import Post from "./post";
+import Post from "./post"; 
 import PerSemiStaticPost from "./stat-post";
 import PerCatPost from "./perCatPost";
 import PerCatTagPost from "./dyn-post";
@@ -63,8 +63,8 @@ const Theme = ({ state, actions, libraries }) => {
           <Loading when={data.isFetching} />
           <PerSemiStaticPost when={data.route=='/'} tagId={tagId} />
           <PerCatPost when={data.route=='/regionofthemonth/'} tagId={tagId} period={period} />
-          <PerCatTagPost when={data.route=='/category/events/'} period={period}  />
           <PerCatTagPost when={data.route=='/main-facts/'} tagId={tagId} />
+          <PerCatTagPost when={data.isEvents} period={data.id} />
           <List when={data.isArchive} />
           <Post when={data.isPostType} />
           <PageError when={data.isError} />

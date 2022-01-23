@@ -28,7 +28,15 @@ const semestertheme = {
         showOnList: false,
         showOnPost: false,
       },
-    },
+    }//,
+    // source: {
+    //   data: {
+    //     "/main-events/":{
+    //       isMainEvents: true,
+    //       isReady: true
+    //     }
+    //   }
+    // }
   },
 
   /**
@@ -52,6 +60,19 @@ const semestertheme = {
     },
   },
   libraries: {
+    source: {
+      handlers:[
+        {
+         pattern: "/events/:id",
+          func: ({state, link, params}) => {
+            state.source.data[link] = {
+              isEvents: true,
+              id: params.id
+            }
+          }
+        }
+      ]
+    },
     html2react: {
       processors: [image, iframe, link],
     },
