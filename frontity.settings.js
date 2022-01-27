@@ -29,7 +29,7 @@ const settings = {
             [
         
               "FACTS",
-              "/main-facts/"
+              "/facts/all"
             ]
           ],
           "featured": {
@@ -44,7 +44,7 @@ const settings = {
         "source": {
           "api": "https://fr-semester.blog/wp-json",
           "params": {
-            "per_page": 100,
+            "per_page": 150,
             "type": ["post", "page", "/acf/v3/posts"],
           },
         }

@@ -7,7 +7,8 @@ import List from "./list";
 import Post from "./post"; 
 import PerSemiStaticPost from "./stat-post";
 import PerCatPost from "./perCatPost";
-import PerCatTagPost from "./dyn-post";
+import PerCatTagFacts from "./dyn-facts";
+import PerCatTagPeriodEvents from "./dyn-events";
 import Loading from "./loading";
 import Title from "./title";
 import PageError from "./page-error";
@@ -15,9 +16,12 @@ import Page from "./pages/page";
 import Footer from "./footer/footer";
 import ListRecords from "./list-records";
 import Record from "./record";
-import BootstrapCss from './styles/bootstrap.css';
+import bootstrapCss from './styles/bootstrap.min.css';
+import {fixCss} from './styles/css'
+
 import gutenbergStyle from "./styles/gutenberg/style.css";
 import gutenbergTheme from "./styles/gutenberg/theme.css";
+
 
 /**
  * Theme is the root React component of our theme. The one we will export
@@ -33,6 +37,8 @@ const Theme = ({ state, actions, libraries }) => {
   const month = Number.parseInt(tagIndex)  + 1;
   const period = String("20220").concat(month) ;
   const tagId = parseInt(ListedRegionTags[parseInt(tagIndex)]);
+  const fixedBootstrapCss = fixCss(bootstrapCss)
+
   //console.log("start period:" + period + " region:" + tagId );
   return (
     <>
@@ -45,10 +51,12 @@ const Theme = ({ state, actions, libraries }) => {
 
       {/* Add some global styles for the whole site, like body or a's. 
       Not classes here because we use CSS-in-JS. Only global HTML tags. */}
-      <Global styles={css(BootstrapCss)} />
+      
+      <Global styles={css(fixedBootstrapCss)} />
       <Global styles={css(gutenbergStyle)} />
       <Global styles={css(gutenbergTheme)} />
       <Global styles={globalStyles} />
+
 
       {/* Add the header of the site. */}
       <HeadContainer>
@@ -63,8 +71,8 @@ const Theme = ({ state, actions, libraries }) => {
           <Loading when={data.isFetching} />
           <PerSemiStaticPost when={data.route=='/'} tagId={tagId} />
           <PerCatPost when={data.route=='/regionofthemonth/'} tagId={tagId} period={period} />
-          <PerCatTagPost when={data.route=='/main-facts/'} tagId={tagId} />
-          <PerCatTagPost when={data.isEvents} period={data.id} />
+          <PerCatTagFacts when={data.isFacts} tagId={tagId} categ={data.id}/>
+          <PerCatTagPeriodEvents when={data.isEvents} period={data.id} />
           <List when={data.isArchive} />
           <Post when={data.isPostType} />
           <PageError when={data.isError} />

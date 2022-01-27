@@ -1,5 +1,5 @@
 import { React, useState, useEffect, useRef } from "react";
-import ReactPlayer from "react-player";
+import ReactPlayer from "react-player/lazy";
 import { connect, styled } from "frontity";
 import Link from "./link";
 import HeaderMedia from "./header-media";

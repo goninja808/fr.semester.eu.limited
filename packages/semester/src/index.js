@@ -63,14 +63,23 @@ const semestertheme = {
     source: {
       handlers:[
         {
-         pattern: "/events/:id",
-          func: ({state, link, params}) => {
-            state.source.data[link] = {
-              isEvents: true,
-              id: params.id
-            }
-          }
-        }
+          pattern: "/events/:id",
+           func: ({state, link, params}) => {
+             state.source.data[link] = {
+               isEvents: true,
+               id: params.id
+             }
+           }
+         },
+         {
+          pattern: "/facts/:id",
+           func: ({state, link, params}) => {
+             state.source.data[link] = {
+               isFacts: true,
+               id: params.id
+             }
+           }
+         }
       ]
     },
     html2react: {

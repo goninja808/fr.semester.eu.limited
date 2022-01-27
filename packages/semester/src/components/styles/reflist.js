@@ -59,6 +59,11 @@ position: relative;
        display: none;
 }
 
+&.noDisplay{
+  visibility: hidden;
+  display: none;
+}
+
 .Culture_p{
   color: #ffcc02;
   text-align: center;
@@ -116,6 +121,63 @@ export const CalendarWrap = styled.div`
     visibility: hidden; 
     min-width: 60px;
   }  
+  .DatePick{ 
+    border: 0 ;
+    font-size: x-small;
+    box-shadow: inset -2px -2px 0px 0px #dedaca;\
+    padding-left:2px;
+  }
+}  
+
+`;
+
+export const FactCategoryWrap = styled.div`
+.BlockFactPick{
+  text-align: left;
+  margin-left: 15px;
+}
+.dropdown-toggle{
+  border: 0 ;
+  font-size: small;
+}
+.FactPick{
+  border: 0 ;
+  font-size: x-small;
+  box-shadow: inset -6px -2px 0px 0px #dedaca;
+}
+.Culture_b{
+  background-color: #ffcc02;
+  text-align: center;
+}
+.Initiative_b{
+  background-color: #813d9c;
+  text-align: center;
+}
+.LifeStyle_b{
+  background-color: #669901;
+  text-align: center;
+}
+.Science_b{
+  background-color: #cc0000;
+  text-align: center;
+}   
+ 
+
+
+.rmdp-right{
+  visibility: hidden;
+} 
+.rmdp-shadow{
+  box-shadow: 0 0 5px #ffffff;
+}
+.rmdp-left{
+  visibility: hidden; 
+}
+@media (max-width: 350px) {
+  .rmdp-panel{
+    visibility: hidden; 
+    min-width: 60px;
+  }  
   .BlockDatePick{ 
     border: 0 ;
   font-size: x-small;
@@ -125,4 +187,3 @@ export const CalendarWrap = styled.div`
 }  
 
 `;
-
