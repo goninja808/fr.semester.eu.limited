@@ -20,8 +20,8 @@ export const getFactsForRegion = (source, tagId,) => {
   return Object.values(ListedCategory)
     .reduce((acc, categoryId) => {
       const posts = getFactsFromCategoryAndTag(source, categoryId, tagId)//.slice(0, MAXIMUM_POSTS)
-      const category = source.category[categoryId]
-      const isNotHeader = !(source.category[categoryId].slug === 'header')
+      const category = source.category[categoryId] 
+      const isNotHeader = !(categoryId  == headerC)
       const resultF = getResultF(posts);
 
       return [...acc, { posts, category, isNotHeader, resultF }]
@@ -43,7 +43,7 @@ export const getPostsGroupedByCategoryAndTag = (source, tagId) => {
     .reduce((acc, categoryId) => {
       const posts = getPostsFromCategoryAndTag(source, categoryId, tagId)//.slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]
-      const isNotHeader = !(source.category[categoryId].slug === 'header')
+      const isNotHeader = !(categoryId  == headerC)
       const resultF = getResultF(posts);
 
       return [...acc, { posts, category, isNotHeader, resultF }]
@@ -64,7 +64,7 @@ export const getEventsForRegion = (source, tagId,) => {
     .reduce((acc, categoryId) => {
       const posts = getEventsFromCategoryAndTag(source, categoryId, tagId)//.slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]
-      const isNotHeader = !(source.category[categoryId].slug === 'header')
+      const isNotHeader = !(categoryId  == headerC)
       const resultF = getResultF(posts);
 
       return [...acc, { posts, category, isNotHeader, resultF }]
@@ -88,7 +88,7 @@ export const getFacts = (source, tagId) => {
     .reduce((acc, categoryId) => {
       const posts = getFactsFromCategory(source, categoryId, tagId)//.slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]
-      const isNotHeader = !(source.category[categoryId].slug === 'header')
+      const isNotHeader = !(categoryId  == headerC)
       const resultF = getResultF(posts);
 
       return [...acc, { posts, category, isNotHeader, resultF }]
@@ -123,7 +123,7 @@ export const getEventsForRegionPeriod = (source, tagId, Period,) => {
     .reduce((acc, categoryId) => {
       const posts = getEventsFromCategoryAndTag(source, categoryId, tagId,)//.slice(0, MAXIMUM_POSTS)
       const category = source.category[categoryId]
-      const isNotHeader = !(source.category[categoryId].slug === 'header')
+      const isNotHeader = !(categoryId  == headerC)
       const resultF = getResultF(posts);
 
       const dateprefix = posts.map(item =>

@@ -66,11 +66,14 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
                         playing={true} autoPlay={true}
                         loop={true} muted={true} width='100%'  
                         config={{
-                          file: {
-                            attributes: {
-                              controlsList: "nofullscreen",
-                            },
+                          youtube: {
+                            playerVars: { showinfo: 1 ,}
                           },
+                          vimeo:{
+                            playerOptions: {quality: '360p',}
+                          },
+                          file: {
+                            attributes: {controlsList: "nofullscreen",},                          },
                         }}
                         />   :null}
                       <div>
