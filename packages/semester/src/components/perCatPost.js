@@ -1,6 +1,6 @@
 import { connect, styled } from "frontity";
 import { React, useState, useEffect, useRef } from "react";
-import ReactPlayer from "react-player";
+ 
 import HeaderMedia from "./header-media";
 import { getPostsGroupedByCategoryAndTag, getEventsForRegionPeriod } from "./helper";
 import Link from "./link";
@@ -10,7 +10,7 @@ import colors from "react-multi-date-picker/plugins/colors";
 import post from "./post"; 
 import WrapPostTitle from "./wrapPostTitle"
 import {FlexContainer, Container ,CategoryGP ,CalendarWrap, PostCount, GroupCategory} from "./styles/reflist"
-
+import CarouselAsync from "./carouselasync.js";
 /**
  * The Post component that Mars uses to render any kind of "post type", like
  * posts, pages, attachments, etc.
@@ -104,19 +104,10 @@ const PerCatPost = ({ state, actions, libraries, tagId, period }) => {
                   <div>
                     <div px={2}>
                     <WrapPostTitle state={state} post={post}  libraries={libraries} index={index} resultF={resultF} />
+                     
+                     
                       {!(isNotHeader) ?
-                      <ReactPlayer url={post.acf.vimeo_intro}
-                      playing={true} autoPlay={true}  
-                      loop={true} muted={true} width='100%'  
-                       
-                      config={{
-                        file: {
-                          attributes: {
-                            controlsList: "nofullscreen",
-                          },
-                        },
-                      }}
-                      />  : <span />}
+                      <CarouselAsync state={state} initMedia={post.featured_media} preMedia={post.acf.vimeo_intro} postMedia={post.acf.vimeo_conclude}/> : <span />}
                       <Html2React html={post.excerpt.rendered} />
                     </div>
 

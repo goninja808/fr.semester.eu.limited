@@ -44,8 +44,7 @@ const settings = {
         "source": {
           "api": "https://fr-semester.blog/wp-json",
           "params": {
-            "per_page": 100,
-            "type": ["post", "page", "/acf/v3/posts"],
+            "per_page": 99, 
           },
         }
       }

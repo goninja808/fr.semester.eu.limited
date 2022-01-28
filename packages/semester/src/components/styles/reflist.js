@@ -37,7 +37,7 @@ export const Container = styled.section`
     padding: 0 -10px;
   }  
   @media (max-width: 800px) {
-    min-width: 370px;
+    min-width: 360px;
     grid-gap: 0.2em;
     grid-template-columns: repeat(1, 1fr); 
 }
@@ -63,7 +63,19 @@ position: relative;
   visibility: hidden;
   display: none;
 }
+.carousel,
+.carousel-inner { 
+  height : 230px;
+  width : 320px;
+}
 
+.carousel img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 250px;
+  max-width: 360px;
+}
 .Culture_p{
   color: #ffcc02;
   text-align: center;

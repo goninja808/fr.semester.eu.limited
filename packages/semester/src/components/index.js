@@ -21,6 +21,8 @@ import {fixCss} from './styles/css'
 
 import gutenbergStyle from "./styles/gutenberg/style.css";
 import gutenbergTheme from "./styles/gutenberg/theme.css";
+import slick from "./styles/slick.min.css";
+import slickTheme from "./styles/slick-theme.min.css";
 
 
 /**
@@ -55,6 +57,8 @@ const Theme = ({ state, actions, libraries }) => {
       <Global styles={css(fixedBootstrapCss)} />
       <Global styles={css(gutenbergStyle)} />
       <Global styles={css(gutenbergTheme)} />
+      <Global styles={css(slick)} />
+      <Global styles={css(slickTheme)} />
       <Global styles={globalStyles} />
 
 

@@ -36,7 +36,7 @@ export const MenuToggle = styled.button`
 `;
 
 export const MenuOverlay = styled.div`
-background-image: url('https://fr-semester.blog/wp-content/uploads/2022/01/menu.jpg');
+  background-color: #a67fc2;
   width: 100%;
   height: 100%;
   top: 41px;
@@ -47,9 +47,10 @@ background-image: url('https://fr-semester.blog/wp-content/uploads/2022/01/menu.
 `;
 
 export const MenuContent = styled.div`
+background-color: #a67fc2;
 z-index: 3;
 width: 100%;
-position: absolute; 
+position: absolute;  
   `;
 
 

@@ -1,5 +1,4 @@
-import { React, useState, useEffect, useRef } from "react";
-import ReactPlayer from "react-player/lazy";
+import { React, useState, useEffect, useRef } from "react"; 
 import { connect, styled } from "frontity";
 import Link from "./link";
 import HeaderMedia from "./header-media";
@@ -7,10 +6,9 @@ import { getFactsForRegion, getEventsForRegion, getFacts, getHeaders } from "./h
 import { headerC } from "./config"
 import Switch from "@frontity/components/switch";
 import WrapPostTitle from "./wrapPostTitle";
-import { ListedRegionTags } from "./config_tag"; 
-import {FlexContainer, Container ,CategoryGP ,CalendarWrap, PostCount, GroupCategory} from "./styles/reflist"
-
-
+import { ListedRegionTags } from "./config_tag";
+import { FlexContainer, Container, CategoryGP, CalendarWrap, PostCount, GroupCategory } from "./styles/reflist"
+import CarouselAsync from "./carouselasync.js";
 /**
  * The Post component that Mars uses to render any kind of "post type", like
  * posts, pages, attachments, etc.
@@ -36,7 +34,7 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
   const resultEvent = getEventsForRegion(state.source, tagId);
   const resultFactNoRegion = getFacts(state.source);
   const resultFact = getFactsForRegion(state.source, tagId);
-  const headersAll = getHeaders(state.source); 
+  const headersAll = getHeaders(state.source);
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
 
@@ -51,65 +49,38 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
   return data.isReady ? (
     <FlexContainer>
       <Switch>
-        
+
 
         <Container when={state.router.link == '/'}>
 
-       
+
           {[headersAll[1]].map(({ posts, resultF }, index) => (
             <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech count${posts.length}`} >
-                <div className="GroupCategory col-md-12">
-                  {posts.map((post, index) => (<article key={index} hidden={(!(post.tags.length==0))} >
-                  <p/> <p> <h2>{post.title.rendered}</h2></p>
-                    {post.acf.vimeo_intro?
-                       <ReactPlayer url={post.acf.vimeo_intro}
-                        playing={true} autoPlay={true}
-                        loop={true} muted={true} width='100%'  
-                        config={{
-                          youtube: {
-                            playerVars: { showinfo: 1 ,}
-                          },
-                          vimeo:{
-                            playerOptions: {quality: '360p',}
-                          },
-                          file: {
-                            attributes: {controlsList: "nofullscreen",},                          },
-                        }}
-                        />   :null}
-                      <div>
-                        <div px={2}>
-                         
-                          <Html2React html={post.content.rendered} />
-                        </div>
-                      </div>
-                       {post.acf.vimeo_conclude?<ReactPlayer url={post.acf.vimeo_conclude}
-                        playing={true} autoPlay={true}   
-                        loop={true} muted={true} width='100%'  
-                                          
-                        config={{
-                          file: {
-                            attributes: {
-                              controlsList: "nofullscreen",
-                            },
-                          },
-                        }}/>    :null}
-                         </article>
-                  ))
-                  }
-                </div>
+              <div className="GroupCategory col-md-12" >
+                {posts.map((post, index) => (<article key={index} hidden={(!(post.tags.length == 0))} >
+                  <p /> <p> <h2>{post.title.rendered}</h2></p>
+                  <CarouselAsync state={state} initMedia={post.featured_media} preMedia={post.acf.vimeo_intro} postMedia={post.acf.vimeo_conclude}/>            
+                  <Html2React html={post.excerpt.rendered} />
+                </article>
+                ))
+                }
+
+                  
+              </div>
             </CategoryGP>
           ))
           }
-           {[headersAll[2]].map(({ posts, resultF }, index) => (
-            <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
-              <br></br>
+          {
+            [headersAll[2]].map(({ posts, resultF }, index) => (
+              <CategoryGP key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length}`} >
+                <br></br>
                 <div className="GroupCategory col-md-12">
                   {posts.map((post, index) => (
                     <article key={index} hidden={(!(post.tags.includes(tagId)))} >
                       <div>
                         <div px={2}>
                           <WrapPostTitle state={state} post={post} libraries={libraries} index={index} resultF={resultF} />
-                          {(post.tags.length  == 0) ?<HeaderMedia id={post.featured_media} />:null} 
+                          {(post.tags.length >= 0) ? <HeaderMedia id={post.featured_media} /> : null}
                           <Html2React html={post.excerpt.rendered} />
                         </div>
                       </div>
@@ -117,11 +88,11 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
                   ))
                   }
                 </div>
-            </CategoryGP>
-          ))
+              </CategoryGP>
+            ))
           }
 
-         
+
         </Container>
 
       </Switch>
@@ -130,7 +101,7 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
 };
 
 export default connect(PerSemiStaticPost);
- 
+
 const Illust = styled.img`
   max-width: 50px;
   border-radius: 25px;
@@ -144,7 +115,7 @@ const BigImage = styled.img`
 `;
 
 
- 
+
 
 const HeadGroupCategory = styled.article`
   max-width:771px;
@@ -160,7 +131,7 @@ const HeadGroupCategory = styled.article`
   }
 `;
 
- 
+
 
 const Header = styled.h3`
   text-align:left;
