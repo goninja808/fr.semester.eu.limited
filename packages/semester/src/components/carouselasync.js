@@ -10,7 +10,7 @@ import Carousel from 'react-bootstrap/Carousel'
 //     // holds the timer for setTimeout and clearInterval
 //     let movement_timer = null;
   
-//     // the number of ms the window size must stay the same size before the
+//     // the number of ms the  size must stay the same size before the
 //     // dimension state variable is reset
 //     const RESET_TIMEOUT = 100;
   
@@ -31,11 +31,11 @@ import Carousel from 'react-bootstrap/Carousel'
 //       test_dimensions();
 //     }, []);
   
-//     // every time the window is resized, the timer is cleared and set again
-//     // the net effect is the component will only reset after the window size
+//     // every time the  is resized, the timer is cleared and set again
+//     // the net effect is the component will only reset after the  size
 //     // is at rest for the duration set in RESET_TIMEOUT.  This prevents rapid
 //     // redrawing of the component for more complex components such as charts
-//     window.addEventListener("resize", () => {
+//     .addEventListener("resize", () => {
 //       clearInterval(movement_timer);
 //       movement_timer = setTimeout(test_dimensions, RESET_TIMEOUT);
 //     });
@@ -61,7 +61,7 @@ const CarouselAsynch = ({state, initMedia, preMedia, postMedia }) => {
           });
         }
       }, []);
-    var maxwidth = 240;//dimensions.width;
+    var maxwidth = 320;//dimensions.width;
     
     return (
         <>
@@ -69,7 +69,7 @@ const CarouselAsynch = ({state, initMedia, preMedia, postMedia }) => {
             <SliderWrapper className="flex-container">
                 <div classe='wrappedContent' style={{ maxHeight: maxheight + 'px' }}>
                 {( preMedia || postMedia || (initMedia && initMedia !=0)) ? 
-                    <Carousel interval={5500} variant="dark" pause="hover" >
+                    <Carousel interval={5500} variant="dark"  >
                          <Carousel.Item> <img src="https://fr-semester.blog/wp-content/uploads/2022/01/intro-low1.gif" style={{ maxWidth: maxwidth + 'px' }} /></Carousel.Item>
                         {initMedia && initMedia != 0 ?
                             <Carousel.Item>
@@ -78,7 +78,7 @@ const CarouselAsynch = ({state, initMedia, preMedia, postMedia }) => {
                        
                         {preMedia && !(preMedia.includes("videoapi-muybridge.vimeocdn.com")) ?
                             <Carousel.Item>
-                                <ReactPlayer url={preMedia + "?quality=240p"} playing={false} autoPlay={false} light={true} loop={false} muted={false} width={maxwidth} lazy={true}
+                                <ReactPlayer url={preMedia + "?quality=240p"} playing={false} autoPlay={false}  loop={false} controls={true} width={maxwidth} height={maxheight} lazy={true}
                                     config={{
                                         vimeo: {
                                             playerOptions: { quality: '240p', }
@@ -93,7 +93,7 @@ const CarouselAsynch = ({state, initMedia, preMedia, postMedia }) => {
                                 <img src={preMedia}  style={{ maxWidth: maxwidth + 'px' }} />
                             </Carousel.Item> : null}
                         {postMedia && !(postMedia.includes("videoapi-muybridge.vimeocdn.com")) ? <Carousel.Item>
-                            <ReactPlayer url={postMedia + "?quality=240p"} playing={false} autoPlay={false} light={true} loop={false} muted={true} width={maxwidth} lazy={true}
+                            <ReactPlayer url={postMedia + "?quality=240p"} playing={false} autoPlay={false}  loop={false} controls={true} width={maxwidth} height={maxheight} lazy={true}
                                 config={{
                                     vimeo: {
                                         playerOptions: { quality: '240p', }
@@ -111,6 +111,7 @@ const CarouselAsynch = ({state, initMedia, preMedia, postMedia }) => {
                     :null}
                 </div>
             </SliderWrapper> 
+            <p></p>
         </>);
 }
 
@@ -124,11 +125,30 @@ const SliderWrapper = styled.div`
   align-items: center;
   justify-content: center;
 
+  .carousel{
+    width: '100%';
+    flex:1;
+  }
   .wrappedContent{
-        
+    width: '100%'
   } 
   img{
     max-height = 220px;
   }
+  .player-wrapper {
+    width: auto; // Reset width
+    height: auto; // Reset height
+  }
+  .react-player {
+    padding-top: 56.25%; // Percentage ratio for 16:9
+    position: relative; // Set to relative
+  }
+  
+  .react-player > div {
+    position: absolute; // Scaling will occur since parent is relative now
+  }
  
+  .carousel-control-next{
+      display:hidden;
+  }
 `;

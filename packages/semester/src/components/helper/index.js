@@ -77,7 +77,9 @@ const getFactsFromCategory = ({ post }, categoryId, tagId) =>
     .map(postID => post[postID])
     .filter(({ categories }) => categories.includes(parseInt(categoryId)))
     .filter(({ tags }) => !(tags.includes(eventsT)))
-    .filter(({ tags }) => (asIntersect(tags,[tagId].concat(FranceT))))
+    .filter(({ tags }) => (asIntersect(tags,(
+    (getUntil(tagId,ListedRegionTags)).concat(FranceT)
+    ))))
     .filter(({ categories }) => !(categories.includes(headerC)))
   ;
 
@@ -176,6 +178,17 @@ function Intersect(a1, a2) {
 
 export function asIntersect(a1, a2) {
   return (Intersect(a1, a2).length > 0);
+}
+
+function getUntil(a1, b1){
+  //search in b1 a1 value and return all until that value
+  var listUntil=[];
+  var foundValue=false;
+  for (let i = 0; i < b1.length; i++) {
+    listUntil[i] = b1[i] ;
+    if (b1[i]=a1) foundValue=true;
+  } 
+  return (foundValue?listUntil:[]);
 }
 
 export const getResultF = (posts, state = null) => {
