@@ -8,7 +8,7 @@ import Switch from "@frontity/components/switch";
 import WrapPostTitle from "./wrapPostTitle";
 import { ListedRegionTags } from "./config_tag";
 import { FlexContainer, Container, CategoryGP, CalendarWrap, PostCount, GroupCategory } from "./styles/reflist"
-import CarouselAsync from "./carouselasync.js";
+import CarouselAsync from "./carouselasync.js"; 
 /**
  * The Post component that Mars uses to render any kind of "post type", like
  * posts, pages, attachments, etc.
@@ -80,7 +80,7 @@ const PerSemiStaticPost = ({ state, actions, libraries, tagId }) => {
                       <div>
                         <div px={2}>
                           <WrapPostTitle state={state} post={post} libraries={libraries} index={index} resultF={resultF} />
-                          {(post.tags.length >= 0) ? <HeaderMedia id={post.featured_media} /> : null}
+                           
                           <Html2React html={post.excerpt.rendered} />
                         </div>
                       </div>

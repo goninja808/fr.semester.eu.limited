@@ -17,12 +17,10 @@ import Footer from "./footer/footer";
 import ListRecords from "./list-records";
 import Record from "./record";
 import bootstrapCss from './styles/bootstrap.min.css';
-import {fixCss} from './styles/css'
+import {fixCss} from './styles/css' 
 
 import gutenbergStyle from "./styles/gutenberg/style.css";
-import gutenbergTheme from "./styles/gutenberg/theme.css";
-import slick from "./styles/slick.min.css";
-import slickTheme from "./styles/slick-theme.min.css";
+import gutenbergTheme from "./styles/gutenberg/theme.css"; 
 
 
 /**
@@ -56,9 +54,7 @@ const Theme = ({ state, actions, libraries }) => {
       
       <Global styles={css(fixedBootstrapCss)} />
       <Global styles={css(gutenbergStyle)} />
-      <Global styles={css(gutenbergTheme)} />
-      <Global styles={css(slick)} />
-      <Global styles={css(slickTheme)} />
+      <Global styles={css(gutenbergTheme)} /> 
       <Global styles={globalStyles} />
 
 

@@ -1,7 +1,6 @@
 import { connect, styled } from "frontity";
 import { React, useState, useEffect, useRef } from "react";
- 
-import HeaderMedia from "./header-media";
+  
 import { getPostsGroupedByCategoryAndTag, getEventsForRegionPeriod } from "./helper";
 import Link from "./link";
 import { Calendar, DateObject } from "react-multi-date-picker"
@@ -78,24 +77,6 @@ const PerCatPost = ({ state, actions, libraries, tagId, period }) => {
           <CategoryGP key={index} className="GroupCategory col-12 align-self-strech">
             {isNotHeader ? <><div class="divider"></div> <div className={`${String(category.name).replace(" ","")+ "_p"}`} > {category.name}</div>   </>
              : <span />}
-           
-           {/* {category.name == 'Events' ?
-            <CalendarWrap>
-            
-           
-              <Calendar relativePosition='top-center'
-                numberOfMonths={1}
-                disableMonthPicker="true"
-                disableYearPicker="true"
-                displayWeekNumbers="true"
-                value={eventDatesref}
-                plugins={[
-                  <DatePanel sort="color" markFocused />,
-                ]} />
-               
-            {(isNotHeader && posts.length > 0) ? <PostCount>{posts.length} posts </PostCount> in {category} : <span />}
-            </CalendarWrap>
-                       : null} */}
                        <span><p/></span>
             <div className="GroupCategory col-md-12">
               {posts.map((post, index) => (

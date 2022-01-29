@@ -9,8 +9,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "frontity": "^1.17.1"
-  },
-  "devDependencies": {
-    "@types/react-slick": "^0.23.8"
   }
+ 
 }

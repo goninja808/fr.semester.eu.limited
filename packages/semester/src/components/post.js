@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { connect, styled } from "frontity";
 import Link from "./link";
-import List from "./list";
-import FeaturedMedia from "./featured-media";
-
+import List from "./list"; 
+import CarouselAsync from "./carouselasync.js";
 /**
  * The Post component that Mars uses to render any kind of "post type", like
  * posts, pages, attachments, etc.
@@ -72,7 +71,7 @@ const Post = ({ state, actions, libraries }) => {
 
       {/* Look at the settings to see if we should include the featured image */}
       {state.theme.featured.showOnPost && (
-        <FeaturedMedia id={post.featured_media} />
+        <CarouselAsync state={state} initMedia={post.featured_media} preMedia={post.acf.vimeo_intro} postMedia={post.acf.vimeo_conclude}/>       
       )}
 
       {data.isAttachment ? (
