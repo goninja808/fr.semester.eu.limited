@@ -30,7 +30,7 @@ const List = ({ state, actions, libraries }) => {
         </Header>
       )}
       FACTS and EVENTS :
-      <p>unordered list of all posts in {decode(state.source[data.taxonomy][data.id].name)} category,  made as Facts and as Events. </p>
+      <p>unordered list</p>
       </div>
        </HeadArticle>
           
