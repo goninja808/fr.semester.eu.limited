@@ -29,8 +29,8 @@ const List = ({ state, actions, libraries }) => {
           <b>{decode(state.source[data.taxonomy][data.id].name)}</b> 
         </Header>
       )}
-
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+      FACTS and EVENTS :
+      <p>unordered list of all posts in {decode(state.source[data.taxonomy][data.id].name)} category,  made as Facts and as Events. </p>
       </div>
        </HeadArticle>
           
