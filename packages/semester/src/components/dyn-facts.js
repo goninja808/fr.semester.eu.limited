@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { connect, styled } from "frontity";
 import Link from "./link";
 import HeaderMedia from "./header-media";
-import { getEventInPeriod, getFacts, asIntersect, getStringIntersect } from "./helper"
-import { eventCategory, eventsC } from "./config"
+import {getUntilNowFacts, asIntersect, getStringIntersect } from "./helper"
+import {eventCategory, eventsC } from "./config"
 import Switch from "@frontity/components/switch";
 import { Calendar, DateObject } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
@@ -45,7 +45,7 @@ const PerCatTagFacts = ({ state, actions, libraries, period, tagId , categ}) => 
    
   const eventAlternateLitteral = "'on-site' and Unclassified Events";
   /* relative to facts */
-  const resultFact = getFacts(state.source, tagId);
+  const resultFact = getUntilNowFacts(state.source, tagId);
   const onlyFact = resultFact.filter(item => (((item.category.id != "header")) && ((item.category.name != "Events"))))
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;

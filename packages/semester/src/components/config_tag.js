@@ -16,20 +16,20 @@ const idR202206 = 91;
 
 
 
-export const ListedRegionTags = [].concat(
-    idR202201,
+export const ListedRegionTags = [idR202201,
     idR202202,
     idR202203,
     idR202204,
     idR202205,
-    idR202205)
+    idR202205];
+
 export const ListedRegionTagsLitteral = [
     "Bourgogne Franche-Comté – Centre-Loire Valley",
     "Auvergne-Rhône-Alpes, Provence-Alpes-Côte d´Azur, Corsica",
     "Hauts de France, Ile de France, Grand Est",
     "DROM, Overseas Departments and Regions",
     "Normandy Brittany Pays de Loire",
-    "New Aquitaine, Occitanie"]
+    "New Aquitaine, Occitanie"];
 
 
 

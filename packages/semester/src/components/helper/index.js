@@ -71,18 +71,22 @@ export const getEventsForRegion = (source, tagId,) => {
     }, [])
 }
 
-
 const getFactsFromCategory = ({ post }, categoryId, tagId) =>
   Object.keys(post)
     .map(postID => post[postID])
     .filter(({ categories }) => categories.includes(parseInt(categoryId)))
     .filter(({ tags }) => !(tags.includes(eventsT)))
-    .filter(({ tags }) => (asIntersect(tags,(
-    (getUntil(tagId,ListedRegionTags)).concat(FranceT)
-    ))))
+    .filter(({ tags }) => (asIntersect(tags,[tagId].concat(FranceT))))
     .filter(({ categories }) => !(categories.includes(headerC)))
   ;
 
+const getFactsFromCategoryTag1 = ({ post }, categoryId, tagId) =>
+  Object.keys(post)
+    .map(postID => post[postID])
+    .filter(({ categories }) => categories.includes(parseInt(categoryId)))
+    .filter(({ tags }) => !(tags.includes(eventsT)) && ((tags.includes(tagId))))
+    .filter(({ categories }) => !(categories.includes(headerC)))
+  ;
 
 
 export const getFacts = (source, tagId) => {
@@ -96,6 +100,32 @@ export const getFacts = (source, tagId) => {
       return [...acc, { posts, category, isNotHeader, resultF }]
     }, [])
 }
+
+
+ 
+
+export const  getUntilNowFacts= (source, tagId) => {
+  return Object.values(ListedCategory)
+    .reduce((acc, categoryId) => {
+      const regionsuntil= getUntil(tagId, ListedRegionTags);
+      var postsTemp = getFactsFromCategoryTag1(source, categoryId, FranceT);
+      for (let i = 0; i < regionsuntil.length; i++) {
+        var newPost = getFactsFromCategoryTag1(source, categoryId, regionsuntil[i]);
+        for (let y = 0; y < newPost.length; y++) {
+        postsTemp.push(newPost[y]);
+        }
+      } 
+      const posts= postsTemp;
+      const category = source.category[categoryId]
+      const isNotHeader = !(categoryId  == headerC)
+      const resultF = getResultF(posts);
+      return [...acc, { posts, category, isNotHeader, resultF }]
+    }, [])
+}
+
+
+
+
 const getFactsHeaders = ({ post }) =>
 Object.keys(post)
   .map(postID => post[postID])  
@@ -163,7 +193,7 @@ export function getStringIntersect(a1, ref, refstr) {
   return (returnRefStr.filter(
     function (el) {
       return el != null;
-    }).join(':').replace('::', ': '));
+    })[0]);
 }
 
 function Intersect(a1, a2) {
@@ -184,9 +214,9 @@ function getUntil(a1, b1){
   //search in b1 a1 value and return all until that value
   var listUntil=[];
   var foundValue=false;
-  for (let i = 0; i < b1.length; i++) {
-    listUntil[i] = b1[i] ;
-    if (b1[i]=a1) foundValue=true;
+  for (let i = 0; i < b1.length && foundValue!= true; i++) {
+    listUntil.push(b1[i]) ;
+    if (b1[i]==a1) foundValue=true;
   } 
   return (foundValue?listUntil:[]);
 }
