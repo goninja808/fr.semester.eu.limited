@@ -78,7 +78,7 @@ const CarouselAsynch = ({state, initMedia, preMedia, postMedia }) => {
                        
                         {preMedia && !(preMedia.includes("videoapi-muybridge.vimeocdn.com")) ?
                             <Carousel.Item>
-                                <ReactPlayer url={preMedia + "?quality=240p"} playing={false} autoPlay={false}  loop={false} controls={true} width={maxwidth} height={maxheight} lazy={true}
+                                <ReactPlayer url={preMedia + "?quality=240p"} playing={false} autoPlay={false} mute={true} loop={false} controls={true} width={maxwidth} height={maxheight} lazy={true}
                                     config={{
                                         vimeo: {
                                             playerOptions: { quality: '240p', }
@@ -93,7 +93,7 @@ const CarouselAsynch = ({state, initMedia, preMedia, postMedia }) => {
                                 <img src={preMedia}  style={{ maxWidth: maxwidth + 'px' }} />
                             </Carousel.Item> : null}
                         {postMedia && !(postMedia.includes("videoapi-muybridge.vimeocdn.com")) ? <Carousel.Item>
-                            <ReactPlayer url={postMedia + "?quality=240p"} playing={false} autoPlay={false}  loop={false} controls={true} width={maxwidth} height={maxheight} lazy={true}
+                            <ReactPlayer url={postMedia + "?quality=240p"} playing={false} autoPlay={false} mute={true}  loop={false} controls={true} width={maxwidth} height={maxheight} lazy={true}
                                 config={{
                                     vimeo: {
                                         playerOptions: { quality: '240p', }
