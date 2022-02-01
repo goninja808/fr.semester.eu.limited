@@ -22,8 +22,8 @@ export const awLifestyle = [lifestyle,
 export const awLifestyleLitteral = ["Lifestyle:",
   "Languages",
   "Sport",
-  "Tastes of France",
-  "Typical Local Products"
+  "Made in France",
+  "Gastronomy and Wine"
   ];
 export const initiative= 37;
 export const awInitiative = [initiative,
