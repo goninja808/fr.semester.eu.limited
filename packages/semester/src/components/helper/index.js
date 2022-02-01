@@ -193,7 +193,7 @@ export function getStringIntersect(a1, ref, refstr) {
   return (returnRefStr.filter(
     function (el) {
       return el != null;
-    })[0]);
+    }).join(':'));
 }
 
 function Intersect(a1, a2) {

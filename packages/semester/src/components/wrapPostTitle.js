@@ -1,7 +1,7 @@
 import { connect, styled } from "frontity";
 import Straps from "./strap/images/straps.png"
 import Link from "./link";
-import { BandContainer } from "./styles/bandeau"
+import { BandContainer, StyledDiv } from "./styles/bandeau"
 import {asIntersect, getStringIntersect} from "./helper"
 import {ListedRegionTags,ListedRegionTagsLitteral,ListedEventSitesTags,ListedEventSitesTagsLitteral, FranceT} from "./config_tag"
 
@@ -16,7 +16,7 @@ const WrapPostTitle = ({state, post, libraries, index, resultF }) => {
     //SiteExecLitteral : RegionTempLitteral 
     console.log('Region',RegionLitteral,'SiteExec',SiteExecLitteral );
     return (
-        <Link link={post.link}>
+        <Link className={''} link={post.link}>
             <BandContainer className={`${resultF[5][index]} `}>
                 <div className={`Image`}>
                     <div className="OverlayT1"> {(((resultF[1][index]) == 1)) ? (((resultF[0][index]) == 1) ? <span >Regions of the Month</span> : (RegionLitteral?RegionLitteral:<span> . </span> )) : (SiteExecLitteral?SiteExecLitteral:<span >France</span> )}</div>
