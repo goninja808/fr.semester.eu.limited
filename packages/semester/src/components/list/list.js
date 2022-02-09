@@ -68,7 +68,7 @@ const HeadArticle = styled.article`
 const Container = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 8px;
+  column-gap: 10px;
   background-color: #fff;
   color: #444;  
   min-width: 400px;
@@ -79,7 +79,7 @@ const Container = styled.section`
   @media (max-width: 800px) {
     display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-gap: 10px;
+  column-gap: 0px;
   background-color: #fff;
   color: #444;  
   min-width: 400px;

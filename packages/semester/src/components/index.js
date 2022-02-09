@@ -124,7 +124,8 @@ const globalStyles = css`
   }
   .container {
     max-width: 1200px;
-    width:100%;
+    gap:1%;
+    width:100%; 
     margin: 0 auto;
     position: relative;
     padding-right: 15px;

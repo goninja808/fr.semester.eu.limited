@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { connect, styled } from "frontity";
 import Link from "./link";
 import HeaderMedia from "./header-media";
-import {getUntilNowFacts, asIntersect, getStringIntersect } from "./helper"
-import {eventCategory, eventsC } from "./config"
+import { getUntilNowFacts, asIntersect, getStringIntersect } from "./helper"
+import { eventCategory, eventsC } from "./config"
 import Switch from "@frontity/components/switch";
 import { Calendar, DateObject } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
@@ -12,9 +12,9 @@ import colors from "react-multi-date-picker/plugins/colors";
 import post from "./post";
 import { awSpAny } from "./config";
 import WrapPostTitle from "./wrapPostTitle";
-import { Container, CategoryGP, CalendarWrap, FactCategoryWrap } from "./styles/reflist" 
-import DropdownButton from 'react-bootstrap/DropdownButton'; 
-import Dropdown from 'react-bootstrap/Dropdown'; 
+import { Container, CategoryGP, CalendarWrap, FactCategoryWrap } from "./styles/reflist"
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 /**
  * The Post component that Mars uses to render any kind of "post type", like
  * posts, pages, attachments, etc.
@@ -35,14 +35,14 @@ import Dropdown from 'react-bootstrap/Dropdown';
  * @returns The {@link Post} element rendered.
  */
 
-const PerCatTagFacts = ({ state, actions, libraries, period, tagId , categ}) => {
+const PerCatTagFacts = ({ state, actions, libraries, period, tagId, categ }) => {
   // Get current URL related information 
   const data = state.source.get(state.router.link);
 
   const [props, setProps] = useState({
-    category: (categ=='all'?['culture','lifestyle','science','initiative']:[categ])
-  }); 
-   
+    category: (categ == 'all' ? ['culture', 'lifestyle', 'science', 'initiative'] : [categ])
+  });
+
   const eventAlternateLitteral = "'on-site' and Unclassified Events";
   /* relative to facts */
   const resultFact = getUntilNowFacts(state.source, tagId);
@@ -59,28 +59,61 @@ const PerCatTagFacts = ({ state, actions, libraries, period, tagId , categ}) => 
   // Load the post, but only if the data is ready.
 
   return data.isReady ? (
-    <FlexContainer> 
-         <FactCategoryWrap> 
-                  <div className="BlockFactPick">
-                    &nbsp;
-    <DropdownButton variant="outline-primary"   id="dropdown-item-button" title="Filter">
-      <Dropdown.Item className="FactPick" href="#" onClick={() => {actions.router.set("/facts/all/"); location.reload()}} >Any &nbsp;</Dropdown.Item>
-      <Dropdown.Item className="FactPick Culture_b"  href="#" onClick={() => { actions.router.set("/facts/culture/"); location.reload()  }} disabled={data.id!="all" && asIntersect(['culture'], props.category )}  href="#">Culture &nbsp;</Dropdown.Item>
-      <Dropdown.Item className="FactPick LifeStyle_b" disabled={data.id!="all" && asIntersect(['lifestyle'], props.category )} onClick={() => { actions.router.set("/facts/lifestyle/"); location.reload() }}>Life Style  &nbsp;</Dropdown.Item>
-      <Dropdown.Item className="FactPick Science_b" disabled={data.id!="all" && asIntersect(['science'], props.category )}  onClick={() => { actions.router.set("/facts/science/"); location.reload() }}>Science &nbsp;</Dropdown.Item>
-      <Dropdown.Item className="FactPick Initiative_b" disabled={data.id!="all" && asIntersect(['initiative'], props.category )} onClick={() => { actions.router.set("/facts/initiative/"); location.reload() }}>Initiative &nbsp;</Dropdown.Item>
-    </DropdownButton>
-                    </div>
-                </FactCategoryWrap>
-        <Container > {/*--------  MAIN FACTS --------*/}
-          {onlyFact.map(({ posts, category, isNotHeader, resultF }, index) => (
-
-            <CategoryGP {...props} key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length} ${asIntersect([category.slug], props.category )?' Display':' noDisplay'}`} >
-
-              {isNotHeader && (asIntersect([category.slug], props.category )) ? <>
-                
+    <FlexContainer>
+      <FactCategoryWrap>
+        <div className="BlockFactPick">
+          &nbsp;
+          <DropdownButton variant="outline-primary" id="dropdown-item-button" title="Filter">
+            <Dropdown.Item className="FactPick" href="#" onClick={() => { actions.router.set("/facts/all/"); location.reload() }} >Any &nbsp;</Dropdown.Item>
+            <Dropdown.Item className="FactPick Culture_b" href="#" onClick={() => { actions.router.set("/facts/culture/"); location.reload() }} disabled={data.id != "all" && asIntersect(['culture'], props.category)} href="#">Culture &nbsp;</Dropdown.Item>
+            <Dropdown.Item className="FactPick LifeStyle_b" disabled={data.id != "all" && asIntersect(['lifestyle'], props.category)} onClick={() => { actions.router.set("/facts/lifestyle/"); location.reload() }}>Life Style  &nbsp;</Dropdown.Item>
+            <Dropdown.Item className="FactPick Science_b" disabled={data.id != "all" && asIntersect(['science'], props.category)} onClick={() => { actions.router.set("/facts/science/"); location.reload() }}>Science &nbsp;</Dropdown.Item>
+            <Dropdown.Item className="FactPick Initiative_b" disabled={data.id != "all" && asIntersect(['initiative'], props.category)} onClick={() => { actions.router.set("/facts/initiative/"); location.reload() }}>Initiative &nbsp;</Dropdown.Item>
+          </DropdownButton>
+        </div>
+      </FactCategoryWrap>
+      <Container > {/*--------  MAIN FACTS --------*/}
+        {onlyFact.map(({ posts, category, isNotHeader, resultF }, index) => (
+          <>
+            {isNotHeader && (asIntersect([category.slug], props.category)) && props.category.length == 1 ? <>
+              <CategoryGP {...props} key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length} ${asIntersect([category.slug], props.category) ? ' Display' : ' noDisplay'}`} >
                 <div className={`${String(category.name).replace(" ", "") + "_p"}`} > {category.name}</div>
+                <div className="GroupCategory col-md-12">
+                  {
+                    (posts.slice().splice(0, ((Math.ceil(posts.length / 2))))).map((post, index) => (
+                      <article key={index}>
+                        <div>
+                          <div px={2}>
+                            <WrapPostTitle state={state} post={post} libraries={libraries} index={index} resultF={resultF} />
+                            {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
+                            <Html2React html={post.excerpt.rendered} />
+                          </div>
 
+                        </div>
+                      </article>
+                    ))}
+                </div>
+              </CategoryGP>
+              <CategoryGP {...props} key={(index + 1)} className={`GroupCategory col-12 align-self-strech  count${posts.length} ${asIntersect([category.slug], props.category) ? ' Display' : ' noDisplay'}`} >
+                <div className={`${String(category.name).replace(" ", "") + "_p"}`} > ... </div>
+                <div className="GroupCategory col-md-12">
+                  {((posts.slice().splice(-((Math.ceil(posts.length / 2)-1)))).map((post, index) => (
+                    <article key={index}>
+                      <div>
+                        <div px={2}>
+                          <WrapPostTitle state={state} post={post} libraries={libraries} index={index} resultF={resultF} startIndex={Math.ceil(posts.length / 2)}/>
+                          {!(isNotHeader) ? <HeaderMedia id={post.featured_media} /> : null}
+                          <Html2React html={post.excerpt.rendered} />
+                        </div>
+                      </div>
+                    </article>
+                  )))}
+                </div>
+              </CategoryGP></>
+              : null}
+            {isNotHeader && (asIntersect([category.slug], props.category)) && props.category.length != 1 ? <>
+              <CategoryGP {...props} key={index} className={`GroupCategory col-12 align-self-strech  count${posts.length} ${asIntersect([category.slug], props.category) ? ' Display' : ' noDisplay'}`} >
+                <div className={`${String(category.name).replace(" ", "") + "_p"}`} > {category.name}</div>
                 <div className="GroupCategory col-md-12">
                   {posts.map((post, index) => (
                     <article key={index}>
@@ -94,13 +127,14 @@ const PerCatTagFacts = ({ state, actions, libraries, period, tagId , categ}) => 
                       </div>
                     </article>
                   ))}
-                </div></>
-                : <span /> }
-
+                </div>
               </CategoryGP>
+            </>
+              : null}
+          </>
         ))
         }
-            </Container> 
+      </Container>
     </FlexContainer >
   ) : null;
 };

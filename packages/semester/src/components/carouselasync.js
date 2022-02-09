@@ -69,15 +69,15 @@ const CarouselAsynch = ({state, initMedia, preMedia, postMedia }) => {
             <SliderWrapper className="flex-container">
                 <div classe='wrappedContent' style={{ maxHeight: maxheight + 'px' }}>
                 {( preMedia || postMedia || (initMedia && initMedia !=0)) ? 
-                    <Carousel interval={5500} variant="dark"  >
-                         <Carousel.Item> <img src="https://fr-semester.blog/wp-content/uploads/2022/01/intro-low1.gif" style={{ maxWidth: maxwidth + 'px' }} /></Carousel.Item>
+                    <Carousel  variant="dark"  >
+                         <Carousel.Item> <img src="https://fr-semester.blog/wp-content/uploads/2022/01/intro-low1.gif" style={{ maxWidth: maxwidth + 'px' }} interval={5500}/></Carousel.Item>
                         {initMedia && initMedia != 0 ?
-                            <Carousel.Item>
+                            <Carousel.Item interval={5500}>
                                 <img src={state.source.attachment[initMedia].source_url} style={{ maxWidth: maxwidth + 'px' }} />
                             </Carousel.Item> : null}
                        
                         {preMedia && !(preMedia.includes("videoapi-muybridge.vimeocdn.com")) ?
-                            <Carousel.Item>
+                            <Carousel.Item interval={55555500}>
                                 <ReactPlayer url={preMedia + "?quality=240p"} playing={false} autoPlay={false} mute={true} loop={false} controls={true} width={maxwidth} height={maxheight} lazy={true}
                                     config={{
                                         vimeo: {
@@ -89,10 +89,10 @@ const CarouselAsynch = ({state, initMedia, preMedia, postMedia }) => {
                                     }}
                                 />  </Carousel.Item> : null}
                         {preMedia && (preMedia.includes("videoapi-muybridge.vimeocdn.com")) ?
-                            <Carousel.Item>
+                            <Carousel.Item interval={55555500}>
                                 <img src={preMedia}  style={{ maxWidth: maxwidth + 'px' }} />
                             </Carousel.Item> : null}
-                        {postMedia && !(postMedia.includes("videoapi-muybridge.vimeocdn.com")) ? <Carousel.Item>
+                        {postMedia && !(postMedia.includes("videoapi-muybridge.vimeocdn.com")) ? <Carousel.Item interval={55555500}>
                             <ReactPlayer url={postMedia + "?quality=240p"} playing={false} autoPlay={false} mute={true}  loop={false} controls={true} width={maxwidth} height={maxheight} lazy={true}
                                 config={{
                                     vimeo: {
@@ -104,7 +104,7 @@ const CarouselAsynch = ({state, initMedia, preMedia, postMedia }) => {
                                 }}
                             /></Carousel.Item> : null}
                         {postMedia && (postMedia.includes("videoapi-muybridge.vimeocdn.com")) ?
-                            <Carousel.Item>
+                            <Carousel.Item interval={5500}>
                                 <img src={postMedia} style={{ maxWidth: maxwidth + 'px' }} />
                             </Carousel.Item> : null}
                     </Carousel>
